@@ -90,7 +90,7 @@
         const chip = chips.find((c) => c.dataset.filter === f) || chips[0];
         f = chip.dataset.filter;
         chips.forEach((c) => { c.classList.toggle("is-on", c === chip); c.setAttribute("aria-pressed", String(c === chip)); });
-        $$(".case").forEach((c) => c.classList.toggle("is-hidden", f !== "all" && !c.dataset.tags.split(" ").includes(f)));
+        $$("[data-tags]").forEach((c) => c.classList.toggle("is-hidden", f !== "all" && !c.dataset.tags.split(" ").includes(f)));
         if (push) {
             const url = new URL(location.href);
             if (f === "all") url.searchParams.delete("stack"); else url.searchParams.set("stack", f);
@@ -99,8 +99,8 @@
     };
     chips.forEach((chip) => chip.addEventListener("click", () => {
         applyFilter(chip.dataset.filter, true);
-        const n = $$(".case:not(.is-hidden)").length;
-        say(n + (n === 1 ? " caso" : " casos"));
+        const n = $$(".case:not(.is-hidden)").length, k = $$(".inc:not(.is-hidden)").length;
+        say(`${n} ${n === 1 ? "caso" : "casos"} · ${k} ${k === 1 ? "problema" : "problemas"}`);
     }));
     applyFilter(new URLSearchParams(location.search).get("stack") || "all", false);
 
