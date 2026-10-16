@@ -145,11 +145,27 @@
         },
         quote: (g) => { g.font = "800 300px Archivo, Georgia, serif"; g.fillText("“”", 210, 190); },
         braces: (g) => { g.font = "700 200px 'JetBrains Mono', monospace"; g.fillText("{ }", 210, 150); },
+        // grafo git horizontal: main com commits em anel, feature que sai em curva e volta no merge, HEAD destacado
         branch: (g) => {
-            g.lineWidth = 12;
-            g.beginPath(); g.moveTo(130, 20); g.lineTo(130, 280); g.stroke();
-            g.beginPath(); g.moveTo(130, 85); g.bezierCurveTo(130, 120, 290, 110, 290, 150); g.lineTo(290, 175); g.bezierCurveTo(290, 215, 130, 200, 130, 235); g.stroke();
-            for (const [x, y] of [[130, 30], [130, 85], [290, 150], [130, 160], [130, 235], [130, 275]]) { g.beginPath(); g.arc(x, y, 19, 0, TAU); g.fill(); }
+            const ring = (x, y, r = 15) => {
+                // limpa o miolo para a linha não atravessar o commit
+                g.globalCompositeOperation = "destination-out";
+                g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill();
+                g.globalCompositeOperation = "source-over";
+                g.lineWidth = 7; g.beginPath(); g.arc(x, y, r, 0, TAU); g.stroke();
+            };
+            const Y = 150, B = 52, L = 248;
+            g.lineWidth = 7;
+            g.beginPath(); g.moveTo(40, Y); g.lineTo(380, Y); g.stroke();
+            // feature acima: sai do 2º commit, volta no merge
+            g.beginPath(); g.moveTo(110, Y - 15); g.bezierCurveTo(110, B + 25, 135, B, 170, B); g.lineTo(230, B); g.bezierCurveTo(265, B, 290, B + 25, 290, Y - 15); g.stroke();
+            // hotfix abaixo
+            g.beginPath(); g.moveTo(205, Y + 15); g.bezierCurveTo(205, L - 25, 230, L, 262, L); g.lineTo(280, L); g.bezierCurveTo(312, L, 345, L - 25, 345, Y + 15); g.stroke();
+            for (const x of [40, 110, 205, 290, 345]) ring(x, Y);
+            for (const x of [170, 230]) ring(x, B);
+            ring(271, L);
+            ring(395, Y, 22);
+            g.beginPath(); g.arc(395, Y, 11, 0, TAU); g.fill();
         },
         term: (g) => { g.font = "700 210px 'JetBrains Mono', monospace"; g.fillText(">_", 210, 150); },
         at: (g) => { g.font = "700 270px 'JetBrains Mono', monospace"; g.fillText("@", 210, 160); },
@@ -193,8 +209,8 @@
                 if (vw < 1060) return null;
                 const r = head.getBoundingClientRect();
                 const sec = section.getBoundingClientRect();
-                const cy = Math.min(r.bottom + 140, sec.bottom - 140);
-                return { cx: r.left + r.width / 2, cy, w: r.width * 0.7, h: 220 };
+                const cy = Math.min(r.bottom + 165, sec.bottom - 150);
+                return { cx: r.left + r.width / 2, cy, w: r.width * 0.85, h: 230 };
             }
             if (id === "contato") {
                 const shell = section.querySelector(".shell");
