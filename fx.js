@@ -96,91 +96,217 @@
         draw() {}
     }
 
-    /* ---------- vórtice (hero) ---------- */
-    class Vortex extends CanvasEffect {
-        constructor(canvas) {
-            super(canvas);
-            this.time = 0;
-            this.pointer = { x: 0, tx: 0 };
-            if (finePointer) {
-                window.addEventListener("pointermove", (e) => {
-                    this.pointer.tx = (e.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2;
-                }, { passive: true });
-            }
-        }
+    /* ---------- cena que se transforma ao rolar (camada fixa) ----------
+       Ideia vinda do portfólio do Humberto, refeita em canvas 2D: as mesmas
+       partículas viram um símbolo por seção, ao lado do título dela. */
+    const SHAPE_W = 420, SHAPE_H = 300;
 
-        onResize() {
-            const count = this.w < 680 ? 240 : this.w < 1100 ? 360 : 480;
-            const strands = this.w < 680 ? 12 : 18;
-            this.points = Array.from({ length: count }, (_, i) => ({
-                t: Math.random(),
-                angle: Math.random() * TAU,
-                speed: 0.24 + Math.random() * 0.42,
-                drift: Math.random() * TAU,
-                size: 0.6 + Math.random() * 1.8,
-                alpha: 0.3 + Math.random() * 0.7,
-                lane: i % strands,
-            }));
-            this.lines = Array.from({ length: strands }, (_, i) => ({
-                lane: (i / strands) * TAU,
-                speed: 0.22 + Math.random() * 0.09,
-                phase: Math.random() * TAU,
-            }));
-        }
-
-        radiusAt(t) {
-            const bottom = this.w * 0.29;
-            const waist = Math.max(23, this.w * 0.025);
-            const top = this.w * 0.16;
-            if (t < 0.48) return lerp(bottom, waist, Math.pow(t / 0.48, 0.83));
-            return lerp(waist, top, Math.pow((t - 0.48) / 0.52, 1.25));
-        }
-
-        project(t, angle, phase) {
-            const cx = this.w * (this.w < 900 ? 0.76 : 0.78) + this.pointer.x * 16;
-            const y = lerp(this.h * 1.06, -this.h * 0.12, t) + Math.sin(t * 17 + phase + this.time * 0.4) * 2.3;
-            const depth = Math.sin(angle);
-            const persp = 0.76 + (depth + 1) * 0.16;
-            return { x: cx + Math.cos(angle) * this.radiusAt(t) * persp, y, depth, persp };
-        }
-
-        draw(dt) {
-            const ctx = this.ctx;
-            this.time += dt;
-            this.pointer.x = lerp(this.pointer.x, this.pointer.tx, 0.035);
-            ctx.clearRect(0, 0, this.w, this.h);
-            ctx.save();
-            ctx.globalCompositeOperation = "lighter";
-
-            const grad = ctx.createLinearGradient(0, this.h, 0, 0);
-            grad.addColorStop(0, rgba(AMBER, 0));
-            grad.addColorStop(0.2, rgba(AMBER, 0.12));
-            grad.addColorStop(0.55, rgba(CYAN, 0.2));
-            grad.addColorStop(1, rgba(AMBER_2, 0));
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = 0.65;
-            for (const line of this.lines) {
-                ctx.beginPath();
-                for (let i = 0; i <= 48; i++) {
-                    const t = i / 48;
-                    const p = this.project(t, line.lane + t * TAU * 2.3 + this.time * line.speed, line.phase);
-                    if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    function sampleShape(drawFn, count) {
+        const c = document.createElement("canvas");
+        c.width = SHAPE_W;
+        c.height = SHAPE_H;
+        const g = c.getContext("2d");
+        g.fillStyle = g.strokeStyle = "#fff";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.lineCap = "round";
+        drawFn(g);
+        const data = g.getImageData(0, 0, SHAPE_W, SHAPE_H).data;
+        let pts = [];
+        for (let step = 3; step < 12; step++) {
+            pts = [];
+            for (let y = 0; y < SHAPE_H; y += step) {
+                for (let x = 0; x < SHAPE_W; x += step) {
+                    if (data[(y * SHAPE_W + x) * 4 + 3] > 128) pts.push([x, y]);
                 }
-                ctx.stroke();
             }
+            if (pts.length < count * 2.5) break;
+        }
+        let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+        for (const [x, y] of pts) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+        const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+        // embaralha para a transição sair orgânica, e completa até "count" com leve tremor
+        for (let i = pts.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pts[i], pts[j]] = [pts[j], pts[i]]; }
+        const out = new Float32Array(count * 2);
+        for (let i = 0; i < count; i++) {
+            const [x, y] = pts[i % pts.length];
+            const jitter = i < pts.length ? 0 : 1.5;
+            out[i * 2] = x - cx + (Math.random() - 0.5) * jitter;
+            out[i * 2 + 1] = y - cy + (Math.random() - 0.5) * jitter;
+        }
+        return { pts: out, w: Math.max(1, x1 - x0), h: Math.max(1, y1 - y0) };
+    }
 
-            const sorted = this.points
-                .map((pt) => ({ pt, p: this.project(pt.t, pt.angle + pt.t * TAU * 2.5 + this.time * pt.speed, pt.drift) }))
-                .sort((a, b) => a.p.depth - b.p.depth);
-            for (const { pt, p } of sorted) {
-                const front = (p.depth + 1) / 2;
-                const size = pt.size * p.persp * (0.7 + front * 0.8);
-                ctx.fillStyle = rgba(mix(AMBER, CYAN, clamp(pt.t * 1.35, 0, 1)), pt.alpha * (0.22 + front * 0.78));
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, size, 0, TAU);
-                ctx.fill();
+    const SHAPES = {
+        code: (g) => { g.font = "700 190px 'JetBrains Mono', monospace"; g.fillText("</>", 210, 150); },
+        bars: (g) => {
+            [70, 120, 95, 175, 240].forEach((h, i) => g.fillRect(40 + i * 72, 270 - h, 46, h));
+            g.fillRect(24, 278, 372, 8);
+        },
+        quote: (g) => { g.font = "800 300px Archivo, Georgia, serif"; g.fillText("“”", 210, 190); },
+        braces: (g) => { g.font = "700 200px 'JetBrains Mono', monospace"; g.fillText("{ }", 210, 150); },
+        branch: (g) => {
+            g.lineWidth = 12;
+            g.beginPath(); g.moveTo(130, 20); g.lineTo(130, 280); g.stroke();
+            g.beginPath(); g.moveTo(130, 85); g.bezierCurveTo(130, 120, 290, 110, 290, 150); g.lineTo(290, 175); g.bezierCurveTo(290, 215, 130, 200, 130, 235); g.stroke();
+            for (const [x, y] of [[130, 30], [130, 85], [290, 150], [130, 160], [130, 235], [130, 275]]) { g.beginPath(); g.arc(x, y, 19, 0, TAU); g.fill(); }
+        },
+        term: (g) => { g.font = "700 210px 'JetBrains Mono', monospace"; g.fillText(">_", 210, 150); },
+        at: (g) => { g.font = "700 270px 'JetBrains Mono', monospace"; g.fillText("@", 210, 160); },
+    };
+
+    class Morph {
+        constructor(canvas) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext("2d");
+            this.count = 1400;
+            this.time = 0;
+            this.alpha = 0;
+            this.current = null;
+            this.running = false;
+            this.raf = 0;
+            this.loop = (t) => this.frame(t);
+            const n = this.count;
+            this.pos = new Float32Array(n * 2);
+            this.phase = new Float32Array(n);
+            this.tone = new Uint8Array(n);
+            for (let i = 0; i < n; i++) {
+                this.pos[i * 2] = Math.random() * window.innerWidth;
+                this.pos[i * 2 + 1] = Math.random() * window.innerHeight;
+                this.phase[i] = Math.random() * TAU;
+                this.tone[i] = Math.random() < 0.3 ? 2 : Math.random() < 0.5 ? 1 : 0;
             }
-            ctx.restore();
+            this.colors = [rgba(AMBER, 0.85), rgba(AMBER_2, 0.75), rgba(CYAN, 0.8)];
+        }
+
+        // onde a forma fica em cada seção (retângulo na tela) ou null para sumir
+        zone(section) {
+            const vw = window.innerWidth;
+            if (vw < 860) return null;
+            const id = section.id;
+            const head = section.querySelector(".section-head");
+            if (id === "topo") {
+                const r = section.querySelector(".flow-card").getBoundingClientRect();
+                return { cx: r.left + r.width / 2, cy: r.top + r.height * 0.42, w: r.width * 1.45, h: r.height * 0.6 };
+            }
+            if (id === "trajetoria") {
+                if (vw < 1060) return null;
+                const r = head.getBoundingClientRect();
+                const sec = section.getBoundingClientRect();
+                const cy = Math.min(r.bottom + 140, sec.bottom - 140);
+                return { cx: r.left + r.width / 2, cy, w: r.width * 0.7, h: 220 };
+            }
+            if (id === "contato") {
+                const shell = section.querySelector(".shell");
+                const left = shell.getBoundingClientRect().left + parseFloat(getComputedStyle(shell).paddingLeft);
+                const r = section.querySelector("h2").getBoundingClientRect();
+                const w = left - 40;
+                return w < 150 ? null : { cx: 16 + w / 2, cy: r.top + r.height / 2, w, h: 220 };
+            }
+            if (!head) return null;
+            const r = head.getBoundingClientRect();
+            const shell = head.closest(".shell");
+            const right = shell.getBoundingClientRect().right - parseFloat(getComputedStyle(shell).paddingRight);
+            // até onde o texto do título realmente vai (o bloco ocupa a largura toda)
+            let textRight = r.left;
+            const range = document.createRange();
+            for (const el of head.querySelectorAll("h2, .lead")) {
+                range.selectNodeContents(el);
+                textRight = Math.max(textRight, range.getBoundingClientRect().right);
+            }
+            const x1 = textRight + 48;
+            const w = right - x1;
+            return w < 200 ? null : { cx: x1 + w / 2, cy: r.top + r.height / 2, w, h: Math.min(260, r.height + 90) };
+        }
+
+        mount() {
+            const resize = () => fitCanvas(this.canvas, this.ctx, window.innerWidth, window.innerHeight, 1.5);
+            window.addEventListener("resize", resize, { passive: true });
+            resize();
+            this.sections = [...document.querySelectorAll("[data-morph]")];
+            const io = new IntersectionObserver((entries) => {
+                for (const e of entries) if (e.isIntersecting) this.setSection(e.target);
+            }, { rootMargin: "-45% 0px -54% 0px" });
+            this.sections.forEach((s) => io.observe(s));
+            // fontes carregadas antes de desenhar os glifos
+            (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+                this.shapes = {};
+                for (const k in SHAPES) this.shapes[k] = sampleShape(SHAPES[k], this.count);
+                this.setSection(this.current || this.sections[0]);
+                this.start();
+            });
+            document.addEventListener("visibilitychange", () => (document.hidden ? this.stop() : this.start()));
+        }
+
+        setSection(section) {
+            this.current = section;
+            this.shape = this.shapes ? this.shapes[section.dataset.morph] || null : null;
+        }
+
+        start() {
+            if (this.running || !this.shapes) return;
+            this.running = true;
+            this.last = performance.now();
+            this.raf = requestAnimationFrame(this.loop);
+        }
+
+        stop() {
+            this.running = false;
+            cancelAnimationFrame(this.raf);
+        }
+
+        frame(now) {
+            if (!this.running) return;
+            const dt = clamp((now - this.last) / 1000, 0, 0.05);
+            this.last = now;
+            this.time += dt;
+            const zone = this.shape && this.current ? this.zone(this.current) : null;
+            const ease = 1 - Math.exp(-dt * 5);
+            this.alpha += ((zone ? 1 : 0) - this.alpha) * (1 - Math.exp(-dt * 4));
+            const ctx = this.ctx;
+            const W = window.innerWidth, H = window.innerHeight;
+            // oculta (celular, seção sem forma): limpa uma vez e fica ociosa
+            if (this.alpha < 0.01 && !zone) {
+                if (!this.cleared) { ctx.clearRect(0, 0, W, H); this.cleared = true; }
+                this.raf = requestAnimationFrame(this.loop);
+                return;
+            }
+            this.cleared = false;
+            ctx.clearRect(0, 0, W, H);
+            const pos = this.pos, n = this.count;
+            if (zone) {
+                const pts = this.shape.pts;
+                const scale = Math.min(zone.w / this.shape.w, zone.h / this.shape.h);
+                for (let i = 0; i < n; i++) {
+                    const ph = this.phase[i];
+                    const tx = zone.cx + pts[i * 2] * scale + Math.sin(this.time * 1.3 + ph) * 1.4;
+                    const ty = zone.cy + pts[i * 2 + 1] * scale + Math.cos(this.time * 1.1 + ph) * 1.4;
+                    // aproximação em espiral: componente perpendicular some ao chegar
+                    const dx = tx - pos[i * 2], dy = ty - pos[i * 2 + 1];
+                    pos[i * 2] += (dx - dy * 0.35) * ease;
+                    pos[i * 2 + 1] += (dy + dx * 0.35) * ease;
+                }
+            } else {
+                // sem forma: as partículas se soltam e somem
+                for (let i = 0; i < n; i++) {
+                    pos[i * 2] += Math.cos(this.phase[i]) * 30 * dt;
+                    pos[i * 2 + 1] += Math.sin(this.phase[i]) * 30 * dt - 12 * dt;
+                }
+            }
+            ctx.globalCompositeOperation = "lighter";
+            ctx.globalAlpha = this.alpha;
+            for (let t = 0; t < 3; t++) {
+                ctx.fillStyle = this.colors[t];
+                for (let i = 0; i < n; i++) {
+                    if (this.tone[i] !== t) continue;
+                    const x = pos[i * 2], y = pos[i * 2 + 1];
+                    if (x < -4 || y < -4 || x > W + 4 || y > H + 4) continue;
+                    ctx.fillRect(x, y, 1.7, 1.7);
+                }
+            }
+            ctx.globalAlpha = 1;
+            ctx.globalCompositeOperation = "source-over";
+            this.raf = requestAnimationFrame(this.loop);
         }
     }
 
@@ -541,8 +667,8 @@
     }
 
     const $ = (s) => document.querySelector(s);
-    const vortex = $("#fx-vortex");
-    if (vortex) new Vortex(vortex).connect(vortex.parentElement);
+    const morph = $("#fx-morph");
+    if (morph && !reduce) new Morph(morph).mount();
     const sphere = $("#fx-sphere");
     if (sphere) new Sphere(sphere).connect(sphere.parentElement);
     document.querySelectorAll("[data-black-hole]").forEach((el) => new BlackHole(el).mount());
