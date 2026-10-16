@@ -6,7 +6,8 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 
 - **Gateway ao vivo**: canvas no hero que simula o gateway de mensageria (API → outbox `SKIP LOCKED` → workers → WhatsApp) com os números reais do teste de carga (900 msg/min, 9.901/9.901, p95 1,05 s). Dá para **derrubar um worker** e ver as mensagens voltarem ao outbox sem perda nem duplicação.
 - **Números com recibo**: 4 métricas com fonte, link para o caso e evidência real (saída do k6, baseline do PHPStan, commit do roteador).
-- **Casos**: problema → decisão → resultado, com resumo numérico e filtro por stack.
+- **Casos**: problema → decisão → resultado, com resumo numérico, filtro por stack e um registro de 21 problemas resolvidos (sintoma, causa raiz e correção).
+- **Recomendações** do LinkedIn, sem edição.
 - **Open source**: os três configuradores Linux, estrelas lidas ao vivo da API do GitHub e um dump `/dev/hidraw` animado.
 - Rodapé com peso da página e LCP medidos no navegador do visitante.
 - **Efeitos** (`fx.js`, vindos do portfólio antigo e recoloridos): cena de partículas que muda de forma a cada seção ao rolar (</>, barras, aspas, { }, branches git, >_, @; ideia do portfólio do Humberto, refeita em canvas 2D), buraco negro em "Por que eu", esfera de partículas na stack, chama ASCII no contato, faíscas no clique, brilho do cursor e grade de pixels nos cards.
@@ -32,7 +33,6 @@ Abra http://127.0.0.1:8765.
 
 ## Publicar no GitHub Pages
 
-1. Crie o repositório `MiguelSanzBr.github.io` (público) e envie estes arquivos para a branch `main`.
-2. O site fica em https://miguelsanzbr.github.io/ (o repositório `flatpak` continua em `/flatpak/`).
+O repositório `MiguelSanzBr/MiguelSanzBr.github.io` publica a branch `main`: cada push atualiza https://miguelsanzbr.github.io/ em cerca de 1 minuto. O repositório `flatpak` continua em `/flatpak/`.
 
 Para atualizar o currículo, troque `assets/curriculo-miguel-sanz-boragan.pdf`.
