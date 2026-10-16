@@ -124,9 +124,15 @@
 
     /* ---------- estrelas ao vivo (fallback = valores do HTML) ---------- */
     const repos = $$("[data-repo]");
-    Promise.all(repos.map((card) =>
-        fetch("https://api.github.com/repos/" + card.dataset.repo, { headers: { Accept: "application/vnd.github+json" } })
+    // cache de 1 h no navegador: a API sem token limita 60 req/h por IP (redes corporativas dividem IP)
+    const cached = (repo) => {
+        try { const c = JSON.parse(sessionStorage.getItem("stars:" + repo)); if (c && Date.now() - c.t < 3600e3) return Promise.resolve(c.d); } catch (e) {}
+        return fetch("https://api.github.com/repos/" + repo, { headers: { Accept: "application/vnd.github+json" } })
             .then((r) => (r.ok ? r.json() : null))
+            .then((d) => { if (d) try { sessionStorage.setItem("stars:" + repo, JSON.stringify({ t: Date.now(), d: { stargazers_count: d.stargazers_count } })); } catch (e) {} return d; });
+    };
+    Promise.all(repos.map((card) =>
+        cached(card.dataset.repo)
             .then((d) => {
                 const el = $("[data-stars]", card);
                 if (d && typeof d.stargazers_count === "number") el.textContent = d.stargazers_count;
@@ -227,7 +233,7 @@
 
     const parts = [];
     // spawned = acked + em voo sempre; "perdidas" é essa conta, não um texto fixo
-    let delivered = 0, spawnAcc = 0, last = 0, flashes = [], spawned = 0, acked = 0, releases = 0, holdUntil = 0;
+    let lastStats = 0, delivered = 0, spawnAcc = 0, last = 0, flashes = [], spawned = 0, acked = 0, releases = 0, holdUntil = 0;
     // shortcut: API aplica backpressure com 120 msgs na tela, só para o canvas não crescer sem limite
     const spawn = () => {
         if (parts.length >= 120) return;
@@ -339,8 +345,12 @@
         if (!running) return;
         // contador avança 11 por entrega visual para chegar a 9.901 numa janela curta
         const shown = Math.min(TOTAL, delivered * 11);
-        put(doneEl, fmt(shown));
-        put(rateEl, fmt(Math.round(900 + Math.sin(now / 1300) * 14)));
+        // texto a 4 Hz: escrever no DOM a cada frame forçaria layout 60x/s
+        if (now - lastStats > 250) {
+            lastStats = now;
+            put(doneEl, fmt(shown));
+            put(rateEl, fmt(Math.round(900 + Math.sin(now / 1300) * 14)));
+        }
         if (shown >= TOTAL && !holdUntil) holdUntil = now + 2500;
         if (holdUntil && now > holdUntil) { delivered = 0; holdUntil = 0; }
         raf = requestAnimationFrame(frame);
