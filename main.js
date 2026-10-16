@@ -9,11 +9,19 @@
     const fmt = (n, dec = 0) => n.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
     /* ---------- tema ---------- */
-    $("#theme-toggle").addEventListener("click", () => {
-        const current = root.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-        const next = current === "light" ? "dark" : "light";
+    const themeBtn = $("#theme-toggle");
+    const themeNow = () => root.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    // barra do navegador e rótulo do botão acompanham o tema escolhido, não só o do sistema
+    const syncTheme = () => {
+        if (root.hasAttribute("data-theme")) $$('meta[name="theme-color"]').forEach((m) => { m.content = css("--bg"); });
+        themeBtn.setAttribute("aria-label", themeNow() === "light" ? "Ativar tema escuro" : "Ativar tema claro");
+    };
+    syncTheme();
+    themeBtn.addEventListener("click", () => {
+        const next = themeNow() === "light" ? "dark" : "light";
         root.setAttribute("data-theme", next);
         try { localStorage.setItem("ms-theme", next); } catch (e) {}
+        syncTheme();
         document.dispatchEvent(new Event("themechange"));
     });
 
@@ -394,8 +402,9 @@
         flowPaused ? stop() : start();
     });
     document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-    window.addEventListener("resize", () => { layout(); redraw(); });
-    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => document.dispatchEvent(new Event("themechange")));
+    let resizeRaf = 0;
+    window.addEventListener("resize", () => { cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); redraw(); }); });
+    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { syncTheme(); document.dispatchEvent(new Event("themechange")); });
     document.addEventListener("themechange", () => { readColors(); redraw(); });
 
     /* ---------- orçamento medido ---------- */

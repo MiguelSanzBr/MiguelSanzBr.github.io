@@ -112,7 +112,7 @@
             <div class="shell hero-grid">
                 <div class="hero-copy">
                     <div class="hero-id" data-in>
-                        <img src="assets/avatar.jpg" alt="Foto de Miguel Sanz Boragan" width="64" height="64">
+                        <img src="assets/avatar.jpg" alt="Foto de Miguel Sanz Boragan" width="64" height="64" fetchpriority="high">
                         <p>
                             <strong translate="no">Miguel Sanz Boragan</strong>
                             <span>Engenheiro de software back-end · São Paulo (híbrido) ou remoto</span>
@@ -147,10 +147,10 @@
                         <div><dt>entregues</dt><dd><span id="flow-done">9.901</span> / <span id="flow-total">9.901</span></dd></div>
                         <div><dt>taxa</dt><dd><span id="flow-rate">900</span> msg/min</dd></div>
                         <div><dt>falhas</dt><dd class="ok">0%</dd></div>
-                        <div><dt>p95</dt><dd>1,05 s</dd></div>
+                        <div><dt>p95</dt><dd>1,05&nbsp;s</dd></div>
                     </dl>
                     <div class="flow-chaos" id="flow-chaos"></div>
-                    <figcaption class="mono"><span class="legend"><i></i>em fila / trânsito</span><span class="legend ok"><i></i>entregue</span><span>simulação com os números reais do teste de carga (900 msg/min por 10 min)</span></figcaption>
+                    <figcaption class="mono"><span class="legend"><i></i>em fila / trânsito</span><span class="legend ok"><i></i>entregue</span><span>simulação com os números reais do teste de carga (900&nbsp;msg/min por 10&nbsp;min)</span></figcaption>
                 </figure>
             </div>
         </section>
@@ -166,7 +166,7 @@
                 <div class="metrics">
                     <article class="metric" data-reveal>
                         <p class="metric-val"><span data-count="900">900</span><small>msg/min</small></p>
-                        <p class="metric-label">no gateway em Go, por 10 min, com <b>0% de falhas</b> e 9.901/9.901 entregues</p>
+                        <p class="metric-label">no gateway em Go, por 10&nbsp;min, com <b>0% de falhas</b> e 9.901/9.901 entregues</p>
                         <p class="metric-foot mono"><span>fonte: k6</span><a href="#caso-gateway">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
 <pre translate="no">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
@@ -174,7 +174,7 @@ checks_failed......: 0.00%   0 out of 49505
 e2e_first_ms...................: avg=920.04ms min=827ms    med=877ms   max=5.37s p(90)=968ms    p(95)=1.04s
 http_req_failed................: <b>0.00%</b>  0 out of 49505
 inbound_message................: <b>9901</b>   14.97598/s</pre>
-                            <p>Saída do k6 na execução completa (660 s, com aquecimento). Na janela medida de 600 s, o p95 foi 1.053 ms.</p>
+                            <p>Saída do k6 na execução completa (660&nbsp;s, com aquecimento). Na janela medida de 600&nbsp;s, o p95 foi 1.053&nbsp;ms.</p>
                         </details>
                     </article>
                     <article class="metric" data-reveal data-delay="60">
@@ -194,7 +194,7 @@ parameters:
                         <p class="metric-foot mono"><span>fonte: eval</span><a href="#caso-roteador">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
 <pre translate="no">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
-...
+…
 Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.</pre>
                             <p>Trecho da mensagem do commit que mudou o roteador.</p>
                         </details>
@@ -223,14 +223,14 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <ul>
                             <li><b>−60% de conexões</b> por réplica no banco compartilhado (pool de 20 para 8).</li>
                             <li>Roteador de IA com <b>raciocínio enxuto</b>: menos tokens em todo turno e p50 cerca de 40% menor, sem perder acurácia.</li>
-                            <li>Teste de carga na AWS orçado pela tabela de preços: <b>US$ 8–17</b>, dentro do teto de US$ 30.</li>
+                            <li>Teste de carga na AWS orçado pela tabela de preços: <b>US$&nbsp;8–17</b>, dentro do teto de US$&nbsp;30.</li>
                             <li>CI enxugado para os jobs essenciais, gastando menos minutos de GitHub Actions.</li>
                         </ul>
                     </article>
                     <article class="value" data-reveal data-delay="60">
                         <h3>Produção que não cai</h3>
                         <ul>
-                            <li><b>0% de falhas</b> a 900 msg/min com outbox e idempotência em 3 camadas.</li>
+                            <li><b>0% de falhas</b> a 900&nbsp;msg/min com outbox e idempotência em 3 camadas.</li>
                             <li>Mensagem nunca marcada como enviada sem chegar: lease no outbox e sucesso só com envio confirmado.</li>
                             <li>Incidentes resolvidos com análise de causa raiz: envio duplicado em fila, OOM no build, permissões no PostgreSQL.</li>
                         </ul>
@@ -322,7 +322,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             <details class="rec-more"><summary>ler completa</summary>
                                 <p>Ele enxerga o negócio de uma maneira ímpar, sempre buscando viabilizar a criação de produtos e remover bloqueios que impedem o avanço do time de negócios.</p>
                                 <p>Tem amplo conhecimento em inteligência artificial, desde o treinamento de modelos até a criação de workflows de trabalho bem otimizados e avançados.</p>
-                                <p>Ele ainda tem um futuro brilhante pela frente, mas já o vejo como uma verdadeira "empresa de um homem só", pois consegue, sozinho, lidar com diversas demandas que vão muito além de sua área de atuação em backend.</p>
+                                <p>Ele ainda tem um futuro brilhante pela frente, mas já o vejo como uma verdadeira “empresa de um homem só”, pois consegue, sozinho, lidar com diversas demandas que vão muito além de sua área de atuação em backend.</p>
                             </details>
                         </blockquote>
                     </figure>
@@ -373,7 +373,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <header>
                             <p class="case-meta mono">Evig · fintech de IA conversacional · criador e arquiteto</p>
                             <h3>Gateway de mensageria WhatsApp em Go</h3>
-                            <p class="case-result mono">900 msg/min · 0% falhas · p95 1,05 s · 9.901/9.901</p>
+                            <p class="case-result mono">900&nbsp;msg/min · 0% falhas · p95 1,05&nbsp;s · 9.901/9.901</p>
                         </header>
                         <div class="case-cols">
                             <div>
@@ -386,7 +386,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             </div>
                             <div>
                                 <p class="case-k mono">resultado</p>
-                                <p><b>900 msg/min por 10 min, 0% de falhas, p95 de 1,05 s, 9.901/9.901 entregues</b> no teste de carga com k6. A simulação lá em cima deixa você derrubar um worker.</p>
+                                <p><b>900&nbsp;msg/min por 10&nbsp;min, 0% de falhas, p95 de 1,05&nbsp;s, 9.901/9.901 entregues</b> no teste de carga com k6. A simulação lá em cima deixa você derrubar um worker.</p>
                             </div>
                         </div>
                         <ul class="case-stack mono" translate="no"><li>Go</li><li>PostgreSQL</li><li>Outbox</li><li>k6</li><li>Prometheus</li></ul>
@@ -419,7 +419,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <article class="case" data-tags="infra seg" data-reveal data-delay="60">
                         <p class="case-meta mono">Evig · infraestrutura</p>
                         <h3>Migração de produção GCP → AWS</h3>
-                        <p class="case-result mono">soak de 2 h · spike de 5× · zero chave estática</p>
+                        <p class="case-result mono">soak de 2&nbsp;h · spike de 5× · zero chave estática</p>
                         <p>Liderei a migração do banco e das instâncias de produção para EC2/RDS, com segredos no SSM via OIDC, Prometheus e Grafana e testes de carga k6. Resolvi incidentes com análise de causa raiz: envio duplicado em fila, OOM no build e permissões no PostgreSQL.</p>
                         <ul class="case-stack mono" translate="no"><li>AWS</li><li>OIDC</li><li>SSM</li><li>Grafana</li><li>k6</li></ul>
                     </article>
@@ -451,7 +451,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <header>
                             <p class="case-meta mono">Accusense · 68% dos commits do repositório</p>
                             <h3>API de extração de notícias + módulo de chamados com IA</h3>
-                            <p class="case-result mono">~25 mil notícias · ~300 portais · 220+ testes</p>
+                            <p class="case-result mono">~25&nbsp;mil notícias · ~300&nbsp;portais · 220+ testes</p>
                         </header>
                         <div class="case-cols">
                             <div>
@@ -460,7 +460,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             </div>
                             <div>
                                 <p class="case-k mono">coleta</p>
-                                <p>Descoberta de feeds RSS/Atom/Sitemap por portal, dedup em cache + MongoDB, agendamento a cada 15 min, retry com backoff e rate limit por host. <b>~25 mil notícias de ~300 portais</b> em produção.</p>
+                                <p>Descoberta de feeds RSS/Atom/Sitemap por portal, dedup em cache + MongoDB, agendamento a cada 15&nbsp;min, retry com backoff e rate limit por host. <b>~25&nbsp;mil notícias de ~300&nbsp;portais</b> em produção.</p>
                             </div>
                             <div>
                                 <p class="case-k mono">IA</p>
@@ -473,7 +473,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <article class="case" data-tags="php" data-reveal>
                         <p class="case-meta mono">Digital LZ · cobrança e negociação</p>
                         <h3>Portal de autonegociação de dívidas</h3>
-                        <p class="case-result mono">~5 mil acessos de clientes por dia</p>
+                        <p class="case-result mono">~5&nbsp;mil acessos de clientes por dia</p>
                         <p>Login por CPF com verificação em duas etapas via WhatsApp, propostas à vista ou parceladas e validações brasileiras de CPF, DDD e telefone.</p>
                         <ul class="case-stack mono" translate="no"><li>Laravel</li><li>MySQL</li><li>SQL Server</li></ul>
                     </article>
@@ -498,7 +498,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>Usuários recebiam a mesma mensagem mais de uma vez em produção, mas o banco não mostrava nenhuma execução duplicada.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>A trava anti-duplicação usava cache em arquivo, e o Cloud Run sobe de 1 a 100 instâncias com disco próprio: cada uma via só a sua trava.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Trava atômica (<code>Cache::add</code>) em cache compartilhado no PostgreSQL, segunda trava por conteúdo (sha256, 24 h), sem reenviar em timeout e remoção de um caminho legado que também enviava.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Trava atômica (<code>Cache::add</code>) em cache compartilhado no PostgreSQL, segunda trava por conteúdo (sha256, 24&nbsp;h), sem reenviar em timeout e remoção de um caminho legado que também enviava.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Laravel</li><li>Cloud Run</li><li>PostgreSQL</li><li>WhatsApp</li></ul>
                     </details>
@@ -506,8 +506,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <summary><span class="inc-meta mono">Evig · set 2026</span><span class="inc-title">Campanha de notícias enviada em dobro</span><span class="inc-fix mono">retry_after acima do timeout do job</span></summary>
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>A mesma campanha chegava duas vezes para o mesmo usuário.</dd></div>
-                            <div><dt class="mono">causa raiz</dt><dd>O <code>retry_after</code> da fila (90 s) era menor que o tempo do job: outro worker pegava o job enquanto o primeiro ainda enviava.</dd></div>
-                            <div><dt class="mono">correção</dt><dd><code>retry_after</code> de 900 s acima do timeout do worker, trava por usuário e campanha, batch nomeado pela campanha, backoff 30/120/300 s e métrica de duplicados pulados.</dd></div>
+                            <div><dt class="mono">causa raiz</dt><dd>O <code>retry_after</code> da fila (90&nbsp;s) era menor que o tempo do job: outro worker pegava o job enquanto o primeiro ainda enviava.</dd></div>
+                            <div><dt class="mono">correção</dt><dd><code>retry_after</code> de 900&nbsp;s acima do timeout do worker, trava por usuário e campanha, batch nomeado pela campanha, backoff 30/120/300&nbsp;s e métrica de duplicados pulados.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Laravel Queues</li><li>Supervisor</li></ul>
                     </details>
@@ -525,7 +525,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>O build do Vite estourava a memória na instância e o deploy falhava.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>O Node usava heap sem limite numa máquina pequena, sem swap.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Heap do Node limitado a 2 GB e swap de 2 GB no cloud-init, com passo idempotente no deploy para hosts criados antes.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Heap do Node limitado a 2&nbsp;GB e swap de 2&nbsp;GB no cloud-init, com passo idempotente no deploy para hosts criados antes.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Vite</li><li>Linux</li><li>AWS Lightsail</li></ul>
                     </details>
@@ -543,7 +543,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>A assinatura do webhook usava um segredo fixo no código, e o endpoint interno só checava se havia header de autorização.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>Valores de placeholder no código, sem validação de configuração no boot.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Segredo vindo do ambiente (vazio = rejeita), chave interna comparada com <code>crypto/subtle</code>, corpo limitado a 1 MiB, boot falha sem segredos. Depois: tokens assinados com nonce de uso único, eventos com mais de 5 min descartados e rate limit nas rotas públicas.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Segredo vindo do ambiente (vazio = rejeita), chave interna comparada com <code>crypto/subtle</code>, corpo limitado a 1&nbsp;MiB, boot falha sem segredos. Depois: tokens assinados com nonce de uso único, eventos com mais de 5&nbsp;min descartados e rate limit nas rotas públicas.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Go</li><li>HMAC</li><li>rate limit</li></ul>
                     </details>
@@ -552,7 +552,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>Uma identidade encontrada em outra empresa podia abrir sessão ou consumir convite.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>A busca de identidade a cada turno não respeitava o tenant do diretório.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Toda busca respeita o tenant; divergência vira "não encontrado" e alimenta uma métrica, convite ambíguo recebe 409, tudo atrás de feature flag. No mesmo dia: panic que travava o refresh e erro transitório que criava conta duplicada.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Toda busca respeita o tenant; divergência vira “não encontrado” e alimenta uma métrica, convite ambíguo recebe 409, tudo atrás de feature flag. No mesmo dia: panic que travava o refresh e erro transitório que criava conta duplicada.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Go</li><li>multi-tenant</li><li>Prometheus</li></ul>
                     </details>
@@ -577,7 +577,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <details class="inc" data-tags="python">
                         <summary><span class="inc-meta mono">Evig · jun 2026</span><span class="inc-title">Mensagem marcada como enviada sem chegar ao usuário</span><span class="inc-fix mono">lease com reclaim no outbox</span></summary>
                         <dl class="inc-body">
-                            <div><dt class="mono">sintoma</dt><dd>Se a instância morria no meio do envio, todas as tentativas seguintes eram puladas como "duplicadas".</dd></div>
+                            <div><dt class="mono">sintoma</dt><dd>Se a instância morria no meio do envio, todas as tentativas seguintes eram puladas como “duplicadas”.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>O registro de idempotência ficava em <code>reserved</code> para sempre.</dd></div>
                             <div><dt class="mono">correção</dt><dd>Reclaim por lease com <code>ON CONFLICT DO UPDATE … WHERE</code>, sucesso (200) só com envio confirmado e 409 para o chamador tentar de novo.</dd></div>
                         </dl>
@@ -624,7 +624,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>Cada reconexão do WhatsApp deixava timers e listeners vivos, e a memória só crescia.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>O fluxo de QR não limpava <code>setInterval</code> nem listeners e não tinha timeout geral.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Uma única <code>finalize()</code> que remove listener e timers, timeout de 5 min e limpeza antes de cada reconexão.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Uma única <code>finalize()</code> que remove listener e timers, timeout de 5&nbsp;min e limpeza antes de cada reconexão.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>TypeScript</li><li>Node.js</li><li>Baileys</li></ul>
                     </details>
@@ -660,7 +660,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>Desconexões permanentes deixavam o robô vivo, mas sem enviar.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>Erros críticos de sessão eram tratados como erros comuns.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>14 padrões de falha crítica que encerram o processo para o container reiniciar; retry com reconexão em "Connection Closed".</dd></div>
+                            <div><dt class="mono">correção</dt><dd>14 padrões de falha crítica que encerram o processo para o container reiniciar; retry com reconexão em “Connection Closed”.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Node.js</li><li>Docker</li><li>Baileys</li></ul>
                     </details>
@@ -678,7 +678,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <dl class="inc-body">
                             <div><dt class="mono">sintoma</dt><dd>Páginas vazias passavam como sucesso e portais com falha eram tentados para sempre.</dd></div>
                             <div><dt class="mono">causa raiz</dt><dd>Download e parsing estavam no mesmo job, sem estado de falha.</dd></div>
-                            <div><dt class="mono">correção</dt><dd>Jobs separados com retry e backoff, estado de falha de download, backoff por portal de 15 a 240 min e portal desativado após 5 falhas seguidas.</dd></div>
+                            <div><dt class="mono">correção</dt><dd>Jobs separados com retry e backoff, estado de falha de download, backoff por portal de 15 a 240&nbsp;min e portal desativado após 5 falhas seguidas.</dd></div>
                         </dl>
                         <ul class="case-stack mono" translate="no"><li>Laravel</li><li>MongoDB</li><li>filas</li></ul>
                     </details>
@@ -754,7 +754,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <div class="repo-body">
                             <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>15</b></span></p>
                             <h3>GameSir Cyclone 2</h3>
-                            <p>4 perfis, hair trigger, giroscópio como mouse, macros, editor de iluminação com animações de até 8 frames e auto-save verificado em ~0,4 s.</p>
+                            <p>4 perfis, hair trigger, giroscópio como mouse, macros, editor de iluminação com animações de até 8 frames e auto-save verificado em ~0,4&nbsp;s.</p>
                             <a class="link" href="https://github.com/MiguelSanzBr/gamesir-cyclone2-linux" target="_blank" rel="noopener">ver no GitHub ↗</a>
                         </div>
                     </article>
@@ -763,7 +763,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <div class="repo-body">
                             <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>5</b></span></p>
                             <h3>ATTACK SHARK X11</h3>
-                            <p>Até 8 estágios de DPI (50–22000), polling até 1000 Hz, remapeamento, 7 efeitos de luz e bateria pelo receptor 2.4G. Só biblioteca padrão + Tk, sem daemon.</p>
+                            <p>Até 8 estágios de DPI (50–22000), polling até 1000&nbsp;Hz, remapeamento, 7 efeitos de luz e bateria pelo receptor 2.4G. Só biblioteca padrão + Tk, sem daemon.</p>
                             <a class="link" href="https://github.com/MiguelSanzBr/attackshark-x11-linux" target="_blank" rel="noopener">ver no GitHub ↗</a>
                         </div>
                     </article>
@@ -773,7 +773,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <p class="mono flatpak-k">instale pelo repositório Flatpak assinado</p>
                     <div class="cmd">
                         <code id="flatpak-cmd" translate="no">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
-                        <button type="button" class="copy" data-copy="#flatpak-cmd">copiar</button>
+                        <button type="button" class="copy" data-copy="#flatpak-cmd">copiar comando</button>
                     </div>
                 </div>
 
