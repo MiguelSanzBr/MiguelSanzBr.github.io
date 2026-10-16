@@ -129,7 +129,8 @@
         try { const c = JSON.parse(sessionStorage.getItem("stars:" + repo)); if (c && Date.now() - c.t < 3600e3) return Promise.resolve(c.d); } catch (e) {}
         return fetch("https://api.github.com/repos/" + repo, { headers: { Accept: "application/vnd.github+json" } })
             .then((r) => (r.ok ? r.json() : null))
-            .then((d) => { if (d) try { sessionStorage.setItem("stars:" + repo, JSON.stringify({ t: Date.now(), d: { stargazers_count: d.stargazers_count } })); } catch (e) {} return d; });
+            // guarda também a falha (ex.: 403 de limite) para não repetir a chamada a cada recarga
+            .then((d) => { try { sessionStorage.setItem("stars:" + repo, JSON.stringify({ t: Date.now(), d: d && { stargazers_count: d.stargazers_count } })); } catch (e) {} return d; });
     };
     Promise.all(repos.map((card) =>
         cached(card.dataset.repo)
@@ -245,25 +246,41 @@
     const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
     const put = (el, v) => { if (el.textContent !== v) el.textContent = v; };
 
-    const drawNode = (n, accent, w = 84, h = 34) => {
-        ctx.fillStyle = colors.panel;
-        ctx.strokeStyle = accent || colors.line;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.roundRect(n.x - w / 2, n.y - h / 2, w, h, 8);
-        ctx.fill(); ctx.stroke();
-        ctx.fillStyle = colors.text;
-        ctx.font = "600 11px 'JetBrains Mono', monospace";
-        ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.fillText(n.label, n.x, n.y + (n.sub ? -5 : 0));
-        if (n.sub) { ctx.fillStyle = colors.faint; ctx.font = "9px 'JetBrains Mono', monospace"; ctx.fillText(n.sub, n.x, n.y + 8); }
+    const drawNode = (c, n, accent, w = 84, h = 34) => {
+        c.fillStyle = colors.panel;
+        c.strokeStyle = accent || colors.line;
+        c.lineWidth = 1.2;
+        c.beginPath();
+        c.roundRect(n.x - w / 2, n.y - h / 2, w, h, 8);
+        c.fill(); c.stroke();
+        c.fillStyle = colors.text;
+        c.font = "600 11px 'JetBrains Mono', monospace";
+        c.textAlign = "center"; c.textBaseline = "middle";
+        c.fillText(n.label, n.x, n.y + (n.sub ? -5 : 0));
+        if (n.sub) { c.fillStyle = colors.faint; c.font = "9px 'JetBrains Mono', monospace"; c.fillText(n.sub, n.x, n.y + 8); }
     };
-    const drawWire = (a, b) => {
-        ctx.strokeStyle = colors.line; ctx.lineWidth = 1; ctx.setLineDash([3, 5]);
-        ctx.beginPath(); ctx.moveTo(a.x, a.y);
+    const drawWire = (c, a, b) => {
+        c.strokeStyle = colors.line; c.lineWidth = 1; c.setLineDash([3, 5]);
+        c.beginPath(); c.moveTo(a.x, a.y);
         const mx = (a.x + b.x) / 2;
-        ctx.bezierCurveTo(mx, a.y, mx, b.y, b.x, b.y);
-        ctx.stroke(); ctx.setLineDash([]);
+        c.bezierCurveTo(mx, a.y, mx, b.y, b.x, b.y);
+        c.stroke(); c.setLineDash([]);
+    };
+    // fios e nós são estáticos: desenhados uma vez fora da página e só copiados a cada frame
+    // (definir ctx.font no canvas da página a cada frame forçava recálculo de estilo 60x/s)
+    const under = document.createElement("canvas"), over = document.createElement("canvas");
+    const renderStatic = () => {
+        [under, over].forEach((c) => { c.width = canvas.width; c.height = canvas.height; c.getContext("2d").setTransform(dpr, 0, 0, dpr, 0, 0); });
+        const u = under.getContext("2d"), o = over.getContext("2d");
+        drawWire(u, nodes.api, nodes.outbox);
+        nodes.workers.forEach((w, k) => { u.globalAlpha = dead[k] ? 0.3 : 1; drawWire(u, nodes.outbox, w); drawWire(u, w, nodes.wa); });
+        u.globalAlpha = 1;
+        const nw = nodes.nw;
+        drawNode(o, nodes.api, null, nw, 34);
+        drawNode(o, nodes.outbox, colors.amber, nw + 10, 40);
+        nodes.workers.forEach((w, k) => { o.globalAlpha = dead[k] ? 0.5 : 1; drawNode(o, w, dead[k] ? colors.bad : null, nw, 34); });
+        o.globalAlpha = 1;
+        drawNode(o, nodes.wa, colors.cyan, nw, 34);
     };
     const bez = (a, b, t) => {
         const mx = (a.x + b.x) / 2;
@@ -289,9 +306,7 @@
         const live = liveWorkers();
 
         ctx.clearRect(0, 0, W, H);
-        drawWire(nodes.api, nodes.outbox);
-        nodes.workers.forEach((w, k) => { ctx.globalAlpha = dead[k] ? 0.3 : 1; drawWire(nodes.outbox, w); drawWire(w, nodes.wa); });
-        ctx.globalAlpha = 1;
+        ctx.drawImage(under, 0, 0, W, H);
 
         for (let i = parts.length - 1; i >= 0; i--) {
             const p = parts[i];
@@ -335,12 +350,7 @@
         });
         ctx.globalAlpha = 1;
 
-        const nw = nodes.nw;
-        drawNode(nodes.api, null, nw, 34);
-        drawNode(nodes.outbox, colors.amber, nw + 10, 40);
-        nodes.workers.forEach((w, k) => { ctx.globalAlpha = dead[k] ? 0.5 : 1; drawNode(w, dead[k] ? colors.bad : null, nw, 34); });
-        ctx.globalAlpha = 1;
-        drawNode(nodes.wa, colors.cyan, nw, 34);
+        ctx.drawImage(over, 0, 0, W, H);
 
         if (!running) return;
         // contador avança 11 por entrega visual para chegar a 9.901 numa janela curta
@@ -394,12 +404,12 @@
                 releases += held.length;
                 ev = `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "mensagem voltou" : "mensagens voltaram"} ao outbox`;
             }
-            redraw();
+            renderStatic(); redraw();
             log.textContent = ev + " · " + status();
         }));
     }
 
-    readColors(); layout();
+    readColors(); layout(); renderStatic();
     // espera as fontes para o texto do canvas não piscar com a fonte de fallback
     const boot = () => {
         if (reduce) staticFrame();
@@ -416,7 +426,7 @@
     });
     document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
     let resizeRaf = 0;
-    window.addEventListener("resize", () => { cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); redraw(); }); });
+    window.addEventListener("resize", () => { cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); renderStatic(); redraw(); }); });
     window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { syncTheme(); document.dispatchEvent(new Event("themechange")); });
-    document.addEventListener("themechange", () => { readColors(); redraw(); });
+    document.addEventListener("themechange", () => { readColors(); renderStatic(); redraw(); });
 })();
