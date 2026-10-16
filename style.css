@@ -142,12 +142,24 @@ main:focus { outline: none; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line); transition: border-color .2s, background .2s; }
 .icon-btn:hover { border-color: var(--line-2); background: var(--bg-2); }
 .icon-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.i-sun { display: none; }
-:root[data-theme="light"] .i-sun { display: block; }
-:root[data-theme="light"] .i-moon { display: none; }
+/* tema: lua e sol empilhados, trocam girando */
+#theme-toggle { overflow: hidden; }
+#theme-toggle svg { grid-area: 1 / 1; width: 20px; height: 20px; stroke: none; transition: transform .55s var(--ease), opacity .3s ease; }
+.i-moon .moon { fill: var(--amber-2); }
+.i-moon .star { fill: var(--amber); animation: twinkle 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+.i-moon .star-2 { animation-delay: 1.2s; }
+.i-sun .core { fill: var(--amber); }
+.i-sun .rays { stroke: var(--amber); stroke-width: 2; stroke-linecap: round; }
+.i-sun { opacity: 0; transform: rotate(-90deg) scale(.4); }
+#theme-toggle:hover .i-moon { transform: rotate(-18deg) scale(1.08); }
+@keyframes twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.6); } }
+:root[data-theme="light"] .i-sun { opacity: 1; transform: none; }
+:root[data-theme="light"] .i-moon { opacity: 0; transform: rotate(90deg) scale(.4); }
+:root[data-theme="light"] #theme-toggle:hover .i-sun { transform: rotate(45deg) scale(1.08); }
 @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) .i-sun { display: block; }
-    :root:not([data-theme="dark"]) .i-moon { display: none; }
+    :root:not([data-theme="dark"]) .i-sun { opacity: 1; transform: none; }
+    :root:not([data-theme="dark"]) .i-moon { opacity: 0; transform: rotate(90deg) scale(.4); }
+    :root:not([data-theme="dark"]) #theme-toggle:hover .i-sun { transform: rotate(45deg) scale(1.08); }
 }
 .menu-btn { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
 .menu-btn span { display: block; width: 18px; height: 1.6px; background: currentColor; transition: transform .25s var(--ease); }
