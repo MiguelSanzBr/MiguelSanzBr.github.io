@@ -99,6 +99,9 @@
         f = chip.dataset.filter;
         chips.forEach((c) => { c.classList.toggle("is-on", c === chip); c.setAttribute("aria-pressed", String(c === chip)); });
         $$("[data-tags]").forEach((c) => c.classList.toggle("is-hidden", f !== "all" && !c.dataset.tags.split(" ").includes(f)));
+        // com filtro ativo, mostra também os problemas que ficam recolhidos
+        const more = $("#inc-more");
+        if (more && f !== "all") more.open = true;
         if (push) {
             const url = new URL(location.href);
             if (f === "all") url.searchParams.delete("stack"); else url.searchParams.set("stack", f);
@@ -406,27 +409,4 @@
     window.addEventListener("resize", () => { cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); redraw(); }); });
     window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { syncTheme(); document.dispatchEvent(new Event("themechange")); });
     document.addEventListener("themechange", () => { readColors(); redraw(); });
-
-    /* ---------- orçamento medido ---------- */
-    const perfEl = $("#perf");
-    if (perfEl && window.PerformanceObserver && performance.getEntriesByType) {
-        let lcp = 0;
-        try {
-            new PerformanceObserver((list) => { const e = list.getEntries(); lcp = e[e.length - 1].startTime; })
-                .observe({ type: "largest-contentful-paint", buffered: true });
-        } catch (e) {}
-        const measure = () => {
-            try {
-                const entries = performance.getEntriesByType("navigation").concat(performance.getEntriesByType("resource"));
-                const sum = (k) => entries.reduce((a, e) => a + (e[k] || 0), 0);
-                // encodedBodySize = peso real da página, mesmo vindo do cache (transferSize daria ~0)
-                const bytes = sum("encodedBodySize");
-                if (!bytes) return;
-                perfEl.textContent = `página de ${fmt(bytes / 1024)} KB` + (lcp ? ` · LCP ${fmt(lcp / 1000, 1)} s` : "") + " · 0 dependências";
-            } catch (e) {}
-        };
-        // 1 s após o load: dá tempo do LCP final ser entregue ao observer
-        const later = () => setTimeout(measure, 1000);
-        if (document.readyState === "complete") later(); else window.addEventListener("load", later);
-    }
 })();
