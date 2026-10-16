@@ -37,6 +37,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
+    <script src="fx.js" defer></script>
 
     <script type="application/ld+json">
     {
@@ -56,6 +57,9 @@
 <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <div class="grid-bg" aria-hidden="true"></div>
+    <div class="fx-noise" aria-hidden="true"></div>
+    <div class="fx-glow" id="fx-glow" aria-hidden="true"></div>
+    <canvas class="fx-click" id="fx-click" aria-hidden="true"></canvas>
 
     <header class="site-header" data-header>
         <div class="shell header-row">
@@ -66,6 +70,7 @@
             <nav class="nav" aria-label="Navegação principal">
                 <a href="#numeros" data-nav>Números</a>
                 <a href="#por-que" data-nav>Por que eu</a>
+                <a href="#recomendacoes" data-nav>Recomendações</a>
                 <a href="#casos" data-nav>Casos</a>
                 <a href="#trajetoria" data-nav>Trajetória</a>
                 <a href="#open-source" data-nav>Open source</a>
@@ -85,6 +90,7 @@
         <nav class="mobile-nav" id="mobile-nav" aria-label="Menu">
             <a href="#numeros">Números</a>
             <a href="#por-que">Por que eu</a>
+            <a href="#recomendacoes">Recomendações</a>
             <a href="#casos">Casos</a>
             <a href="#trajetoria">Trajetória</a>
             <a href="#open-source">Open source</a>
@@ -95,6 +101,7 @@
     <main id="conteudo" tabindex="-1">
         <!-- ===================== HERO ===================== -->
         <section class="hero" id="topo" aria-labelledby="hero-title">
+            <canvas class="fx fx-vortex" id="fx-vortex" aria-hidden="true"></canvas>
             <div class="shell hero-grid">
                 <div class="hero-copy">
                     <div class="hero-id" data-in>
@@ -195,7 +202,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
         </section>
 
         <!-- ===================== POR QUE ===================== -->
-        <section class="section" id="por-que" aria-labelledby="porque-title">
+        <section class="section fx-host" id="por-que" aria-labelledby="porque-title">
+            <div class="fx fx-blackhole" data-black-hole aria-hidden="true"></div>
             <div class="shell">
                 <header class="section-head" data-reveal>
                     <h2 id="porque-title">O que eu levo para <em>o seu time.</em></h2>
@@ -244,6 +252,93 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <div><dt>modelo</dt><dd>SP híbrido, presencial ou remoto</dd></div>
                     <div><dt>nível</dt><dd>back-end pleno</dd></div>
                 </dl>
+            </div>
+        </section>
+
+        <!-- ===================== RECOMENDAÇÕES ===================== -->
+        <section class="section" id="recomendacoes" aria-labelledby="recs-title">
+            <div class="shell">
+                <header class="section-head" data-reveal>
+                    <h2 id="recs-title">Quem trabalhou comigo <em>recomenda.</em></h2>
+                    <p class="lead">Recomendações recebidas no LinkedIn, sem edição: do meu gestor direto, de colega de time, de mentor e de colega de TCC.</p>
+                </header>
+
+                <div class="recs">
+                    <figure class="rec" data-reveal>
+                        <figcaption class="rec-who">
+                            <img src="assets/recs/rec-julio-barros.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/juliobarros8/" target="_blank" rel="noopener" translate="no">Julio Barros ↗</a>
+                                <small>Founder e CEO na Evig</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">foi meu gestor direto · out 2026</p>
+                        <blockquote class="rec-text">
+                            <p>Fui líder do Miguel na Evig e posso dizer sem exagero: ele é daqueles caras que elevam o nível do time. Em pouco tempo pegou frentes bem diferentes, de infra a IA, e mandou bem em todas.</p>
+                            <details class="rec-more"><summary>ler completa</summary>
+                                <p>Foi ele quem tocou a migração da nossa produção do GCP para a AWS, montou nossa observabilidade do zero e criou o gateway de mensageria em Go que segura as conversas no WhatsApp, sem falhar nem nos testes de carga mais pesados. Também teve um papel enorme na nossa solução de IA: deixou o roteamento dos agentes bem mais rápido, sem perder precisão, e criou o copiloto com RAG da plataforma.</p>
+                                <p>Mas o que mais me marcou foi o jeito dele trabalhar. O Miguel é caprichoso de verdade (testa tudo, pensa em segurança, vai atrás da causa raiz de cada problema) e mesmo assim entrega rápido. É autônomo, se sente dono do que constrói e é muito gente boa de trabalhar junto.</p>
+                                <p>Recomendo o Miguel de olhos fechados. Qualquer time de back-end, infra ou IA vai ter sorte de ter ele por perto.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+
+                    <figure class="rec" data-reveal data-delay="60">
+                        <figcaption class="rec-who">
+                            <img src="assets/recs/rec-humberto-fernandes.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/humberto-fernandes-9a4599234/" target="_blank" rel="noopener" translate="no">Humberto Fernandes ↗</a>
+                                <small>Engenheiro de Software · back-end Java e IA</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">trabalhou no mesmo time, na Evig · out 2026</p>
+                        <blockquote class="rec-text">
+                            <p>Recomendo o Miguel Sanz Boragan como Engenheiro de Software Back-end. Na Evig, ele foi responsável pela migração completa da nossa infraestrutura do GCP para a AWS, conduzindo o projeto de forma autônoma, do planejamento à execução, e concluindo-o em prazo reduzido.</p>
+                            <details class="rec-more"><summary>ler completa</summary>
+                                <p>Tecnicamente, destaca-se em arquitetura de software, PostgreSQL, desenvolvimento de APIs e integrações, com atenção constante à qualidade e à confiabilidade dos sistemas. Soma a isso senso de responsabilidade, comunicação clara e disposição para colaborar com o time. É um profissional que recomendo com total confiança.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+
+                    <figure class="rec" data-reveal>
+                        <figcaption class="rec-who">
+                            <img src="assets/recs/rec-gabriel-cano.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/gabrielcano-in/" target="_blank" rel="noopener" translate="no">Gabriel Cano ↗</a>
+                                <small>Tech Lead na CRMBonus</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">foi meu mentor · out 2026</p>
+                        <blockquote class="rec-text">
+                            <p>Fico um pouco impressionado com o tamanho da competência e da dedicação do Miguel.</p>
+                            <p>Sua dedicação aos estudos e à evolução profissional, buscando se adequar às exigências do mercado, fez com que, em pouco tempo, ele se tornasse o profissional do futuro que toda empresa quer ter.</p>
+                            <details class="rec-more"><summary>ler completa</summary>
+                                <p>Ele enxerga o negócio de uma maneira ímpar, sempre buscando viabilizar a criação de produtos e remover bloqueios que impedem o avanço do time de negócios.</p>
+                                <p>Tem amplo conhecimento em inteligência artificial, desde o treinamento de modelos até a criação de workflows de trabalho bem otimizados e avançados.</p>
+                                <p>Ele ainda tem um futuro brilhante pela frente, mas já o vejo como uma verdadeira "empresa de um homem só", pois consegue, sozinho, lidar com diversas demandas que vão muito além de sua área de atuação em backend.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+
+                    <figure class="rec" data-reveal data-delay="60">
+                        <figcaption class="rec-who">
+                            <img src="assets/recs/rec-joao-pedro-estrutti.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/joao-pedro-estrutti/" target="_blank" rel="noopener" translate="no">João Pedro Estrutti Amaral ↗</a>
+                                <small>DevOps &amp; Backend</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">colega no TCC ConectaAI · out 2026</p>
+                        <blockquote class="rec-text">
+                            <p>Tive o privilégio de trabalhar lado a lado com o Miguel no desenvolvimento do nosso TCC, o ConectaAI, e a atuação dele como Gerente de Projeto foi o grande diferencial para o sucesso da nossa entrega. Ele possui uma visão sistêmica incrível, conseguindo orquestrar perfeitamente todas as frentes do projeto — desde o planejamento até a integração complexa de IA com os canais de comunicação.</p>
+                            <details class="rec-more"><summary>ler completa</summary>
+                                <p>Como líder, ele sabe como manter o time focado, organizar as sprints e remover bloqueios com agilidade. É um profissional extremamente organizado, comunicativo e que sabe extrair o melhor de cada pessoa da equipe. Recomendo o Miguel de olhos fechados para qualquer desafio de gestão e tecnologia.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+                </div>
+
+                <p class="recs-src mono" data-reveal><a class="link" href="https://www.linkedin.com/in/miguel-sanz-boragan/details/recommendations/" target="_blank" rel="noopener">ver todas no LinkedIn ↗</a></p>
             </div>
         </section>
 
@@ -689,9 +784,12 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
         <!-- ===================== STACK ===================== -->
         <section class="section section-tight" aria-labelledby="stack-title">
             <div class="shell">
-                <header class="section-head" data-reveal>
-                    <h2 id="stack-title">Stack, <em>do principal ao ocasional.</em></h2>
-                </header>
+                <div class="stack-top">
+                    <header class="section-head" data-reveal>
+                        <h2 id="stack-title">Stack, <em>do principal ao ocasional.</em></h2>
+                    </header>
+                    <div class="fx-sphere-wrap" aria-hidden="true"><canvas id="fx-sphere"></canvas></div>
+                </div>
                 <div class="stack" data-reveal>
                     <div class="stack-main"><h3 class="mono">principal</h3><p>Go · Python · FastAPI · PHP 8.4 · Laravel · Node.js · TypeScript · SQL</p></div>
                     <div><h3 class="mono">dados</h3><p>PostgreSQL · MySQL · SQL Server · MongoDB · Redis · Prisma</p></div>
@@ -706,10 +804,17 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
         </section>
 
         <!-- ===================== CONTATO ===================== -->
-        <section class="section contact" id="contato" aria-labelledby="contato-title">
+        <section class="section contact fx-host" id="contato" aria-labelledby="contato-title">
+            <pre class="fx fx-flame" id="fx-flame" aria-hidden="true"></pre>
             <div class="shell">
                 <h2 id="contato-title" data-reveal>Disponível agora. <em>Vamos conversar?</em></h2>
                 <p class="lead" data-reveal>Procuro vaga de back-end pleno em São Paulo (híbrido ou presencial) ou remoto, com início imediato, CLT ou PJ. Respondo rápido por e-mail ou LinkedIn.</p>
+                <div class="contact-cta" data-reveal>
+                    <a class="btn btn-solid" href="https://www.linkedin.com/messaging/compose/?recipient=ACoAAEqHUKgBj80vZTlyQ8fioHG4Je4HlGZfmNg" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                        Conversar no LinkedIn
+                    </a>
+                </div>
                 <div class="mail-row" data-reveal>
                     <a class="mail" href="mailto:miguelsanzb.p@gmail.com">miguelsanzb.p<wbr>@gmail.com</a>
                     <button type="button" class="copy" data-copy-text="miguelsanzb.p@gmail.com">copiar e-mail</button>

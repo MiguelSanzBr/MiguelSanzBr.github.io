@@ -9,6 +9,7 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 - **Casos**: problema → decisão → resultado, com resumo numérico e filtro por stack.
 - **Open source**: os três configuradores Linux, estrelas lidas ao vivo da API do GitHub e um dump `/dev/hidraw` animado.
 - Rodapé com peso da página e LCP medidos no navegador do visitante.
+- **Efeitos** (`fx.js`, vindos do portfólio antigo e recoloridos): vórtice no hero, buraco negro em "Por que eu", esfera de partículas na stack, chama ASCII no contato, faíscas no clique, brilho do cursor e grade de pixels nos cards.
 - Tema claro/escuro (respeita o sistema, contraste AA), responsivo, `prefers-reduced-motion`, animações pausadas fora da tela e card de preview (`assets/og.png`) para LinkedIn/WhatsApp.
 
 ## Estrutura
@@ -18,6 +19,7 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 | `index.html` | Conteúdo |
 | `style.css` | Design system (grafite + âmbar), layout e responsivo |
 | `main.js` | Tema, menu, reveals, contadores, filtros, estrelas do GitHub, dump HID e canvas do gateway |
+| `fx.js` | Efeitos visuais decorativos (canvas 2D, sem dependência) |
 | `assets/` | Foto, currículo em PDF, screenshots dos apps, `og.png` (preview 1200×630) e `apple-touch-icon.png` |
 
 ## Rodar localmente
