@@ -103,6 +103,12 @@
             : `${n} ${n === 1 ? "caso" : "casos"} · ${k} ${k === 1 ? "problema" : "problemas"}`);
     }));
     applyFilter(new URLSearchParams(location.search).get("stack") || "all", false);
+    // link "ver caso" para um card escondido pelo filtro: mostra tudo antes de rolar
+    document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#caso-"]');
+        const t = a && $(a.hash);
+        if (t && t.classList.contains("is-hidden")) applyFilter("all", true);
+    });
 
     /* ---------- copiar ---------- */
     $$("[data-copy], [data-copy-text]").forEach((btn) => btn.addEventListener("click", async () => {
@@ -387,8 +393,8 @@
                 const held = parts.filter((p) => p.w === k && p.stage >= 2 && !p.stuck);
                 held.forEach((p) => { p.stuck = STUCK; });
                 stuck += held.length;
-                ev = EN ? `worker ${k + 1} down → ${held.length} stuck in sending, not resent automatically (to avoid duplicates); the rest keep flowing`
-                    : `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "presa" : "presas"} em sending, sem reenvio automático (para não duplicar); o resto segue`;
+                ev = EN ? `worker ${k + 1} down → ${held.length} stuck in sending, not resent automatically (to avoid duplicates); the rest keep flowing; they await a check with Meta and a manual resend`
+                    : `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "presa" : "presas"} em sending, sem reenvio automático (para não duplicar); o resto segue; aguardam conferência na Meta e reenvio manual`;
             }
             renderStatic(); redraw();
             log.textContent = ev + " · " + status();

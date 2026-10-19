@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miguel Sanz — Back-end Software Engineer</title>
-    <meta name="description" content="Back-end software engineer in São Paulo, Brazil. Go, Python, PHP/Laravel and applied AI: a 900 msg/min gateway with 0% failures, plus open-source Linux apps.">
+    <meta name="description" content="Back-end software engineer in São Paulo, Brazil. PHP/Laravel, Go and Python/FastAPI with applied AI: a multi-tenant Laravel CRM (PHPStan 1,770 → 0) and a Go gateway at 900 msg/min with 0% failures.">
     <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
     <link rel="canonical" href="https://miguelsanzbr.github.io/en/">
@@ -14,8 +14,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://miguelsanzbr.github.io/en/">
     <meta property="og:title" content="Miguel Sanz — Back-end Software Engineer">
-    <meta property="og:description" content="Go, Python, PHP/Laravel and applied AI. Back-end tested under load, with the source behind every number.">
-    <meta property="og:image" content="https://miguelsanzbr.github.io/assets/og-en.png">
+    <meta property="og:description" content="PHP/Laravel, Go and Python/FastAPI with applied AI. Back-end tested under load, with the source behind every number.">
+    <meta property="og:image" content="https://miguelsanzbr.github.io/assets/og-en.png?v=20261019e">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Miguel Sanz — Back-end Software Engineer">
@@ -40,9 +41,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css?v=20261019d">
-    <script src="../main.js?v=20261019d" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@108..115,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=20261019e">
+    <script src="../main.js?v=20261019e" defer></script>
 
     <script type="application/ld+json">
     {
@@ -54,7 +55,7 @@
         "image": "https://miguelsanzbr.github.io/assets/avatar.jpg",
         "address": { "@type": "PostalAddress", "addressLocality": "São Paulo", "addressCountry": "BR" },
         "email": "mailto:miguelsanzb.p@gmail.com",
-        "knowsAbout": ["PHP", "Laravel", "Vue", "Go", "Python", "FastAPI", "PostgreSQL", "MySQL", "AWS", "LangGraph"],
+        "knowsAbout": ["PHP", "Laravel", "Vue", "React", "Go", "Python", "FastAPI", "Node.js", "TypeScript", "PostgreSQL", "MySQL", "AWS", "Docker", "LangGraph"],
         "sameAs": ["https://www.linkedin.com/in/miguel-sanz-boragan/", "https://github.com/MiguelSanzBr"]
     }
     </script>
@@ -149,7 +150,7 @@
                         <div><dt>p95</dt><dd>1.05&nbsp;s</dd></div>
                     </dl>
                     <div class="flow-chaos" id="flow-chaos"></div>
-                    <figcaption class="mono"><span class="legend"><i></i>queued / in transit</span><span class="legend ok"><i></i>delivered</span><span>simulation using the load-test numbers (k6, mocked Meta API)</span></figcaption>
+                    <figcaption class="mono"><span class="legend"><i></i>queued / in transit</span><span class="legend ok"><i></i>delivered</span><span>simulation using the load-test numbers (k6, mocked Meta API); 3 illustrative workers, the test used 24</span></figcaption>
                 </figure>
             </div>
         </section>
@@ -173,7 +174,7 @@ checks_failed......: 0.00%   0 out of 49505
 e2e_first_ms...................: avg=920.04ms min=827ms    med=877ms   max=5.37s p(90)=968ms    p(95)=1.04s
 http_req_failed................: <b>0.00%</b>  0 out of 49505
 inbound_message................: <b>9901</b>   14.97598/s</pre>
-                            <p>k6 output for the full run (660&nbsp;s, including warm-up). Over the measured 600&nbsp;s window, p95 was 1,053&nbsp;ms.</p>
+                            <p>k6 output for the full run (660&nbsp;s, including warm-up). Over the measured 600&nbsp;s window, p95 was 1.053&nbsp;s.</p>
                         </details>
                     </article>
                     <article class="metric" data-reveal data-delay="60">
@@ -189,8 +190,8 @@ $ grep -c 'message:' phpstan-baseline.neon
                         </details>
                     </article>
                     <article class="metric" data-reveal data-delay="120">
-                        <p class="metric-val">25–40<small>% lower p50 · estimated</small></p>
-                        <p class="metric-label">25% to 40% lower latency on the AI router after dropping the reasoning level, keeping <b>120/120</b> in the eval (6 cases × 20 runs)</p>
+                        <p class="metric-val">120/120<small>on the eval</small></p>
+                        <p class="metric-label">AI router with <b>25% to 40% lower p50 latency (estimated)</b> after dropping the reasoning level, without losing accuracy (6 cases × 20 runs)</p>
                         <p class="metric-foot mono"><span>source: eval (accuracy) + commit (latency)</span><a href="#caso-roteador" aria-label="see case: AI router">see case →</a></p>
                         <details class="receipt"><summary>see evidence</summary>
 <pre translate="no" lang="pt-BR" tabindex="0" role="region" aria-label="commit message">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
@@ -201,7 +202,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     </article>
                     <article class="metric" data-reveal data-delay="180">
                         <p class="metric-val">8<small>operators freed</small></p>
-                        <p class="metric-label">~100 WhatsApp bots took over debt-collection messages sent by hand: about <b>US$&nbsp;48k/year</b> (R$&nbsp;240k) in manual work (estimate: 8 × ~R$&nbsp;2.5k/month)</p>
+                        <p class="metric-label">~100 WhatsApp bots took over the debt-collection messages once sent by hand: about <b>US$&nbsp;48k/year</b> (R$&nbsp;240k) in manual work (estimate: 8 × ~R$&nbsp;2.5k/month)</p>
                         <p class="metric-foot mono"><span>source: math shown · US$ at R$ 5.05 (Oct 19, 2026)</span><a href="#caso-cobranca" aria-label="see case: debt-collection bots">see case →</a></p>
                     </article>
                 </div>
@@ -233,8 +234,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <ol class="timeline">
                     <li data-reveal>
                         <p class="when mono">Jan 2026 – Oct 2026</p>
-                        <h3>Back-end Software Engineer <span>· Evig</span></h3>
-                        <p>Back-end and infra for a conversational-AI fintech (Brazil’s Open Finance, WhatsApp and agents). I built the Go messaging gateway and the FastAPI API platform from scratch, was the top contributor to the Laravel CRM (48% of commits), ran the production migration from GCP to AWS end to end and worked on the finance and credit AI agents. The company shut down in October 2026 after running out of cash.</p>
+                        <h3><span class="nowrap">Back-end</span> Software Engineer <span>· Evig</span></h3>
+                        <p>Back-end and infra for a conversational-AI fintech (Brazil’s Open Finance, WhatsApp and agents). I built the Go messaging gateway and the FastAPI API platform from scratch, was the top contributor to the Laravel CRM (48% of commits), ran the production migration from GCP to AWS end to end, and worked on the finance and credit AI agents. The company shut down in October 2026 after running out of funding.</p>
                     </li>
                     <li data-reveal data-delay="60">
                         <p class="when mono">Feb 2024 – Jan 2026 · then freelance on demand</p>
@@ -296,7 +297,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <blockquote class="rec-text">
                             <p>I led Miguel at Evig and I can say without exaggeration: he’s one of those people who raise the bar for the whole team. In a short time he took on very different areas, from infra to AI, and nailed all of them.</p>
                             <details class="rec-more"><summary>read full</summary>
-                                <p>He’s the one who ran the migration of our production from GCP to AWS, built our observability from scratch and created the Go messaging gateway that carries our WhatsApp conversations, without failing even under the heaviest load tests. He also played a huge role in our AI solution: he made agent routing much faster without losing accuracy, and built the platform’s RAG copilot.</p>
+                                <p>He’s the one who ran the migration of our production from GCP to AWS, built our observability from scratch and created the Go messaging gateway that carries our WhatsApp conversations, and held up even under our heaviest load tests. He also played a huge role in our AI solution: he made agent routing much faster without losing accuracy, and built the platform’s RAG copilot.</p>
                                 <p>But what struck me most was the way he works. Miguel is truly meticulous (he tests everything, thinks about security, goes after the root cause of every problem) and still delivers fast. He’s autonomous, takes ownership of what he builds and is a real pleasure to work with.</p>
                                 <p>I recommend Miguel without hesitation. Any back-end, infra or AI team will be lucky to have him around.</p>
                             </details>
@@ -315,7 +316,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <blockquote class="rec-text">
                             <p>I recommend Miguel Sanz Boragan as a Back-end Software Engineer. At Evig, he was responsible for the complete migration of our infrastructure from GCP to AWS, running the project autonomously from planning to execution and finishing it on a tight timeline.</p>
                             <details class="rec-more"><summary>read full</summary>
-                                <p>Technically, he stands out in software architecture, PostgreSQL, API development and integrations, with constant attention to system quality and reliability. On top of that he brings a sense of responsibility, clear communication and a willingness to collaborate with the team. He’s a professional I recommend with complete confidence.</p>
+                                <p>Technically, he stands out in software architecture, PostgreSQL, API development and integrations, with constant attention to system quality and reliability. On top of that, he brings a sense of responsibility, clear communication and a willingness to collaborate with the team. He’s a professional I recommend with complete confidence.</p>
                             </details>
                         </blockquote>
                     </figure>
@@ -359,7 +360,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             </div>
                             <div>
                                 <p class="case-k mono">decision</p>
-                                <p>Ports &amp; adapters, a PostgreSQL outbox with <code translate="no">FOR UPDATE SKIP LOCKED</code>, 3-layer idempotency (webhook receipt, turn dispatch and outbox dispatch) and strict per-conversation ordering. 100% coverage gate, with gosec and govulncheck in the pipeline.</p>
+                                <p>Ports &amp; adapters, a PostgreSQL outbox with <code translate="no">FOR UPDATE SKIP LOCKED</code>, 3-layer idempotency (webhook receipt, turn dispatch and outbox dispatch) strict ordering per conversation (lane with fencing token) and per recipient in the outbox. 100% coverage gate on every PR; gosec and govulncheck in a nightly job.</p>
                             </div>
                             <div>
                                 <p class="case-k mono">result</p>
@@ -368,7 +369,13 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         </div>
                         <div class="case-trade">
                             <p class="case-k mono">trade-offs and limits</p>
-                            <p>Outbox in PostgreSQL itself, no broker at first and an interface to swap one in later: fewer moving parts to run, with the database as the bottleneck. In the test, the ceiling came from RDS CPU (70% gate at 20&nbsp;msg/s; 15&nbsp;msg/s is the highest confirmed rate, and the 15–20 range wasn’t refined), well above the real production peak (41 messages in 5&nbsp;min); one candidate is the status lookup by <code translate="no">provider_message_id</code>, which had no index (Seq Scan in EXPLAIN); a teammate added the index later (migration 015), but a new load run is still needed to measure the effect. A reaper is still on the to-do list: if a worker dies mid-send, the message stays in <code translate="no">sending</code> and isn’t resent automatically, because there’s no way to know whether Meta already got it. Once its 5&nbsp;min lease expires, it only stops holding back that customer’s next messages. I’d rather resend by hand, after checking with Meta (there’s no written runbook step for it yet), than duplicate; you can see this by taking down a worker in the simulation at the top. Meta’s rate limit is still handled reactively.</p>
+                            <ul class="trade-list">
+                                <li>Outbox in PostgreSQL itself, no broker yet, behind an interface that allows swapping one in: fewer moving parts, with the database as the bottleneck.</li>
+                                <li>Load-test ceiling: RDS CPU (70% gate at 20&nbsp;msg/s; 15&nbsp;msg/s is the highest confirmed rate, the 15–20 range wasn’t refined), far above the real production peak (41 messages in 5&nbsp;min).</li>
+                                <li>One suspect was the status lookup by <code translate="no">provider_message_id</code>, which had no index (Seq Scan in EXPLAIN); a teammate added the index later (migration 015), but no new load run has measured it yet.</li>
+                                <li>No reaper yet: if a worker dies mid-send, the message stays in <code translate="no">sending</code> and isn’t resent automatically, because there’s no way to know whether Meta already got it. Once its 5-min lease expires, the message merely stops holding back that customer’s next ones. I’d rather resend by hand, after checking with Meta (no written runbook step yet), than risk a duplicate; try it by taking down a worker in the simulation at the top.</li>
+                                <li>Meta’s rate limit is still handled reactively.</li>
+                            </ul>
                         </div>
                         <ul class="case-stack mono" translate="no"><li>Go</li><li>PostgreSQL</li><li>Outbox</li><li>k6</li><li>Prometheus</li></ul>
                     </article>
@@ -377,13 +384,13 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Evig · top contributor (48% of commits)</p>
                         <h3>Multi-tenant CRM in Laravel</h3>
                         <p class="case-result mono">PHPStan 1,770 → 0 · 2,100+ tests · 197 PRs</p>
-                        <p>In a production CRM shared with other devs, with everything going through pull requests (197 of them mine), I took PHPStan/Larastan from <b>1,770 errors to zero</b>, wrote 94% of the test files, fixed a cross-tenant IDOR vulnerability and upgraded the project to PHP 8.4 / Laravel 13.</p>
+                        <p>In a production CRM shared with other devs, with everything going through pull requests (197 of them mine), I took PHPStan/Larastan from <b>1,770 errors to zero</b>, wrote 94% of the test files (304 of 322), fixed a cross-tenant IDOR vulnerability and upgraded the project to PHP 8.4 / Laravel 13.</p>
                         <details class="receipt"><summary>see problem, decision and trade-off</summary>
-                            <p><b>Problem:</b> a multi-tenant CRM in production, with other devs working on it at the same time and no static analysis. When I added Larastan (level 5), 1,770 errors showed up; and one route let one company’s admin edit another company’s employees.</p>
-                            <p><b>Decision:</b> start with a baseline so the team wasn’t blocked and clear it gradually, in small PRs with tests; every employee lookup is now scoped to the caller’s company, with a 404 for outside IDs and a regression test per route.</p>
+                            <p><b>Problem:</b> a multi-tenant CRM in production, with other devs working on it at the same time and no static analysis. When I added Larastan (level 5), 1,770 errors showed up; and a route let one company’s admin edit another company’s employees.</p>
+                            <p><b>Decision:</b> adopt a baseline so the team wouldn’t be blocked, then clear it gradually, in small PRs with tests; every employee lookup is now scoped to the caller’s company, with a 404 for outside IDs and a regression test per route.</p>
                             <p><b>Trade-off:</b> a baseline means living with known errors for a while, in exchange for not stopping delivery.</p>
                         </details>
-                        <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Pest</li><li>Vue 3</li></ul>
+                        <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Larastan</li><li>Pest</li><li>Inertia + Vue 3</li></ul>
                     </article>
 
                     <article class="case" id="caso-migracao" data-tags="infra seg" data-reveal>
@@ -413,7 +420,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <article class="case" data-tags="ia python" data-reveal data-delay="60">
                         <p class="case-meta mono">Evig · Open Finance · credit · contributor</p>
                         <h3>AI agents for finance and credit</h3>
-                        <p class="case-claim">the back-end does the math, not the model</p>
+                        <p class="case-claim">every number checked against the data, never made up by the model</p>
                         <p>On a team building agents on top of Brazil’s Open Finance (open banking), my part was: connecting, refreshing and removing banks with confirmation; the smart-budget agent, with deterministic setup and confirmation of every edit; financial grounding in the prompt; LangGraph threads scoped per session; and, in the supervisor, the credit soft-lock and each agent’s boundaries. The router above is that supervisor, picking which agent handles each message.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Open Finance</li></ul>
                     </article>
@@ -421,13 +428,13 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <article class="case" data-tags="ia python seg" data-reveal>
                         <p class="case-meta mono">Evig · platform copilot · 98% of commits</p>
                         <h3>Multi-tenant RAG copilot</h3>
-                        <p class="case-result mono">740 tests · 15 architecture · 23 behavior</p>
+                        <p class="case-result mono">tenant isolation tested · 740 tests</p>
                         <p>A FastAPI service with conversation memory and RAG over uploaded files: admin documents apply to the whole company, each user’s documents stay private, and a <code translate="no">tenant_id</code> in the request body is only used to reject cross-tenant access, with a test for it. Architecture contracts in import-linter and mypy in CI.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>RAG</li><li>PostgreSQL</li></ul>
                     </article>
 
                     <article class="case" data-tags="php" data-reveal data-delay="60">
-                        <p class="case-meta mono">Accusense · freelance project · 68% of commits</p>
+                        <p class="case-meta mono">Accusense · freelance project · 63% of commits</p>
                         <h3>News extraction API</h3>
                         <p class="case-result mono">−99% collection cost · ~US$&nbsp;21k/year (R$&nbsp;107k, estimate)</p>
                         <p>I built a generic 5-layer extraction engine from scratch in Laravel 12 and MongoDB (no per-site selectors), with feed discovery, deduplication, a queue pipeline and retries with backoff. It replaced the manual collection done by 3 operators (about R$&nbsp;3k, ~US$&nbsp;600, a month each), who moved to other roles, and costs ~US$&nbsp;15/month to run on AWS. 120+ tests on the engine.</p>
@@ -438,7 +445,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Digital LZ · WhatsApp debt collection</p>
                         <h3>Debt-collection bots and self-service settlement portal</h3>
                         <p class="case-result mono">8 operators freed · ~US$&nbsp;48k/year (R$&nbsp;240k, estimate)</p>
-                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k, ~US$&nbsp;500, a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp.</p>
+                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k, ~US$&nbsp;500, a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp, which closes ~100 settlements a month with no operator.</p>
                         <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker API</li></ul>
                     </article>
                 </div>
@@ -560,7 +567,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
             <div class="shell">
                 <header class="section-head" data-reveal>
                     <h2 id="os-title">The vendor only made it for Windows. <em>I made it for Linux.</em></h2>
-                    <p class="lead">USB HID protocols reverse-engineered, talking directly to <code translate="no">/dev/hidraw</code>. CLI + GUI, .deb, Arch and AppImage packages and a signed Flatpak repository.</p>
+                    <p class="lead">Reverse-engineered USB HID protocols, talking directly to <code translate="no">/dev/hidraw</code>. CLI + GUI, .deb, Arch and AppImage packages and a signed Flatpak repository.</p>
                 </header>
 
                 <div class="hex" data-reveal>
@@ -616,7 +623,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <div class="contact-cta" data-reveal>
                     <a class="btn btn-solid" href="https://www.linkedin.com/messaging/compose/?recipient=ACoAAEqHUKgBj80vZTlyQ8fioHG4Je4HlGZfmNg" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-                        Message me on LinkedIn
+                        Message me on LinkedIn<span class="sr-only"> (opens in a new tab)</span>
                     </a>
                 </div>
                 <div class="mail-row" data-reveal>
@@ -626,7 +633,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <ul class="contact-links" data-reveal>
                     <li><a href="https://www.linkedin.com/in/miguel-sanz-boragan/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li>
                     <li><a href="https://github.com/MiguelSanzBr" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li>
-                    <li><a href="../assets/resume-miguel-sanz-boragan-en.pdf" download>Résumé (PDF) ↓</a></li>
+                    <li><a href="../assets/resume-miguel-sanz-boragan-en.pdf" download>Résumé (PDF) <span aria-hidden="true">↓</span></a></li>
                     <li><span>São Paulo, Brazil</span></li>
                 </ul>
             </div>
@@ -637,7 +644,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
         <div class="shell footer-row">
             <p>© 2026 Miguel Sanz Boragan</p>
             <p class="mono">Plain HTML, CSS and JS · no framework · no build</p>
-            <a href="#topo" class="mono">top ↑</a>
+            <a href="#topo" class="mono">top <span aria-hidden="true">↑</span></a>
         </div>
     </footer>
     <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
