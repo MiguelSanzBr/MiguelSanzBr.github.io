@@ -129,7 +129,7 @@
                 return parseInt(el.textContent, 10) || 0;
             })
             .catch(() => parseInt($("[data-stars]", card).textContent, 10) || 0)
-    )).then((counts) => { $("#stars-total").textContent = counts.reduce((a, b) => a + b, 0); });
+    )).then((counts) => { const t = $("#stars-total"); if (t) t.textContent = counts.reduce((a, b) => a + b, 0); });
 
     /* ---------- dump hexadecimal do HID ---------- */
     const hexEl = $("#hex");

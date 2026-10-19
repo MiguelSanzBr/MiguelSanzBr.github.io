@@ -24,6 +24,7 @@
     <meta property="og:site_name" content="Miguel Sanz">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 
     <script>
@@ -40,8 +41,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css?v=20261019c">
-    <script src="../main.js?v=20261019c" defer></script>
+    <link rel="stylesheet" href="../style.css?v=20261019d">
+    <script src="../main.js?v=20261019d" defer></script>
 
     <script type="application/ld+json">
     {
@@ -114,7 +115,7 @@
                         <img src="../assets/avatar.jpg" alt="" width="64" height="64">
                         <p>
                             <strong translate="no">Miguel Sanz Boragan</strong>
-                            <span>Mid-level back-end software engineer · São Paulo, Brazil (UTC−3) · remote or on-site</span>
+                            <span>Mid-level back-end software engineer · São Paulo, Brazil (UTC−3, 1–2 h ahead of US Eastern) · remote or on-site</span>
                             <span class="avail"><i aria-hidden="true"></i>available · can start immediately</span>
                         </p>
                     </div>
@@ -124,7 +125,7 @@
                     <p class="hero-sub" data-in style="--d:160ms">
                         PHP/Laravel, Go and Python/FastAPI, with applied AI: a multi-tenant CRM, a messaging gateway, an API platform,
                         LangGraph agents and a production migration to AWS.
-                        In-house since 2024 and freelancing since 2023; my last role was at a conversational-AI fintech.
+                        2 years and 8 months in-house (Feb 2024 to Oct 2026) and freelancing since 2023; my last role was at a conversational-AI fintech.
                     </p>
                     <div class="hero-cta" data-in style="--d:240ms">
                         <a class="btn btn-solid" href="#casos">See cases <span aria-hidden="true">↓</span></a>
@@ -158,7 +159,7 @@
             <div class="shell">
                 <header class="section-head" data-reveal>
                     <h2 id="numeros-title">What I delivered, <em>with sources.</em></h2>
-                    <p class="lead">Numbers from load tests, CI, evals and GitHub. Each one links to the case it came from.</p>
+                    <p class="lead">Numbers from load tests, CI, evals and the business. Each one links to the case it came from; estimates show the math.</p>
                 </header>
 
                 <div class="metrics">
@@ -167,7 +168,7 @@
                         <p class="metric-label">on the Go gateway for 10&nbsp;min, with <b>0% failures</b> (mocked Meta API); 9,901/9,901 delivered over the full run</p>
                         <p class="metric-foot mono"><span>source: k6</span><a href="#caso-gateway" aria-label="see case: Go gateway">see case →</a></p>
                         <details class="receipt"><summary>see evidence</summary>
-<pre translate="no" tabindex="0">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
+<pre translate="no" tabindex="0" role="region" aria-label="k6 output">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
 checks_failed......: 0.00%   0 out of 49505
 e2e_first_ms...................: avg=920.04ms min=827ms    med=877ms   max=5.37s p(90)=968ms    p(95)=1.04s
 http_req_failed................: <b>0.00%</b>  0 out of 49505
@@ -180,7 +181,7 @@ inbound_message................: <b>9901</b>   14.97598/s</pre>
                         <p class="metric-label">PHPStan/Larastan errors cleared in the multi-tenant Laravel CRM</p>
                         <p class="metric-foot mono"><span>source: CI</span><a href="#caso-crm" aria-label="see case: Laravel CRM">see case →</a></p>
                         <details class="receipt"><summary>see evidence</summary>
-<pre translate="no" tabindex="0">$ git show fbbf7bea:phpstan-baseline.neon | grep -c 'message:'
+<pre translate="no" tabindex="0" role="region" aria-label="Larastan baseline">$ git show fbbf7bea:phpstan-baseline.neon | grep -c 'message:'
 <b>1770</b>
 $ grep -c 'message:' phpstan-baseline.neon
 <b>0</b></pre>
@@ -192,22 +193,22 @@ $ grep -c 'message:' phpstan-baseline.neon
                         <p class="metric-label">25% to 40% lower latency on the AI router after dropping the reasoning level, keeping <b>120/120</b> in the eval (6 cases × 20 runs)</p>
                         <p class="metric-foot mono"><span>source: eval (accuracy) + commit (latency)</span><a href="#caso-roteador" aria-label="see case: AI router">see case →</a></p>
                         <details class="receipt"><summary>see evidence</summary>
-<pre translate="no" lang="pt-BR" tabindex="0">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
+<pre translate="no" lang="pt-BR" tabindex="0" role="region" aria-label="commit message">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
 …
 Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.</pre>
                             <p>Excerpt from the commit message that changed the router (original, in Portuguese). In English: “cuts reasoning tokens + latency on EVERY turn (~-40% p50 vs high) … Validated N=20 x 6 cases = 120/120; 35-trap-phrase suite = 35/35.” The code comment in the same commit estimates ~25%: there was no dedicated benchmark, hence the range.</p>
                         </details>
                     </article>
                     <article class="metric" data-reveal data-delay="180">
-                        <p class="metric-val"><span id="stars-total">55</span><small>★ on GitHub</small></p>
-                        <p class="metric-label">across 3 open-source Linux apps, built by reverse engineering USB HID</p>
-                        <p class="metric-foot mono"><span>source: GitHub API, live</span><a href="#open-source">see apps →</a></p>
+                        <p class="metric-val">8<small>operators freed</small></p>
+                        <p class="metric-label">~100 WhatsApp bots took over debt-collection messages sent by hand: about <b>US$&nbsp;48k/year</b> (R$&nbsp;240k) in manual work (estimate: 8 × ~R$&nbsp;2.5k/month)</p>
+                        <p class="metric-foot mono"><span>source: math shown · US$ at R$ 5.05 (Oct 19, 2026)</span><a href="#caso-cobranca" aria-label="see case: debt-collection bots">see case →</a></p>
                     </article>
                 </div>
                 <dl class="terms" data-reveal>
                     <div><dt>start</dt><dd>immediately</dd></div>
                     <div><dt>contract</dt><dd>remote contractor for companies abroad (Deel or similar, paid in USD); in Brazil, full-time employee (CLT) or contractor (PJ)</dd></div>
-                    <div><dt>work setup</dt><dd>São Paulo (hybrid or on-site) or remote · UTC−3</dd></div>
+                    <div><dt>work setup</dt><dd>São Paulo (hybrid or on-site) or remote · UTC−3, overlaps US business hours and EU afternoons</dd></div>
                     <div><dt>looking for</dt><dd>mid-level back-end roles</dd></div>
                     <div><dt>English</dt><dd>intermediate (fluent technical reading), open to interviews in English</dd></div>
                     <div><dt>education</dt><dd>Bachelor’s in Software Engineering, UNINTER (in progress, 2026–2029)</dd></div>
@@ -248,7 +249,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <li class="edu" data-reveal data-delay="180">
                         <p class="when mono">education</p>
                         <h3>Software Engineering <span>· UNINTER, in progress (2026–2029)</span></h3>
-                        <p>Technical diploma in Systems Development from ETEC, a São Paulo state technical school (2023–2025), focused on full stack and cybersecurity. Instituto PROA (2025), Linux Fundamentals (FIAP), Digital Safety and Security Awareness (Cisco) and 3rd place at FIAP’s Java.Xpert Hackathon.</p>
+                        <p>Technical diploma in Systems Development from ETEC, a São Paulo state technical school (2023–2025), focused on full stack and cybersecurity. Instituto PROA (career-training program, 2025), Linux Fundamentals (FIAP), Digital Safety and Security Awareness (Cisco) and 3rd place at FIAP’s Java.Xpert Hackathon.</p>
                     </li>
                 </ol>
             </div>
@@ -310,7 +311,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                                 <small>Software Engineer · Java back-end and AI</small>
                             </span>
                         </figcaption>
-                        <p class="rec-rel mono">worked with me on the same team at Evig · Oct 2026</p>
+                        <p class="rec-rel mono">was my teammate at Evig · Oct 2026</p>
                         <blockquote class="rec-text">
                             <p>I recommend Miguel Sanz Boragan as a Back-end Software Engineer. At Evig, he was responsible for the complete migration of our infrastructure from GCP to AWS, running the project autonomously from planning to execution and finishing it on a tight timeline.</p>
                             <details class="rec-more"><summary>read full</summary>
@@ -377,6 +378,11 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <h3>Multi-tenant CRM in Laravel</h3>
                         <p class="case-result mono">PHPStan 1,770 → 0 · 2,100+ tests · 197 PRs</p>
                         <p>In a production CRM shared with other devs, with everything going through pull requests (197 of them mine), I took PHPStan/Larastan from <b>1,770 errors to zero</b>, wrote 94% of the test files, fixed a cross-tenant IDOR vulnerability and upgraded the project to PHP 8.4 / Laravel 13.</p>
+                        <details class="receipt"><summary>see problem, decision and trade-off</summary>
+                            <p><b>Problem:</b> a multi-tenant CRM in production, with other devs working on it at the same time and no static analysis. When I added Larastan (level 5), 1,770 errors showed up; and one route let one company’s admin edit another company’s employees.</p>
+                            <p><b>Decision:</b> start with a baseline so the team wasn’t blocked and clear it gradually, in small PRs with tests; every employee lookup is now scoped to the caller’s company, with a 404 for outside IDs and a regression test per route.</p>
+                            <p><b>Trade-off:</b> a baseline means living with known errors for a while, in exchange for not stopping delivery.</p>
+                        </details>
                         <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Pest</li><li>Vue 3</li></ul>
                     </article>
 
@@ -408,31 +414,31 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Evig · Open Finance · credit · contributor</p>
                         <h3>AI agents for finance and credit</h3>
                         <p class="case-claim">the back-end does the math, not the model</p>
-                        <p>On a team building agents on top of Brazil’s Open Finance (open banking), my part was: connecting, refreshing and removing banks with confirmation; the smart-budget agent, with deterministic setup and confirmation of every edit; financial grounding in the prompt; and, in the supervisor, the credit soft-lock and each agent’s boundaries. The router above is that supervisor, picking which agent handles each message.</p>
+                        <p>On a team building agents on top of Brazil’s Open Finance (open banking), my part was: connecting, refreshing and removing banks with confirmation; the smart-budget agent, with deterministic setup and confirmation of every edit; financial grounding in the prompt; LangGraph threads scoped per session; and, in the supervisor, the credit soft-lock and each agent’s boundaries. The router above is that supervisor, picking which agent handles each message.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Open Finance</li></ul>
                     </article>
 
                     <article class="case" data-tags="ia python seg" data-reveal>
                         <p class="case-meta mono">Evig · platform copilot · 98% of commits</p>
                         <h3>Multi-tenant RAG copilot</h3>
-                        <p class="case-claim">company and user always taken from the JWT</p>
-                        <p>A FastAPI service with conversation memory and RAG over uploaded files: admin documents apply to the whole company, each user’s documents stay private, and a <code translate="no">tenant_id</code> in the request body is only used to reject cross-tenant access.</p>
+                        <p class="case-result mono">740 tests · 15 architecture · 23 behavior</p>
+                        <p>A FastAPI service with conversation memory and RAG over uploaded files: admin documents apply to the whole company, each user’s documents stay private, and a <code translate="no">tenant_id</code> in the request body is only used to reject cross-tenant access, with a test for it. Architecture contracts in import-linter and mypy in CI.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>RAG</li><li>PostgreSQL</li></ul>
                     </article>
 
                     <article class="case" data-tags="php" data-reveal data-delay="60">
                         <p class="case-meta mono">Accusense · freelance project · 68% of commits</p>
                         <h3>News extraction API</h3>
-                        <p class="case-result mono">−99% collection cost · ~R$&nbsp;107k/year (estimate)</p>
-                        <p>I built a generic 5-layer extraction engine from scratch in Laravel 12 and MongoDB (no per-site selectors), with feed discovery, deduplication, a queue pipeline and retries with backoff. It replaced the manual collection done by 3 operators (about R$&nbsp;3k a month each), who moved to other roles, and costs ~US$&nbsp;15/month to run on AWS. 120+ tests on the engine.</p>
+                        <p class="case-result mono">−99% collection cost · ~US$&nbsp;21k/year (R$&nbsp;107k, estimate)</p>
+                        <p>I built a generic 5-layer extraction engine from scratch in Laravel 12 and MongoDB (no per-site selectors), with feed discovery, deduplication, a queue pipeline and retries with backoff. It replaced the manual collection done by 3 operators (about R$&nbsp;3k, ~US$&nbsp;600, a month each), who moved to other roles, and costs ~US$&nbsp;15/month to run on AWS. 120+ tests on the engine.</p>
                         <ul class="case-stack mono" translate="no"><li>Laravel 12</li><li>MongoDB</li><li>Queues</li><li>PHPUnit</li></ul>
                     </article>
 
-                    <article class="case" data-tags="node php" data-reveal>
+                    <article class="case" id="caso-cobranca" data-tags="node php" data-reveal>
                         <p class="case-meta mono">Digital LZ · WhatsApp debt collection</p>
                         <h3>Debt-collection bots and self-service settlement portal</h3>
-                        <p class="case-result mono">8 operators freed · ~R$&nbsp;240k/year (estimate)</p>
-                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp.</p>
+                        <p class="case-result mono">8 operators freed · ~US$&nbsp;48k/year (R$&nbsp;240k, estimate)</p>
+                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k, ~US$&nbsp;500, a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp.</p>
                         <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker API</li></ul>
                     </article>
                 </div>
@@ -440,7 +446,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <div class="incidents" id="problemas">
                     <header class="inc-head" data-reveal>
                         <h3>Problems I fixed <span class="mono">11</span></h3>
-                        <p>Bugs, incidents and security flaws I diagnosed and fixed. Click to see symptom, root cause and fix; each one is backed by one of my commits.</p>
+                        <p>Bugs, incidents and security flaws I diagnosed and fixed. Open one to see the symptom, root cause and fix; each one is backed by one of my commits.</p>
                     </header>
                     <div class="inc-list">
                     <details class="inc" data-tags="php infra">
@@ -492,7 +498,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <details class="inc" data-tags="go seg">
                         <summary><span class="inc-meta mono">Evig · Sep 2026</span> <span class="inc-title">Login by CPF could cross companies</span> <span class="inc-fix mono">tenant-scoped lookup</span></summary>
                         <dl class="inc-body">
-                            <div><dt class="mono">symptom</dt><dd>An identity found in another company could open a session or consume an invite.</dd></div>
+                            <div><dt class="mono">symptom</dt><dd>An identity found in another company could open a session or redeem an invite.</dd></div>
                             <div><dt class="mono">root cause</dt><dd>The per-turn identity lookup did not respect the directory’s tenant.</dd></div>
                             <div><dt class="mono">fix</dt><dd>Every lookup respects the tenant; a mismatch becomes “not found” and feeds a metric, an ambiguous invite gets 409, all behind a feature flag.</dd></div>
                         </dl>
@@ -535,7 +541,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <ul class="case-stack mono" translate="no"><li>Go</li><li>PostgreSQL</li><li>SMTP</li></ul>
                     </details>
                     <details class="inc" data-tags="node">
-                        <summary><span class="inc-meta mono">Digital LZ · Nov 2025</span> <span class="inc-title">Memory leak in QR Code login</span> <span class="inc-fix mono">single finalize + global timeout</span></summary>
+                        <summary><span class="inc-meta mono">Digital LZ · Nov 2025</span> <span class="inc-title">Memory leak in QR code login</span> <span class="inc-fix mono">single finalize + global timeout</span></summary>
                         <dl class="inc-body">
                             <div><dt class="mono">symptom</dt><dd>Every WhatsApp reconnect left timers and listeners alive, and memory kept growing.</dd></div>
                             <div><dt class="mono">root cause</dt><dd>The QR flow didn’t clear <code>setInterval</code> or listeners and had no overall timeout.</dd></div>
@@ -577,7 +583,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <div class="repo-body">
                             <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>16</b></span></p>
                             <h3>GameSir Cyclone 2</h3>
-                            <p>4 profiles, hair trigger, gyro as mouse, macros, a lighting editor with animations of up to 8 frames and auto-save verified in ~0.4&nbsp;s.</p>
+                            <p>4 profiles, hair trigger, gyro-to-mouse, macros, a lighting editor with animations of up to 8 frames and auto-save verified in ~0.4&nbsp;s.</p>
                             <a class="link" href="https://github.com/MiguelSanzBr/gamesir-cyclone2-linux" target="_blank" rel="noopener">see on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
                         </div>
                     </article>
@@ -595,7 +601,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <div class="flatpak" data-reveal>
                     <p class="mono flatpak-k">install from the signed Flatpak repository</p>
                     <div class="cmd">
-                        <code id="flatpak-cmd" translate="no" tabindex="0">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
+                        <code id="flatpak-cmd" translate="no" tabindex="0" role="region" aria-label="Flatpak command">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
                         <button type="button" class="copy" data-copy="#flatpak-cmd">copy command</button>
                     </div>
                 </div>

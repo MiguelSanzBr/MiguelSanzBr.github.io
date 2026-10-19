@@ -24,6 +24,7 @@
     <meta property="og:site_name" content="Miguel Sanz">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
     <script>
@@ -40,8 +41,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20261019c">
-    <script src="main.js?v=20261019c" defer></script>
+    <link rel="stylesheet" href="style.css?v=20261019d">
+    <script src="main.js?v=20261019d" defer></script>
 
     <script type="application/ld+json">
     {
@@ -124,7 +125,7 @@
                     <p class="hero-sub" data-in style="--d:160ms">
                         PHP/Laravel, Go e Python/FastAPI, com IA aplicada: CRM multi-tenant, gateway de mensageria, plataforma de APIs,
                         agentes com LangGraph e migração de produção para a AWS.
-                        Em empresas desde 2024 e em projetos freelance desde 2023; o último emprego foi numa fintech de IA conversacional.
+                        2 anos e 8 meses em empresas (fev/2024 a out/2026) e freelance desde 2023; o último emprego foi numa fintech de IA conversacional.
                     </p>
                     <div class="hero-cta" data-in style="--d:240ms">
                         <a class="btn btn-solid" href="#casos">Ver casos <span aria-hidden="true">↓</span></a>
@@ -158,7 +159,7 @@
             <div class="shell">
                 <header class="section-head" data-reveal>
                     <h2 id="numeros-title">O que eu entreguei, <em>com a fonte.</em></h2>
-                    <p class="lead">Números de teste de carga, CI, eval e GitHub. Cada um leva ao caso de onde saiu.</p>
+                    <p class="lead">Números de teste de carga, CI, eval e de negócio. Cada um leva ao caso de onde saiu; as estimativas mostram a conta.</p>
                 </header>
 
                 <div class="metrics">
@@ -167,7 +168,7 @@
                         <p class="metric-label">no gateway em Go, por 10&nbsp;min, com <b>0% de falhas</b> (API da Meta simulada); 9.901/9.901 entregues na execução completa</p>
                         <p class="metric-foot mono"><span>fonte: k6</span><a href="#caso-gateway" aria-label="ver caso: gateway em Go">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
-<pre translate="no" tabindex="0">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
+<pre translate="no" tabindex="0" role="region" aria-label="saída do k6">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
 checks_failed......: 0.00%   0 out of 49505
 e2e_first_ms...................: avg=920.04ms min=827ms    med=877ms   max=5.37s p(90)=968ms    p(95)=1.04s
 http_req_failed................: <b>0.00%</b>  0 out of 49505
@@ -180,7 +181,7 @@ inbound_message................: <b>9901</b>   14.97598/s</pre>
                         <p class="metric-label">erros de PHPStan/Larastan zerados no CRM multi-tenant em Laravel</p>
                         <p class="metric-foot mono"><span>fonte: CI</span><a href="#caso-crm" aria-label="ver caso: CRM em Laravel">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
-<pre translate="no" tabindex="0">$ git show fbbf7bea:phpstan-baseline.neon | grep -c 'message:'
+<pre translate="no" tabindex="0" role="region" aria-label="baseline do Larastan">$ git show fbbf7bea:phpstan-baseline.neon | grep -c 'message:'
 <b>1770</b>
 $ grep -c 'message:' phpstan-baseline.neon
 <b>0</b></pre>
@@ -192,16 +193,16 @@ $ grep -c 'message:' phpstan-baseline.neon
                         <p class="metric-label">de 25% a 40% menos latência no roteador de IA ao baixar o nível de raciocínio, mantendo <b>120/120</b> no eval (6 casos × 20 execuções)</p>
                         <p class="metric-foot mono"><span>fonte: eval (acurácia) + commit (latência)</span><a href="#caso-roteador" aria-label="ver caso: roteador de IA">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
-<pre translate="no" tabindex="0">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
+<pre translate="no" tabindex="0" role="region" aria-label="mensagem do commit">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
 …
 Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.</pre>
                             <p>Trecho da mensagem do commit que mudou o roteador. O comentário no código do mesmo commit estima ~25%: não houve benchmark dedicado, por isso a faixa.</p>
                         </details>
                     </article>
                     <article class="metric" data-reveal data-delay="180">
-                        <p class="metric-val"><span id="stars-total">55</span><small>★ no GitHub</small></p>
-                        <p class="metric-label">em 3 apps open source para Linux, feitos por engenharia reversa de USB HID</p>
-                        <p class="metric-foot mono"><span>fonte: API do GitHub, ao vivo</span><a href="#open-source">ver apps →</a></p>
+                        <p class="metric-val">8<small>operadores liberados</small></p>
+                        <p class="metric-label">~100 robôs de WhatsApp assumiram o disparo de cobrança feito à mão: cerca de <b>R$&nbsp;240 mil/ano</b> em trabalho manual (estimativa: 8 × ~R$&nbsp;2,5 mil/mês)</p>
+                        <p class="metric-foot mono"><span>fonte: conta mostrada</span><a href="#caso-cobranca" aria-label="ver caso: robôs de cobrança">ver caso →</a></p>
                     </article>
                 </div>
                 <dl class="terms" data-reveal>
@@ -310,7 +311,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                                 <small>Engenheiro de Software · back-end Java e IA</small>
                             </span>
                         </figcaption>
-                        <p class="rec-rel mono">trabalhou comigo no mesmo time na Evig · out 2026</p>
+                        <p class="rec-rel mono">foi meu colega de time na Evig · out 2026</p>
                         <blockquote class="rec-text">
                             <p>Recomendo o Miguel Sanz Boragan como Engenheiro de Software Back-end. Na Evig, ele foi responsável pela migração completa da nossa infraestrutura do GCP para a AWS, conduzindo o projeto de forma autônoma, do planejamento à execução, e concluindo-o em prazo reduzido.</p>
                             <details class="rec-more"><summary>ler completa</summary>
@@ -377,6 +378,11 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <h3>CRM multi-tenant em Laravel</h3>
                         <p class="case-result mono">PHPStan 1.770 → 0 · 2.100+ testes · 197 PRs</p>
                         <p>Num CRM em produção com outros devs, com tudo passando por pull request (197 meus), levei o PHPStan/Larastan de <b>1.770 erros a zero</b>, criei 94% dos arquivos de teste, corrigi uma falha de IDOR entre empresas e atualizei o projeto para PHP 8.4 / Laravel 13.</p>
+                        <details class="receipt"><summary>ver problema, decisão e trade-off</summary>
+                            <p><b>Problema:</b> CRM multi-tenant em produção, com outros devs mexendo ao mesmo tempo e sem análise estática. Quando adicionei o Larastan (nível 5), apareceram 1.770 erros; e uma rota deixava o admin de uma empresa editar funcionários de outra.</p>
+                            <p><b>Decisão:</b> entrar com baseline para não travar o time e zerar aos poucos, em PRs pequenos com teste junto; toda busca de funcionário passou a ser escopada pela empresa de quem chama, com 404 para ID de fora e teste de regressão por rota.</p>
+                            <p><b>Trade-off:</b> o baseline significa conviver um tempo com erro conhecido, em troca de não parar as entregas.</p>
+                        </details>
                         <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Pest</li><li>Vue 3</li></ul>
                     </article>
 
@@ -408,15 +414,15 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Evig · Open Finance · crédito · contribuidor</p>
                         <h3>Agentes de IA para finanças e crédito</h3>
                         <p class="case-claim">a conta é do back-end, não do modelo</p>
-                        <p>Num time de agentes sobre Open Finance, minha parte foi: conectar, atualizar e remover bancos com confirmação; o agente de orçamento inteligente, com setup determinístico e confirmação de cada edição; grounding financeiro no prompt; e, no supervisor, o soft-lock de crédito e os limites de cada agente. O roteador acima é esse supervisor, que escolhe qual agente atende cada mensagem.</p>
+                        <p>Num time de agentes sobre Open Finance, minha parte foi: conectar, atualizar e remover bancos com confirmação; o agente de orçamento inteligente, com setup determinístico e confirmação de cada edição; grounding financeiro no prompt; threads do LangGraph isoladas por sessão; e, no supervisor, o soft-lock de crédito e os limites de cada agente. O roteador acima é esse supervisor, que escolhe qual agente atende cada mensagem.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Open Finance</li></ul>
                     </article>
 
                     <article class="case" data-tags="ia python seg" data-reveal>
                         <p class="case-meta mono">Evig · copiloto da plataforma · 98% dos commits</p>
                         <h3>Copiloto multi-tenant com RAG</h3>
-                        <p class="case-claim">empresa e usuário sempre vindos do JWT</p>
-                        <p>Serviço em FastAPI com memória de conversa e RAG sobre arquivos enviados: documentos do admin valem para a empresa toda, os de cada usuário ficam privados, e o <code translate="no">tenant_id</code> do corpo só serve para recusar acesso cruzado.</p>
+                        <p class="case-result mono">740 testes · 15 de arquitetura · 23 de comportamento</p>
+                        <p>Serviço em FastAPI com memória de conversa e RAG sobre arquivos enviados: documentos do admin valem para a empresa toda, os de cada usuário ficam privados, e o <code translate="no">tenant_id</code> do corpo só serve para recusar acesso cruzado, com teste para isso. Contratos de arquitetura no import-linter e mypy no CI.</p>
                         <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>RAG</li><li>PostgreSQL</li></ul>
                     </article>
 
@@ -428,7 +434,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <ul class="case-stack mono" translate="no"><li>Laravel 12</li><li>MongoDB</li><li>Queues</li><li>PHPUnit</li></ul>
                     </article>
 
-                    <article class="case" data-tags="node php" data-reveal>
+                    <article class="case" id="caso-cobranca" data-tags="node php" data-reveal>
                         <p class="case-meta mono">Digital LZ · cobrança via WhatsApp</p>
                         <h3>Robôs de cobrança e portal de autonegociação</h3>
                         <p class="case-result mono">8 operadores liberados · ~R$&nbsp;240 mil/ano (estimativa)</p>
@@ -595,7 +601,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 <div class="flatpak" data-reveal>
                     <p class="mono flatpak-k">instale pelo repositório Flatpak assinado</p>
                     <div class="cmd">
-                        <code id="flatpak-cmd" translate="no" tabindex="0">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
+                        <code id="flatpak-cmd" translate="no" tabindex="0" role="region" aria-label="comando Flatpak">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
                         <button type="button" class="copy" data-copy="#flatpak-cmd">copiar comando</button>
                     </div>
                 </div>
