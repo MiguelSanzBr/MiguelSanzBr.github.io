@@ -296,6 +296,10 @@ h2 em { font-style: normal; color: var(--amber); }
 .case .case-meta { font-size: .8rem; color: var(--amber); margin-bottom: 6px; }
 .case .case-result { font-size: .8rem; color: var(--text); padding: 6px 10px; border-left: 2px solid var(--cyan); background: var(--bg-2); border-radius: 0 6px 6px 0; width: fit-content; max-width: 100%; }
 .case header .case-result { margin-top: 10px; }
+/* frase de posição, não número medido: sem a barra ciano de "resultado" */
+.case .case-claim { font-size: .82rem; color: var(--faint); font-style: italic; }
+.chaos-group { display: contents; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .case .case-lede { color: var(--text); font-size: 1.05rem; margin-top: 6px; }
 .case-trade { padding: 14px 16px; border: 1px dashed var(--line-2); border-radius: 12px; }
 .case-trade p:last-child { color: var(--dim); max-width: 75ch; }
@@ -440,7 +444,9 @@ h2 em { font-style: normal; color: var(--amber); }
     body { font-size: 1rem; }
     .metrics, .repos { grid-template-columns: 1fr; }
     .hex-body { overflow-x: auto; }
-    #flow { height: 230px; }
+    #flow { height: 190px; }
+    .flow-card figcaption > span:last-child { display: none; }
+    .terms { grid-template-columns: 1fr; }
     .cmd { flex-direction: column; }
     .copy { padding: 10px 14px; }
     .btn { padding: 11px 15px; }

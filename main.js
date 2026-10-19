@@ -181,6 +181,7 @@
         hexPause.addEventListener("click", () => {
             hexPaused = !hexPaused;
             hexPause.textContent = hexPaused ? tr("continuar", "resume") : tr("pausar", "pause");
+            hexPause.setAttribute("aria-label", hexPause.textContent + tr(" dump HID", " HID dump"));
             if (hexPaused) hexStatus.textContent = tr("pausado", "paused");
             syncHex();
         });
@@ -222,7 +223,7 @@
 
     const parts = [];
     // presas = mensagens que estavam num worker quando ele caiu (ficam em `sending`, como no gateway real)
-    let lastStats = 0, delivered = 0, spawnAcc = 0, last = 0, flashes = [], stuck = 0, holdUntil = 0;
+    let lastStats = 0, spawnAcc = 0, last = 0, flashes = [], stuck = 0;
     // shortcut: API aplica backpressure com 120 msgs na tela, só para o canvas não crescer sem limite
     const spawn = () => {
         if (parts.length >= 120) return;
@@ -242,7 +243,7 @@
         if (c.roundRect) c.roundRect(n.x - w / 2, n.y - h / 2, w, h, 8); else c.rect(n.x - w / 2, n.y - h / 2, w, h);
         c.fill(); c.stroke();
         c.fillStyle = colors.text;
-        c.font = "600 11px 'JetBrains Mono', monospace";
+        c.font = "700 11px 'JetBrains Mono', monospace";  // 600 não é carregado
         c.textAlign = "center"; c.textBaseline = "middle";
         c.fillText(n.label, n.x, n.y + (n.sub ? -5 : 0));
         if (n.sub) { c.fillStyle = colors.faint; c.font = "9px 'JetBrains Mono', monospace"; c.fillText(n.sub, n.x, n.y + 8); }
@@ -322,7 +323,6 @@
                 if (p.stage === 4) {
                     // ack: a partícula sai do array (contagem visual)
                     parts.splice(i, 1);
-                    delivered++;
                     flashes.push({ x: nodes.wa.x, y: nodes.wa.y, r: 4, a: 0.7 });
                     continue;
                 }
@@ -342,16 +342,12 @@
         ctx.drawImage(over, 0, 0, W, H);
 
         if (!running) return;
-        // contador avança 11 por entrega visual para chegar a 9.901 numa janela curta
-        const shown = Math.min(TOTAL, delivered * 11);
+        // "entregues" fica no resultado real do teste (9.901): contar partículas seria inventar número
         // texto a 4 Hz: escrever no DOM a cada frame forçaria layout 60x/s
         if (now - lastStats > 250) {
             lastStats = now;
-            put(doneEl, fmt(shown));
             put(rateEl, live.length ? "900" : "0");
         }
-        if (shown >= TOTAL && !holdUntil) holdUntil = now + 2500;
-        if (holdUntil && now > holdUntil) { delivered = 0; holdUntil = 0; }
         raf = requestAnimationFrame(frame);
     };
 
@@ -375,9 +371,10 @@
     /* ---------- falha injetada: derrube um worker ---------- */
     const chaosEl = $("#flow-chaos");
     if (chaosEl) {
-        chaosEl.innerHTML = '<span class="chaos-label mono">' + tr("derrube um worker:", "take down a worker:") + '</span>' +
+        chaosEl.innerHTML = '<span class="chaos-label mono" id="chaos-label">' + tr("derrube um worker:", "take down a worker:") + '</span>' +
+            '<span role="group" aria-labelledby="chaos-label" class="chaos-group">' +
             dead.map((_, k) => `<button type="button" class="chaos-btn" aria-pressed="false" data-worker="${k}">worker ${k + 1}</button>`).join("") +
-            '<p class="chaos-log mono" aria-live="polite"></p>';
+            '</span><p class="chaos-log mono" aria-live="polite"></p>';
         const log = $(".chaos-log", chaosEl);
         const status = () => EN ? `stuck in sending: ${stuck} · duplicated: 0` : `presas em sending: ${stuck} · duplicadas: 0`;
         log.textContent = status();
@@ -399,8 +396,9 @@
     }
 
     readColors(); layout(); renderStatic();
-    // espera as fontes para o texto do canvas não piscar com a fonte de fallback
+    // espera as fontes e redesenha os nós: o primeiro renderStatic saiu com a fonte de fallback
     const boot = () => {
+        renderStatic();
         if (reduce) staticFrame();
         else new IntersectionObserver(([e]) => { flowVisible = e.isIntersecting; flowVisible ? start() : stop(); }, { threshold: 0.05 }).observe(canvas);
     };
@@ -410,6 +408,7 @@
     flowPause.addEventListener("click", () => {
         flowPaused = !flowPaused;
         flowPause.textContent = flowPaused ? tr("continuar", "resume") : tr("pausar", "pause");
+        flowPause.setAttribute("aria-label", flowPause.textContent + tr(" simulação do gateway", " gateway simulation"));
         flowPaused ? stop() : start();
     });
     document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
