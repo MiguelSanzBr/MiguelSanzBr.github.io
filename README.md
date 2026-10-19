@@ -4,7 +4,7 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 
 ## Destaques
 
-- **Gateway ao vivo**: canvas no hero que simula o gateway de mensageria (API → outbox `SKIP LOCKED` → workers → WhatsApp) com os números reais do teste de carga (900 msg/min, 9.901/9.901, p95 1,05 s). Dá para **derrubar um worker** e ver as mensagens voltarem ao outbox sem perda nem duplicação.
+- **Gateway ao vivo**: canvas no hero que simula o gateway de mensageria (API → outbox `SKIP LOCKED` → workers → WhatsApp) com os números reais do teste de carga (900 msg/min, 9.901/9.901, p95 1,05 s). Dá para **derrubar um worker**: as mensagens dele ficam presas em `sending`, sem reenvio automático, como no gateway real (não há reaper), e o resto segue sem duplicar.
 - **Números com recibo**: 4 métricas com fonte, link para o caso e evidência real (saída do k6, baseline do PHPStan, commit do roteador).
 - **Casos**: problema → decisão → resultado, com resumo numérico, filtro por stack e um registro de 11 problemas resolvidos (sintoma, causa raiz e correção).
 - **Trajetória** com regime de cada vínculo e stack resumida; **recomendações** do LinkedIn, sem edição.
@@ -20,7 +20,8 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 | `en/index.html` | Mesmo conteúdo em inglês (mesmos ids e `data-*`; ao mudar um, mude o outro) |
 | `style.css` | Design system (grafite + âmbar), layout e responsivo |
 | `main.js` | Tema, menu, reveals, contadores, filtros, estrelas do GitHub, dump HID e canvas do gateway |
-| `assets/` | Foto, currículo em PDF, screenshots dos apps, `og.png` (preview 1200×630) e `apple-touch-icon.png` |
+| `assets/` | Foto, currículo em PDF, screenshots dos apps, `og.png` / `og-en.png` (preview 1200×630) e `apple-touch-icon.png` |
+| `404.html`, `favicon.svg`, `robots.txt`, `sitemap.xml` | Página de erro, ícone e SEO |
 
 ## Rodar localmente
 
@@ -34,4 +35,4 @@ Abra http://127.0.0.1:8765.
 
 O repositório `MiguelSanzBr/MiguelSanzBr.github.io` publica a branch `main`: cada push atualiza https://miguelsanzbr.github.io/ em cerca de 1 minuto. O repositório `flatpak` continua em `/flatpak/`.
 
-Para atualizar o currículo, troque `assets/curriculo-miguel-sanz-boragan.pdf`.
+Para atualizar o currículo, troque `assets/curriculo-miguel-sanz-boragan.pdf` pelo `CV_Backend.pdf` mais recente do vault. As estrelas no HTML são o fallback sem JS: atualize junto.

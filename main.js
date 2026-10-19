@@ -33,7 +33,6 @@
     const mobileNav = $("#mobile-nav");
     const setMenu = (open) => {
         menuBtn.setAttribute("aria-expanded", String(open));
-        menuBtn.setAttribute("aria-label", open ? tr("Fechar menu", "Close menu") : tr("Abrir menu", "Open menu"));
         mobileNav.classList.toggle("is-open", open);
     };
     menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
@@ -44,6 +43,8 @@
 
     /* ---------- header + navegação ativa ---------- */
     const header = $("[data-header]");
+    // menu aberto ocupa meia tela: se o foco sai do header, o elemento focado ficaria escondido atrás dele
+    header.addEventListener("focusout", (e) => { if (!header.contains(e.relatedTarget)) setMenu(false); });
     const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -57,32 +58,16 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     navLinks.forEach((a) => { const s = $(a.getAttribute("href")); if (s) sectionObs.observe(s); });
 
-    /* ---------- reveal + contadores ---------- */
-    const countUp = (el) => {
-        const target = parseFloat(el.dataset.count);
-        const dec = parseInt(el.dataset.dec || "0", 10);
-        if (reduce) { el.textContent = fmt(target, dec); return; }
-        const dur = 1400;
-        const t0 = performance.now();
-        const step = (t) => {
-            const p = Math.min(1, (t - t0) / dur);
-            const eased = 1 - Math.pow(1 - p, 3);
-            el.textContent = fmt(target * eased, dec);
-            if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-    };
+    /* ---------- reveal ---------- */
+    // sem count-up: os números aparecem já com o valor real (o contador passava por valores falsos)
     const revealObs = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
             if (!e.isIntersecting) return;
             const el = e.target;
             setTimeout(() => el.classList.add("is-in"), parseInt(el.dataset.delay || "0", 10));
-            $$("[data-count]", el).forEach(countUp);
             revealObs.unobserve(el);
         });
     }, { threshold: 0.15 });
-    // o HTML traz os valores finais (sem JS / crawlers); com animação, zera antes do count-up
-    if (!reduce) $$("[data-count]").forEach((el) => { el.textContent = "0"; });
     $$("[data-reveal]").forEach((el) => revealObs.observe(el));
 
     /* ---------- toast ---------- */
@@ -130,11 +115,11 @@
     const repos = $$("[data-repo]");
     // cache de 1 h no navegador: a API sem token limita 60 req/h por IP (redes corporativas dividem IP)
     const cached = (repo) => {
-        try { const c = JSON.parse(sessionStorage.getItem("stars:" + repo)); if (c && Date.now() - c.t < 3600e3) return Promise.resolve(c.d); } catch (e) {}
+        try { const c = JSON.parse(localStorage.getItem("stars:" + repo)); if (c && Date.now() - c.t < 3600e3) return Promise.resolve(c.d); } catch (e) {}
         return fetch("https://api.github.com/repos/" + repo, { headers: { Accept: "application/vnd.github+json" } })
             .then((r) => (r.ok ? r.json() : null))
             // guarda também a falha (ex.: 403 de limite) para não repetir a chamada a cada recarga
-            .then((d) => { try { sessionStorage.setItem("stars:" + repo, JSON.stringify({ t: Date.now(), d: d && { stargazers_count: d.stargazers_count } })); } catch (e) {} return d; });
+            .then((d) => { try { localStorage.setItem("stars:" + repo, JSON.stringify({ t: Date.now(), d: d && { stargazers_count: d.stargazers_count } })); } catch (e) {} return d; });
     };
     Promise.all(repos.map((card) =>
         cached(card.dataset.repo)
@@ -196,7 +181,6 @@
         hexPause.addEventListener("click", () => {
             hexPaused = !hexPaused;
             hexPause.textContent = hexPaused ? tr("continuar", "resume") : tr("pausar", "pause");
-            hexPause.setAttribute("aria-pressed", String(hexPaused));
             if (hexPaused) hexStatus.textContent = tr("pausado", "paused");
             syncHex();
         });
@@ -208,7 +192,7 @@
     const doneEl = $("#flow-done");
     const rateEl = $("#flow-rate");
     const TOTAL = 9901;
-    const LEASE = 0.8; // s até o lease de um worker morto expirar
+    const STUCK = 1.6; // s que a mensagem presa fica visível no worker morto antes de sumir da cena
     let W = 0, H = 0, dpr = 1, colors = {};
     let nodes = {};
     const dead = [false, false, false];
@@ -237,13 +221,12 @@
     };
 
     const parts = [];
-    // spawned = acked + em voo sempre; "perdidas" é essa conta, não um texto fixo
-    let lastStats = 0, delivered = 0, spawnAcc = 0, last = 0, flashes = [], spawned = 0, acked = 0, releases = 0, holdUntil = 0;
+    // presas = mensagens que estavam num worker quando ele caiu (ficam em `sending`, como no gateway real)
+    let lastStats = 0, delivered = 0, spawnAcc = 0, last = 0, flashes = [], stuck = 0, holdUntil = 0;
     // shortcut: API aplica backpressure com 120 msgs na tela, só para o canvas não crescer sem limite
     const spawn = () => {
         if (parts.length >= 120) return;
         parts.push({ stage: 0, t: 0, w: -1, jitter: (Math.random() - 0.5) * 14, speed: 0.9 + Math.random() * 0.5 });
-        spawned++;
     };
     const liveWorkers = () => dead.flatMap((d, i) => (d ? [] : [i]));
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -255,7 +238,8 @@
         c.strokeStyle = accent || colors.line;
         c.lineWidth = 1.2;
         c.beginPath();
-        c.roundRect(n.x - w / 2, n.y - h / 2, w, h, 8);
+        // roundRect falta em Safari < 16 / Firefox < 112; sem ele a IIFE quebraria aqui
+        if (c.roundRect) c.roundRect(n.x - w / 2, n.y - h / 2, w, h, 8); else c.rect(n.x - w / 2, n.y - h / 2, w, h);
         c.fill(); c.stroke();
         c.fillStyle = colors.text;
         c.font = "600 11px 'JetBrains Mono', monospace";
@@ -314,11 +298,12 @@
 
         for (let i = parts.length - 1; i >= 0; i--) {
             const p = parts[i];
-            if (p.lease) {
-                // worker morreu com a mensagem: fica travada até o lease expirar e volta ao outbox
-                p.lease -= dt;
-                if (p.lease > 0) { dot(p.x, p.y, colors.bad, 0.9); continue; }
-                p.lease = 0; p.stage = 1; p.t = 0; p.w = -1;
+            if (p.stuck) {
+                // worker morreu com a mensagem: fica em `sending`, sem reenvio automático (não dá para saber se a Meta recebeu)
+                p.stuck -= dt;
+                if (p.stuck > 0) { dot(p.x, p.y, colors.bad, 0.9); continue; }
+                parts.splice(i, 1);
+                continue;
             }
             p.t += dt * p.speed * (p.stage === 1 ? 2.2 : 1.6);
             if (p.stage === 1 && p.t >= 1) {
@@ -335,9 +320,9 @@
             if (p.t >= 1) {
                 p.t = 0; p.stage++;
                 if (p.stage === 4) {
-                    // ack: a partícula sai do array aqui e só aqui → entrega exatamente uma vez
+                    // ack: a partícula sai do array (contagem visual)
                     parts.splice(i, 1);
-                    acked++; delivered++;
+                    delivered++;
                     flashes.push({ x: nodes.wa.x, y: nodes.wa.y, r: 4, a: 0.7 });
                     continue;
                 }
@@ -363,7 +348,7 @@
         if (now - lastStats > 250) {
             lastStats = now;
             put(doneEl, fmt(shown));
-            put(rateEl, fmt(Math.round(900 + Math.sin(now / 1300) * 14)));
+            put(rateEl, live.length ? "900" : "0");
         }
         if (shown >= TOTAL && !holdUntil) holdUntil = now + 2500;
         if (holdUntil && now > holdUntil) { delivered = 0; holdUntil = 0; }
@@ -381,7 +366,6 @@
             const stage = live.length ? i % 4 : i % 2;
             parts.push({ stage, t: Math.random(), w: stage >= 2 ? live[i % live.length] : -1, jitter: (Math.random() - .5) * 14, speed: 1 });
         }
-        spawned = parts.length; acked = 0;
         running = false; last = 0; frame(performance.now());
         put(doneEl, fmt(TOTAL)); put(rateEl, "900");
     };
@@ -395,8 +379,7 @@
             dead.map((_, k) => `<button type="button" class="chaos-btn" aria-pressed="false" data-worker="${k}">worker ${k + 1}</button>`).join("") +
             '<p class="chaos-log mono" aria-live="polite"></p>';
         const log = $(".chaos-log", chaosEl);
-        const status = () => EN ? `lost: ${spawned - acked - parts.length} · duplicated: 0 · re-lease: ${releases}`
-                : `perdidas: ${spawned - acked - parts.length} · duplicadas: 0 · re-lease: ${releases}`;
+        const status = () => EN ? `stuck in sending: ${stuck} · duplicated: 0` : `presas em sending: ${stuck} · duplicadas: 0`;
         log.textContent = status();
         $$(".chaos-btn", chaosEl).forEach((btn) => btn.addEventListener("click", () => {
             const k = +btn.dataset.worker;
@@ -404,11 +387,11 @@
             btn.setAttribute("aria-pressed", String(dead[k]));
             let ev = `worker ${k + 1} ${tr("voltou", "is back")}`;
             if (dead[k]) {
-                const held = parts.filter((p) => p.w === k && p.stage >= 2 && !p.lease);
-                held.forEach((p) => { p.lease = LEASE; });
-                releases += held.length;
-                ev = EN ? `worker ${k + 1} down → ${held.length} ${held.length === 1 ? "message" : "messages"} back to the outbox`
-                    : `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "mensagem voltou" : "mensagens voltaram"} ao outbox`;
+                const held = parts.filter((p) => p.w === k && p.stage >= 2 && !p.stuck);
+                held.forEach((p) => { p.stuck = STUCK; });
+                stuck += held.length;
+                ev = EN ? `worker ${k + 1} down → ${held.length} stuck in sending, not resent automatically (to avoid duplicates); the rest keep flowing`
+                    : `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "presa" : "presas"} em sending, sem reenvio automático (para não duplicar); o resto segue`;
             }
             renderStatic(); redraw();
             log.textContent = ev + " · " + status();
@@ -427,12 +410,15 @@
     flowPause.addEventListener("click", () => {
         flowPaused = !flowPaused;
         flowPause.textContent = flowPaused ? tr("continuar", "resume") : tr("pausar", "pause");
-        flowPause.setAttribute("aria-pressed", String(flowPaused));
         flowPaused ? stop() : start();
     });
     document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-    let resizeRaf = 0;
-    window.addEventListener("resize", () => { cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); renderStatic(); redraw(); }); });
+    let resizeRaf = 0, lastW = innerWidth;
+    window.addEventListener("resize", () => {
+        // no celular a barra de URL dispara resize só de altura: ignora
+        if (innerWidth === lastW) return;
+        lastW = innerWidth;
+        cancelAnimationFrame(resizeRaf); resizeRaf = requestAnimationFrame(() => { layout(); renderStatic(); redraw(); }); });
     window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { syncTheme(); document.dispatchEvent(new Event("themechange")); });
     document.addEventListener("themechange", () => { readColors(); renderStatic(); redraw(); });
 })();

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://miguelsanzbr.github.io/sitemap.xml
