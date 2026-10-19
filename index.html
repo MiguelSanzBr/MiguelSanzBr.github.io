@@ -144,7 +144,7 @@
                     </div>
                     <canvas id="flow" aria-hidden="true"></canvas>
                     <dl class="flow-stats">
-                        <div><dt>entregues</dt><dd><span id="flow-done">9.901</span> / <span id="flow-total">9.901</span></dd></div>
+                        <div><dt>duração</dt><dd>10&nbsp;min</dd></div>
                         <div><dt>taxa</dt><dd><span id="flow-rate">900</span> msg/min</dd></div>
                         <div><dt>falhas</dt><dd class="ok">0%</dd></div>
                         <div><dt>p95</dt><dd>1,05&nbsp;s</dd></div>
@@ -166,7 +166,7 @@
                 <div class="metrics">
                     <article class="metric" data-reveal>
                         <p class="metric-val">900<small>msg/min</small></p>
-                        <p class="metric-label">no gateway em Go, por 10&nbsp;min, com <b>0% de falhas</b> (API da Meta simulada); 9.901/9.901 entregues na execução completa</p>
+                        <p class="metric-label">no gateway em Go, por 10&nbsp;min, com <b>0% de falhas</b> (API da Meta simulada)</p>
                         <p class="metric-foot mono"><span>fonte: k6</span><a href="#caso-gateway" aria-label="ver caso: gateway em Go">ver caso →</a></p>
                         <details class="receipt"><summary>ver evidência</summary>
 <pre translate="no" tabindex="0" role="region" aria-label="saída do k6">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
@@ -351,7 +351,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             <p class="case-meta mono">Evig · desenhei e construí do zero (69% dos commits)</p>
                             <h3>Gateway de mensageria WhatsApp em Go</h3>
                             <p class="case-lede">Mensagens de clientes no WhatsApp não podiam se perder, duplicar nem chegar fora de ordem.</p>
-                            <p class="case-result mono">900&nbsp;msg/min · 0% falhas · p95 1,05&nbsp;s · 9.901/9.901</p>
+                            <p class="case-result mono">900&nbsp;msg/min · 0% falhas · p95 1,05&nbsp;s</p>
                         </header>
                         <div class="case-cols">
                             <div>
@@ -437,7 +437,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Accusense · projeto freelance · 63% dos commits</p>
                         <h3>API de extração de notícias</h3>
                         <p class="case-result mono">−99% no custo da coleta · ~R$&nbsp;107 mil/ano (estimativa)</p>
-                        <p>Criei do zero, em Laravel 12 e MongoDB, um motor de extração genérico em 5 camadas (sem seletor por site), com descoberta de feeds, deduplicação, pipeline em filas e retry com backoff. Substituiu a coleta manual de 3 operadores (cerca de R$&nbsp;3 mil por mês cada), realocados para outras funções, e roda por ~US$&nbsp;15/mês na AWS. 120+ testes no motor.</p>
+                        <p>Criei do zero, em Laravel 12 e MongoDB, um motor de extração genérico em 5 camadas (sem seletor por site), com descoberta de feeds, deduplicação, pipeline em filas e retry com backoff. Substituiu a coleta manual de 3 operadores (cerca de R$&nbsp;3 mil por mês cada), realocados para outras funções, e roda por ~US$&nbsp;15/mês na AWS; já coletou ~25 mil notícias de 300+ sites. 120+ testes no motor.</p>
                         <ul class="case-stack mono" translate="no"><li>Laravel 12</li><li>MongoDB</li><li>Queues</li><li>PHPUnit</li></ul>
                     </article>
 
@@ -445,8 +445,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Digital LZ · cobrança via WhatsApp</p>
                         <h3>Robôs de cobrança e portal de autonegociação</h3>
                         <p class="case-result mono">8 operadores liberados · ~R$&nbsp;240 mil/ano (estimativa)</p>
-                        <p>Cerca de 100 robôs em Node/TS + Prisma sobre SQL Server, enviando até 20 mil mensagens por dia, assumiram o disparo que 8 operadores (~R$&nbsp;2,5 mil por mês cada) faziam à mão; eles foram para outras funções. Retry com backoff, janela de horário comercial e controle de taxa; painel que controla os containers pela API do Docker; portal de autonegociação em Laravel com login por CPF e verificação em duas etapas via WhatsApp, que fecha ~100 acordos por mês sem operador.</p>
-                        <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker API</li></ul>
+                        <p>Cerca de 100 robôs em Node/TS + Prisma sobre SQL Server, enviando até 20 mil mensagens por dia, assumiram o disparo que 8 operadores (~R$&nbsp;2,5 mil por mês cada) faziam à mão; eles foram para outras funções. Retry com backoff, janela de horário comercial e controle de taxa; painel que liga e desliga os containers via SSH nos 2 servidores; portal de autonegociação em Laravel com login por CPF e verificação em duas etapas via WhatsApp, que fecha ~100 acordos por mês sem operador.</p>
+                        <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker</li></ul>
                     </article>
                 </div>
 

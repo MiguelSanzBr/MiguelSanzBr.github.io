@@ -9,7 +9,6 @@
     // en/index.html usa o mesmo script: textos gerados aqui seguem o lang da página
     const EN = root.lang.startsWith("en");
     const tr = (pt, en) => (EN ? en : pt);
-    const fmt = (n, dec = 0) => n.toLocaleString(tr("pt-BR", "en-US"), { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
     /* ---------- tema ---------- */
     const themeBtn = $("#theme-toggle");
@@ -196,9 +195,7 @@
     /* ---------- fluxo do gateway (canvas) ---------- */
     const canvas = $("#flow");
     const ctx = canvas.getContext("2d");
-    const doneEl = $("#flow-done");
     const rateEl = $("#flow-rate");
-    const TOTAL = 9901;
     const STUCK = 1.6; // s que a mensagem presa fica visível no worker morto antes de sumir da cena
     let W = 0, H = 0, dpr = 1, colors = {};
     let nodes = {};
@@ -348,7 +345,6 @@
         ctx.drawImage(over, 0, 0, W, H);
 
         if (!running) return;
-        // "entregues" fica no resultado real do teste (9.901): contar partículas seria inventar número
         // texto a 4 Hz: escrever no DOM a cada frame forçaria layout 60x/s
         if (now - lastStats > 250) {
             lastStats = now;
@@ -369,7 +365,7 @@
             parts.push({ stage, t: Math.random(), w: stage >= 2 ? live[i % live.length] : -1, jitter: (Math.random() - .5) * 14, speed: 1 });
         }
         running = false; last = 0; frame(performance.now());
-        put(doneEl, fmt(TOTAL)); put(rateEl, "900");
+        put(rateEl, "900");
     };
     // parado (pausa, fora da tela, reduce): redesenha uma vez sem avançar o tempo
     const redraw = () => { if (running) return; if (reduce) staticFrame(); else { last = 0; frame(performance.now()); } };

@@ -144,7 +144,7 @@
                     </div>
                     <canvas id="flow" aria-hidden="true"></canvas>
                     <dl class="flow-stats">
-                        <div><dt>delivered</dt><dd><span id="flow-done">9,901</span> / <span id="flow-total">9,901</span></dd></div>
+                        <div><dt>duration</dt><dd>10&nbsp;min</dd></div>
                         <div><dt>rate</dt><dd><span id="flow-rate">900</span> msg/min</dd></div>
                         <div><dt>failures</dt><dd class="ok">0%</dd></div>
                         <div><dt>p95</dt><dd>1.05&nbsp;s</dd></div>
@@ -166,7 +166,7 @@
                 <div class="metrics">
                     <article class="metric" data-reveal>
                         <p class="metric-val">900<small>msg/min</small></p>
-                        <p class="metric-label">on the Go gateway for 10&nbsp;min, with <b>0% failures</b> (mocked Meta API); 9,901/9,901 delivered over the full run</p>
+                        <p class="metric-label">on the Go gateway for 10&nbsp;min, with <b>0% failures</b> (mocked Meta API)</p>
                         <p class="metric-foot mono"><span>source: k6</span><a href="#caso-gateway" aria-label="see case: Go gateway">see case →</a></p>
                         <details class="receipt"><summary>see evidence</summary>
 <pre translate="no" tabindex="0" role="region" aria-label="k6 output">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
@@ -351,7 +351,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             <p class="case-meta mono">Evig · designed and built from scratch (69% of commits)</p>
                             <h3>WhatsApp messaging gateway in Go</h3>
                             <p class="case-lede">No customer message on WhatsApp could be lost, duplicated or delivered out of order.</p>
-                            <p class="case-result mono">900&nbsp;msg/min · 0% failures · p95 1.05&nbsp;s · 9,901/9,901</p>
+                            <p class="case-result mono">900&nbsp;msg/min · 0% failures · p95 1.05&nbsp;s</p>
                         </header>
                         <div class="case-cols">
                             <div>
@@ -437,7 +437,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Accusense · freelance project · 63% of commits</p>
                         <h3>News extraction API</h3>
                         <p class="case-result mono">−99% collection cost · ~US$&nbsp;21k/year (R$&nbsp;107k, estimate)</p>
-                        <p>I built a generic 5-layer extraction engine from scratch in Laravel 12 and MongoDB (no per-site selectors), with feed discovery, deduplication, a queue pipeline and retries with backoff. It replaced the manual collection done by 3 operators (about R$&nbsp;3k, ~US$&nbsp;600, a month each), who moved to other roles, and costs ~US$&nbsp;15/month to run on AWS. 120+ tests on the engine.</p>
+                        <p>I built a generic 5-layer extraction engine from scratch in Laravel 12 and MongoDB (no per-site selectors), with feed discovery, deduplication, a queue pipeline and retries with backoff. It replaced the manual collection done by 3 operators (about R$&nbsp;3k, ~US$&nbsp;600, a month each), who moved to other roles, and costs ~US$&nbsp;15/month to run on AWS, and it has collected ~25k articles from 300+ sites. 120+ tests on the engine.</p>
                         <ul class="case-stack mono" translate="no"><li>Laravel 12</li><li>MongoDB</li><li>Queues</li><li>PHPUnit</li></ul>
                     </article>
 
@@ -445,8 +445,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <p class="case-meta mono">Digital LZ · WhatsApp debt collection</p>
                         <h3>Debt-collection bots and self-service settlement portal</h3>
                         <p class="case-result mono">8 operators freed · ~US$&nbsp;48k/year (R$&nbsp;240k, estimate)</p>
-                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k, ~US$&nbsp;500, a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp, which closes ~100 settlements a month with no operator.</p>
-                        <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker API</li></ul>
+                        <p>About 100 Node/TS + Prisma bots on SQL Server, sending up to 20k messages a day, took over the message sending that 8 operators (~R$&nbsp;2.5k, ~US$&nbsp;500, a month each) used to do by hand; they moved to other roles. Retries with backoff, business-hours windows and rate control; a dashboard that starts and stops the containers over SSH on the 2 servers; a self-service debt-settlement portal in Laravel with login by CPF (taxpayer ID) and two-step verification over WhatsApp, which closes ~100 settlements a month with no operator.</p>
+                        <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker</li></ul>
                     </article>
                 </div>
 

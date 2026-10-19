@@ -4,7 +4,7 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 
 ## Destaques
 
-- **Gateway ao vivo**: canvas no hero que simula o gateway de mensageria (API → outbox `SKIP LOCKED` → workers → WhatsApp) com os números reais do teste de carga (900 msg/min, 9.901/9.901, p95 1,05 s). Dá para **derrubar um worker**: as mensagens dele ficam presas em `sending`, sem reenvio automático, como no gateway real (não há reaper), e o resto segue sem duplicar.
+- **Gateway ao vivo**: canvas no hero que simula o gateway de mensageria (API → outbox `SKIP LOCKED` → workers → WhatsApp) com os números reais do teste de carga (900 msg/min, 10 min, 0% de falhas, p95 1,05 s). Dá para **derrubar um worker**: as mensagens dele ficam presas em `sending`, sem reenvio automático, como no gateway real (não há reaper), e o resto segue sem duplicar.
 - **Números com recibo**: 4 métricas com fonte, link para o caso e evidência real (saída do k6, baseline do PHPStan, commit do roteador).
 - **Casos**: problema → decisão → resultado, com resumo numérico, filtro por stack e um registro de 11 problemas resolvidos (sintoma, causa raiz e correção).
 - **Trajetória** com regime de cada vínculo e stack resumida; **recomendações** do LinkedIn, sem edição.
