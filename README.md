@@ -9,13 +9,15 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 - **Casos**: problema → decisão → resultado, com resumo numérico, filtro por stack e um registro de 11 problemas resolvidos (sintoma, causa raiz e correção).
 - **Trajetória** com regime de cada vínculo e stack resumida; **recomendações** do LinkedIn, sem edição.
 - **Open source**: os três configuradores Linux, estrelas lidas ao vivo da API do GitHub e um dump `/dev/hidraw` animado.
+- Português e inglês (`/en/`), com botão PT/EN no topo e `hreflang`; textos gerados pelo JS seguem o `lang` da página.
 - Tema claro/escuro (respeita o sistema, contraste AA), responsivo, `prefers-reduced-motion`, animações pausadas fora da tela e card de preview (`assets/og.png`) para LinkedIn/WhatsApp.
 
 ## Estrutura
 
 | Arquivo | Função |
 | --- | --- |
-| `index.html` | Conteúdo |
+| `index.html` | Conteúdo em português |
+| `en/index.html` | Mesmo conteúdo em inglês (mesmos ids e `data-*`; ao mudar um, mude o outro) |
 | `style.css` | Design system (grafite + âmbar), layout e responsivo |
 | `main.js` | Tema, menu, reveals, contadores, filtros, estrelas do GitHub, dump HID e canvas do gateway |
 | `assets/` | Foto, currículo em PDF, screenshots dos apps, `og.png` (preview 1200×630) e `apple-touch-icon.png` |

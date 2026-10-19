@@ -6,7 +6,10 @@
     const $ = (s, el = document) => el.querySelector(s);
     const $$ = (s, el = document) => [...el.querySelectorAll(s)];
     const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
-    const fmt = (n, dec = 0) => n.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    // en/index.html usa o mesmo script: textos gerados aqui seguem o lang da página
+    const EN = root.lang.startsWith("en");
+    const tr = (pt, en) => (EN ? en : pt);
+    const fmt = (n, dec = 0) => n.toLocaleString(tr("pt-BR", "en-US"), { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
     /* ---------- tema ---------- */
     const themeBtn = $("#theme-toggle");
@@ -14,7 +17,7 @@
     // barra do navegador e rótulo do botão acompanham o tema escolhido, não só o do sistema
     const syncTheme = () => {
         if (root.hasAttribute("data-theme")) $$('meta[name="theme-color"]').forEach((m) => { m.content = css("--bg"); });
-        themeBtn.setAttribute("aria-label", themeNow() === "light" ? "Ativar tema escuro" : "Ativar tema claro");
+        themeBtn.setAttribute("aria-label", themeNow() === "light" ? tr("Ativar tema escuro", "Switch to dark theme") : tr("Ativar tema claro", "Switch to light theme"));
     };
     syncTheme();
     themeBtn.addEventListener("click", () => {
@@ -30,7 +33,7 @@
     const mobileNav = $("#mobile-nav");
     const setMenu = (open) => {
         menuBtn.setAttribute("aria-expanded", String(open));
-        menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+        menuBtn.setAttribute("aria-label", open ? tr("Fechar menu", "Close menu") : tr("Abrir menu", "Open menu"));
         mobileNav.classList.toggle("is-open", open);
     };
     menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
@@ -111,15 +114,16 @@
     chips.forEach((chip) => chip.addEventListener("click", () => {
         applyFilter(chip.dataset.filter, true);
         const n = $$(".case:not(.is-hidden)").length, k = $$(".inc:not(.is-hidden)").length;
-        say(`${n} ${n === 1 ? "caso" : "casos"} · ${k} ${k === 1 ? "problema" : "problemas"}`);
+        say(EN ? `${n} ${n === 1 ? "case" : "cases"} · ${k} ${k === 1 ? "problem" : "problems"}`
+            : `${n} ${n === 1 ? "caso" : "casos"} · ${k} ${k === 1 ? "problema" : "problemas"}`);
     }));
     applyFilter(new URLSearchParams(location.search).get("stack") || "all", false);
 
     /* ---------- copiar ---------- */
     $$("[data-copy], [data-copy-text]").forEach((btn) => btn.addEventListener("click", async () => {
         const text = btn.dataset.copyText || $(btn.dataset.copy).textContent.trim();
-        try { await navigator.clipboard.writeText(text); say("copiado ✓"); }
-        catch (e) { say("não deu para copiar — selecione o texto"); }
+        try { await navigator.clipboard.writeText(text); say(tr("copiado ✓", "copied ✓")); }
+        catch (e) { say(tr("não deu para copiar — selecione o texto", "couldn't copy — select the text")); }
     }));
 
     /* ---------- estrelas ao vivo (fallback = valores do HTML) ---------- */
@@ -147,15 +151,15 @@
     const hexStatus = $("#hex-status");
     const frames = [
         { note: "→ get_firmware()", bytes: [0x06, 0x81, 0x00, 0x00], hot: [1] },
-        { note: "← fw 1.10 · perfil 2", bytes: [0x06, 0x81, 0x01, 0x0a, 0x02], ack: true },
+        { note: tr("← fw 1.10 · perfil 2", "← fw 1.10 · profile 2"), bytes: [0x06, 0x81, 0x01, 0x0a, 0x02], ack: true },
         { note: "→ set_dpi(stage=2, 1600)", bytes: [0x08, 0x07, 0x00, 0x00, 0x2c, 0x10, 0x01, 0x40, 0x06], hot: [1, 5, 6] },
         { note: "← ack 0x00", bytes: [0x08, 0x07, 0x00], ack: true },
         { note: "→ remap(L4 → A)", bytes: [0x06, 0x83, 0x0e, 0x01, 0x00, 0x04], hot: [2, 5] },
-        { note: "← ack · verificado em 0,4 s", bytes: [0x06, 0x83, 0x00], ack: true },
+        { note: tr("← ack · verificado em 0,4 s", "← ack · verified in 0.4 s"), bytes: [0x06, 0x83, 0x00], ack: true },
         { note: "→ set_led(ring=1, #ffb547)", bytes: [0x06, 0x86, 0x01, 0xff, 0xb5, 0x47], hot: [3, 4, 5] },
         { note: "← ack 0x00", bytes: [0x06, 0x86, 0x00], ack: true },
         { note: "→ polling(1000 Hz)", bytes: [0x08, 0x01, 0x00, 0x00, 0x01, 0x01], hot: [5] },
-        { note: "← ack · bateria 87%", bytes: [0x08, 0x01, 0x00, 0x57], ack: true }
+        { note: tr("← ack · bateria 87%", "← ack · battery 87%"), bytes: [0x08, 0x01, 0x00, 0x57], ack: true }
     ];
     const hx = (n) => n.toString(16).padStart(2, "0");
     const line = (i, f) => {
@@ -175,10 +179,10 @@
         lines.push(line(hexI, f));
         if (lines.length > 5) lines.shift();
         hexEl.innerHTML = lines.join("\n");
-        hexStatus.textContent = f.ack ? "ack ✓" : "enviando…";
+        hexStatus.textContent = f.ack ? "ack ✓" : tr("enviando…", "sending…");
         hexI++;
     };
-    if (reduce) { for (let i = 0; i < 5; i++) tickHex(); hexStatus.textContent = "protocolo mapeado"; }
+    if (reduce) { for (let i = 0; i < 5; i++) tickHex(); hexStatus.textContent = tr("protocolo mapeado", "protocol mapped"); }
     const hexPause = $("#hex-pause");
     if (reduce) hexPause.hidden = true;
     else {
@@ -191,9 +195,9 @@
         new IntersectionObserver(([e]) => { hexVisible = e.isIntersecting; syncHex(); }).observe(hexEl);
         hexPause.addEventListener("click", () => {
             hexPaused = !hexPaused;
-            hexPause.textContent = hexPaused ? "continuar" : "pausar";
+            hexPause.textContent = hexPaused ? tr("continuar", "resume") : tr("pausar", "pause");
             hexPause.setAttribute("aria-pressed", String(hexPaused));
-            if (hexPaused) hexStatus.textContent = "pausado";
+            if (hexPaused) hexStatus.textContent = tr("pausado", "paused");
             syncHex();
         });
     }
@@ -387,22 +391,24 @@
     /* ---------- falha injetada: derrube um worker ---------- */
     const chaosEl = $("#flow-chaos");
     if (chaosEl) {
-        chaosEl.innerHTML = '<span class="chaos-label mono">derrube um worker:</span>' +
+        chaosEl.innerHTML = '<span class="chaos-label mono">' + tr("derrube um worker:", "take down a worker:") + '</span>' +
             dead.map((_, k) => `<button type="button" class="chaos-btn" aria-pressed="false" data-worker="${k}">worker ${k + 1}</button>`).join("") +
             '<p class="chaos-log mono" aria-live="polite"></p>';
         const log = $(".chaos-log", chaosEl);
-        const status = () => `perdidas: ${spawned - acked - parts.length} · duplicadas: 0 · re-lease: ${releases}`;
+        const status = () => EN ? `lost: ${spawned - acked - parts.length} · duplicated: 0 · re-lease: ${releases}`
+                : `perdidas: ${spawned - acked - parts.length} · duplicadas: 0 · re-lease: ${releases}`;
         log.textContent = status();
         $$(".chaos-btn", chaosEl).forEach((btn) => btn.addEventListener("click", () => {
             const k = +btn.dataset.worker;
             dead[k] = !dead[k];
             btn.setAttribute("aria-pressed", String(dead[k]));
-            let ev = `worker ${k + 1} voltou`;
+            let ev = `worker ${k + 1} ${tr("voltou", "is back")}`;
             if (dead[k]) {
                 const held = parts.filter((p) => p.w === k && p.stage >= 2 && !p.lease);
                 held.forEach((p) => { p.lease = LEASE; });
                 releases += held.length;
-                ev = `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "mensagem voltou" : "mensagens voltaram"} ao outbox`;
+                ev = EN ? `worker ${k + 1} down → ${held.length} ${held.length === 1 ? "message" : "messages"} back to the outbox`
+                    : `worker ${k + 1} caiu → ${held.length} ${held.length === 1 ? "mensagem voltou" : "mensagens voltaram"} ao outbox`;
             }
             renderStatic(); redraw();
             log.textContent = ev + " · " + status();
@@ -420,7 +426,7 @@
     if (reduce) flowPause.hidden = true;
     flowPause.addEventListener("click", () => {
         flowPaused = !flowPaused;
-        flowPause.textContent = flowPaused ? "continuar" : "pausar";
+        flowPause.textContent = flowPaused ? tr("continuar", "resume") : tr("pausar", "pause");
         flowPause.setAttribute("aria-pressed", String(flowPaused));
         flowPaused ? stop() : start();
     });

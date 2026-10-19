@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Sanz — Back-end Software Engineer</title>
+    <meta name="description" content="Back-end software engineer in São Paulo, Brazil. Go, Python, PHP/Laravel and applied AI: a gateway at 900 msg/min with 0% failures and open source Linux apps.">
+    <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+    <link rel="canonical" href="https://miguelsanzbr.github.io/en/">
+    <link rel="alternate" hreflang="pt-BR" href="https://miguelsanzbr.github.io/">
+    <link rel="alternate" hreflang="en" href="https://miguelsanzbr.github.io/en/">
+    <link rel="alternate" hreflang="x-default" href="https://miguelsanzbr.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://miguelsanzbr.github.io/en/">
+    <meta property="og:title" content="Miguel Sanz — Back-end Software Engineer">
+    <meta property="og:description" content="Go, Python, PHP/Laravel and applied AI. Back-end tested under load, with evidence for every number.">
+    <meta property="og:image" content="https://miguelsanzbr.github.io/assets/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Miguel Sanz — Back-end Software Engineer">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Cpath d='M14 44V20l10 14 10-14v24' fill='none' stroke='%23ffb547' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='40' r='5' fill='%2342e2c4'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            root.classList.add("js");
+            try {
+                var t = localStorage.getItem("ms-theme");
+                if (t === "light" || t === "dark") root.setAttribute("data-theme", t);
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../main.js" defer></script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Miguel Sanz Boragan",
+        "jobTitle": "Back-end Software Engineer",
+        "url": "https://miguelsanzbr.github.io/en/",
+        "image": "https://miguelsanzbr.github.io/assets/avatar.jpg",
+        "address": { "@type": "PostalAddress", "addressLocality": "São Paulo", "addressCountry": "BR" },
+        "email": "mailto:miguelsanzb.p@gmail.com",
+        "knowsAbout": ["Go", "Python", "FastAPI", "PHP", "Laravel", "PostgreSQL", "AWS", "LangGraph"],
+        "sameAs": ["https://www.linkedin.com/in/miguel-sanz-boragan/", "https://github.com/MiguelSanzBr"]
+    }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Skip to content</a>
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <header class="site-header" data-header>
+        <div class="shell header-row">
+            <a class="brand" href="#topo">
+                <span class="brand-mark" aria-hidden="true">ms<i>_</i></span>
+                <span class="brand-name" translate="no">Miguel Sanz</span>
+            </a>
+            <nav class="nav" aria-label="Main navigation">
+                <a href="#numeros" data-nav>Numbers</a>
+                <a href="#trajetoria" data-nav>Experience</a>
+                <a href="#recomendacoes" data-nav>Recommendations</a>
+                <a href="#casos" data-nav>Cases</a>
+                <a href="#open-source" data-nav>Open source</a>
+                <a href="#contato" data-nav>Contact</a>
+            </nav>
+            <div class="header-tools">
+                <span class="status" title="Open to new opportunities, can start immediately"><i aria-hidden="true"></i>available</span>
+                <a class="icon-btn lang-btn" href="../" hreflang="pt-BR" lang="pt-BR" aria-label="Ler em português">PT</a>
+                <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle light/dark theme">
+                    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path class="moon" d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"/>
+                        <path class="star" d="M17 3.2l.55 1.45L19 5.2l-1.45.55L17 7.2l-.55-1.45L15 5.2l1.45-.55z"/>
+                        <circle class="star star-2" cx="20.6" cy="9.4" r=".9"/>
+                    </svg>
+                    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle class="core" cx="12" cy="12" r="4.2"/>
+                        <path class="rays" d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.55 1.55M17.15 17.15l1.55 1.55M5.3 18.7l1.55-1.55M17.15 6.85l1.55-1.55"/>
+                    </svg>
+                </button>
+                <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+                    <span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Menu">
+            <a href="#numeros">Numbers</a>
+            <a href="#trajetoria">Experience</a>
+            <a href="#recomendacoes">Recommendations</a>
+            <a href="#casos">Cases</a>
+            <a href="#open-source">Open source</a>
+            <a href="#contato">Contact</a>
+        </nav>
+    </header>
+
+    <main id="conteudo" tabindex="-1">
+        <!-- ===================== HERO ===================== -->
+        <section class="hero" id="topo" aria-labelledby="hero-title">
+            <div class="shell hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-id" data-in>
+                        <img src="../assets/avatar.jpg" alt="Photo of Miguel Sanz Boragan" width="64" height="64" fetchpriority="high">
+                        <p>
+                            <strong translate="no">Miguel Sanz Boragan</strong>
+                            <span>Back-end software engineer · São Paulo or remote</span>
+                            <span class="avail"><i aria-hidden="true"></i>available · can start immediately</span>
+                        </p>
+                    </div>
+                    <h1 id="hero-title" data-in style="--d:80ms">
+                        Back-end tested <span class="hl">under load</span>, with evidence for every number.
+                    </h1>
+                    <p class="hero-sub" data-in style="--d:160ms">
+                        Go, Python/FastAPI and PHP/Laravel, with applied AI: a messaging gateway, an API platform,
+                        LangGraph agents and a production migration to AWS.
+                        In companies since 2024 and freelancing since 2023; my last job was at a conversational-AI fintech.
+                    </p>
+                    <div class="hero-cta" data-in style="--d:240ms">
+                        <a class="btn btn-solid" href="#casos">See cases <span aria-hidden="true">↓</span></a>
+                        <a class="btn btn-line" href="../assets/curriculo-miguel-sanz-boragan.pdf" download hreflang="pt-BR">Résumé (PDF, Portuguese) <span aria-hidden="true">↓</span></a>
+                    </div>
+                    <ul translate="no" class="hero-tags" data-in style="--d:320ms" aria-label="Main stack">
+                        <li>Go</li><li>Python · FastAPI</li><li>PHP · Laravel</li><li>Node · TS</li><li>PostgreSQL</li><li>AWS</li><li>LangGraph</li>
+                    </ul>
+                </div>
+
+                <figure class="flow-card" data-in style="--d:200ms" aria-label="Messaging gateway simulation">
+                    <div class="card-bar">
+                        <span class="mono" translate="no">gateway.go · outbox · workers</span>
+                        <button type="button" class="pause" id="flow-pause" aria-pressed="false">pause</button>
+                    </div>
+                    <canvas id="flow" aria-hidden="true"></canvas>
+                    <dl class="flow-stats">
+                        <div><dt>delivered</dt><dd><span id="flow-done">9,901</span> / <span id="flow-total">9,901</span></dd></div>
+                        <div><dt>rate</dt><dd><span id="flow-rate">900</span> msg/min</dd></div>
+                        <div><dt>failures</dt><dd class="ok">0%</dd></div>
+                        <div><dt>p95</dt><dd>1.05&nbsp;s</dd></div>
+                    </dl>
+                    <div class="flow-chaos" id="flow-chaos"></div>
+                    <figcaption class="mono"><span class="legend"><i></i>queued / in transit</span><span class="legend ok"><i></i>delivered</span><span>simulation using the real load-test numbers (900&nbsp;msg/min for 10&nbsp;min, with a mocked Meta API)</span></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ===================== NUMBERS ===================== -->
+        <section class="section section-numbers" id="numeros" aria-labelledby="numeros-title">
+            <div class="shell">
+                <header class="section-head" data-reveal>
+                    <h2 id="numeros-title">What I delivered, <em>measured.</em></h2>
+                    <p class="lead">Numbers from load tests, CI, evals and GitHub. Each one links to the case it came from.</p>
+                </header>
+
+                <div class="metrics">
+                    <article class="metric" data-reveal>
+                        <p class="metric-val"><span data-count="900">900</span><small>msg/min</small></p>
+                        <p class="metric-label">on the Go gateway for 10&nbsp;min, with <b>0% failures</b> and 9,901/9,901 delivered (mocked Meta API)</p>
+                        <p class="metric-foot mono"><span>source: k6</span><a href="#caso-gateway">see case →</a></p>
+                        <details class="receipt"><summary>see evidence</summary>
+<pre translate="no">checks_succeeded...: <b>100.00%</b> 49505 out of 49505
+checks_failed......: 0.00%   0 out of 49505
+e2e_first_ms...................: avg=920.04ms min=827ms    med=877ms   max=5.37s p(90)=968ms    p(95)=1.04s
+http_req_failed................: <b>0.00%</b>  0 out of 49505
+inbound_message................: <b>9901</b>   14.97598/s</pre>
+                            <p>k6 output for the full run (660&nbsp;s, including warm-up). Over the measured 600&nbsp;s window, p95 was 1,053&nbsp;ms.</p>
+                        </details>
+                    </article>
+                    <article class="metric" data-reveal data-delay="60">
+                        <p class="metric-val"><span data-count="1770" data-sep>1,770</span><small>→ 0</small></p>
+                        <p class="metric-label">PHPStan/Larastan errors cleared in the multi-tenant Laravel CRM</p>
+                        <p class="metric-foot mono"><span>source: CI</span><a href="#caso-crm">see case →</a></p>
+                        <details class="receipt"><summary>see evidence</summary>
+<pre translate="no">$ cat phpstan-baseline.neon
+parameters:
+	ignoreErrors:</pre>
+                            <p>Larastan baseline (level 5): 1,770 errors ignored in the commit that created it. Today, none.</p>
+                        </details>
+                    </article>
+                    <article class="metric" data-reveal data-delay="120">
+                        <p class="metric-val">−<span data-count="40">40</span><small>% p50</small></p>
+                        <p class="metric-label">about 40% lower latency on the AI router by lowering the reasoning level, <b>with no regression</b> in the eval (6 cases × 20 runs)</p>
+                        <p class="metric-foot mono"><span>source: eval</span><a href="#caso-roteador">see case →</a></p>
+                        <details class="receipt"><summary>see evidence</summary>
+<pre translate="no">corta reasoning tokens + latencia em TODO turno (<b>~-40% p50</b> vs high).
+…
+Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.</pre>
+                            <p>Excerpt from the commit message that changed the router (original, in Portuguese).</p>
+                        </details>
+                    </article>
+                    <article class="metric" data-reveal data-delay="180">
+                        <p class="metric-val"><span id="stars-total">51</span><small>★ on GitHub</small></p>
+                        <p class="metric-label">across 3 open source Linux apps, built by reverse engineering USB HID</p>
+                        <p class="metric-foot mono"><span>source: GitHub API, live</span><a href="#open-source">see apps →</a></p>
+                    </article>
+                </div>
+                <dl class="terms" data-reveal>
+                    <div><dt>start</dt><dd>immediately</dd></div>
+                    <div><dt>contract</dt><dd>CLT or PJ (Brazil)</dd></div>
+                    <div><dt>model</dt><dd>São Paulo hybrid or on-site, or remote</dd></div>
+                    <div><dt>looking for</dt><dd>mid-level back-end</dd></div>
+                    <div><dt>english</dt><dd>intermediate (fluent technical reading)</dd></div>
+                    <div><dt>education</dt><dd>Software Engineering, UNINTER (in progress)</dd></div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- ===================== EXPERIENCE ===================== -->
+        <section class="section" id="trajetoria" aria-labelledby="traj-title">
+            <div class="shell traj-grid">
+                <header class="section-head" data-reveal>
+                    <h2 id="traj-title">In companies since 2024, <em>freelancing since 2023.</em></h2>
+                    <p class="lead">From freelancing for small businesses to an AI fintech, by way of debt collection at scale and data extraction.</p>
+                    <div class="stack-mini">
+                        <p><span class="mono">main</span>Go · Python · FastAPI · PHP 8.4 · Laravel · Node.js · TypeScript · PostgreSQL · AWS · Docker · LangGraph</p>
+                        <p><span class="mono">quality</span>Pest · PHPUnit · pytest · Go test · PHPStan · mypy · golangci-lint · k6</p>
+                        <p><span class="mono">also used</span>MySQL · SQL Server · MongoDB · Redis · Vue 3 · Inertia · Java · Spring Boot · React Native</p>
+                    </div>
+                </header>
+
+                <ol class="timeline">
+                    <li data-reveal>
+                        <p class="when mono">jan 2026 – oct 2026</p>
+                        <h3>Back-end Software Engineer <span>· Evig</span></h3>
+                        <p>Back-end and infra for a conversational-AI fintech (Open Finance, WhatsApp and agents). I built the Go messaging gateway and the FastAPI API platform from scratch, was the top contributor to the Laravel CRM (48% of commits), led the production migration from GCP to AWS and worked on the finance and credit AI agents. The company shut down in oct/2026 after running out of cash.</p>
+                    </li>
+                    <li data-reveal data-delay="60">
+                        <p class="when mono">feb 2024 – jan 2026</p>
+                        <h3>Full Stack Engineer <span>· Digital LZ</span></h3>
+                        <p>Debt self-negotiation portal, monitoring Robot Portal and WhatsApp debt-collection bots in Node/TS.</p>
+                    </li>
+                    <li data-reveal data-delay="120">
+                        <p class="when mono">jan 2023 – jun 2026 · outside business hours</p>
+                        <h3>Freelance Developer <span>· self-employed</span></h3>
+                        <p>Accusense (feb–may 2026): news extraction API built from scratch in Laravel and MongoDB, with automatic feed collection and an AI support-ticket module. Digital LZ (feb–jun 2026): one-off fixes to the bots after I left. Before that: web automation with Puppeteer and a PostgreSQL queue, digital guest check-in in Vue 3 and PHP websites for small businesses.</p>
+                    </li>
+                    <li class="edu" data-reveal data-delay="180">
+                        <p class="when mono">education</p>
+                        <h3>Software Engineering <span>· UNINTER, in progress (2026–2029)</span></h3>
+                        <p>Systems Development technician at ETEC (2023–2025), focused on full stack and cybersecurity. Instituto PROA (2025), Linux Fundamentals (FIAP), Digital Safety and Security Awareness (Cisco) and 3rd place at FIAP's Java.Xpert Hackathon.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== RECOMMENDATIONS ===================== -->
+        <section class="section" id="recomendacoes" aria-labelledby="recs-title">
+            <div class="shell">
+                <header class="section-head" data-reveal>
+                    <h2 id="recs-title">People who worked with me <em>recommend me.</em></h2>
+                    <p class="lead">Recommendations received on LinkedIn, translated from Portuguese: from my direct manager and a teammate at Evig.</p>
+                </header>
+
+                <div class="recs">
+                    <figure class="rec" data-reveal>
+                        <figcaption class="rec-who">
+                            <img src="../assets/recs/rec-julio-barros.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/juliobarros8/" target="_blank" rel="noopener" translate="no">Julio Barros ↗</a>
+                                <small>Founder and CEO at Evig</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">was my direct manager · oct 2026</p>
+                        <blockquote class="rec-text">
+                            <p>I led Miguel at Evig and I can say without exaggeration: he's one of those people who raise the bar for the whole team. In a short time he took on very different fronts, from infra to AI, and nailed all of them.</p>
+                            <details class="rec-more"><summary>read full</summary>
+                                <p>He's the one who ran the migration of our production from GCP to AWS, built our observability from scratch and created the Go messaging gateway that carries our WhatsApp conversations, without failing even under the heaviest load tests. He also played a huge role in our AI solution: he made agent routing much faster without losing accuracy, and built the platform's RAG copilot.</p>
+                                <p>But what struck me most was the way he works. Miguel is truly meticulous (he tests everything, thinks about security, goes after the root cause of every problem) and still delivers fast. He's autonomous, takes ownership of what he builds and is a real pleasure to work with.</p>
+                                <p>I recommend Miguel without hesitation. Any back-end, infra or AI team will be lucky to have him around.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+
+                    <figure class="rec" data-reveal data-delay="60">
+                        <figcaption class="rec-who">
+                            <img src="../assets/recs/rec-humberto-fernandes.jpg" alt="" width="48" height="48" loading="lazy">
+                            <span>
+                                <a href="https://www.linkedin.com/in/humberto-fernandes-9a4599234/" target="_blank" rel="noopener" translate="no">Humberto Fernandes ↗</a>
+                                <small>Software Engineer · Java back-end and AI</small>
+                            </span>
+                        </figcaption>
+                        <p class="rec-rel mono">worked with me on the same team at Evig · oct 2026</p>
+                        <blockquote class="rec-text">
+                            <p>I recommend Miguel Sanz Boragan as a Back-end Software Engineer. At Evig, he was responsible for the complete migration of our infrastructure from GCP to AWS, running the project autonomously from planning to execution and finishing it on a tight timeline.</p>
+                            <details class="rec-more"><summary>read full</summary>
+                                <p>Technically, he stands out in software architecture, PostgreSQL, API development and integrations, with constant attention to system quality and reliability. On top of that he brings a sense of responsibility, clear communication and a willingness to collaborate with the team. He's a professional I recommend with complete confidence.</p>
+                            </details>
+                        </blockquote>
+                    </figure>
+                </div>
+
+                <p class="recs-src mono" data-reveal><a class="link" href="https://www.linkedin.com/in/miguel-sanz-boragan/details/recommendations/" target="_blank" rel="noopener">see the originals on LinkedIn ↗</a></p>
+            </div>
+        </section>
+
+        <!-- ===================== CASES ===================== -->
+        <section class="section" id="casos" aria-labelledby="casos-title">
+            <div class="shell">
+                <header class="section-head" data-reveal>
+                    <h2 id="casos-title">Problem, decision, <em>result.</em></h2>
+                    <p class="lead">Professional work in private repositories. I use AI agents day to day; I review, test and answer for every line. I can walk through the architecture and decisions in a technical interview.</p>
+                </header>
+
+                <div class="filters" role="group" aria-label="Filter cases by stack" data-reveal>
+                    <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" class="chip" data-filter="go" aria-pressed="false">Go</button>
+                    <button type="button" class="chip" data-filter="python" aria-pressed="false">Python</button>
+                    <button type="button" class="chip" data-filter="php" aria-pressed="false">PHP / Laravel</button>
+                    <button type="button" class="chip" data-filter="node" aria-pressed="false">Node / TS</button>
+                    <button type="button" class="chip" data-filter="ia" aria-pressed="false">AI</button>
+                    <button type="button" class="chip" data-filter="infra" aria-pressed="false">Infra</button>
+                    <button type="button" class="chip" data-filter="seg" aria-pressed="false">Security</button>
+                </div>
+
+                <div class="cases">
+                    <article class="case case-wide" id="caso-gateway" data-tags="go infra" data-reveal>
+                        <header>
+                            <p class="case-meta mono">Evig · team of 5 engineers · built from scratch (69% of commits)</p>
+                            <h3>WhatsApp messaging gateway in Go</h3>
+                            <p class="case-lede">Customer messages on WhatsApp could not be lost, duplicated or delivered out of order.</p>
+                            <p class="case-result mono">900&nbsp;msg/min · 0% failures · p95 1.05&nbsp;s · 9,901/9,901</p>
+                        </header>
+                        <div class="case-cols">
+                            <div>
+                                <p class="case-k mono">problem</p>
+                                <p>Messages from the CRM and the AI agents had to go out over WhatsApp without duplicates, without losses and in conversation order, even with retries, deploys and worker crashes along the way.</p>
+                            </div>
+                            <div>
+                                <p class="case-k mono">decision</p>
+                                <p>Ports &amp; adapters, a PostgreSQL outbox with <code translate="no">FOR UPDATE SKIP LOCKED</code>, 3-layer idempotency and per-conversation ordering. 100% coverage gate, gosec and govulncheck.</p>
+                            </div>
+                            <div>
+                                <p class="case-k mono">result</p>
+                                <p><b>900&nbsp;msg/min for 10&nbsp;min, 0% failures, p95 of 1.05&nbsp;s, 9,901/9,901 delivered</b> in the k6 load test with a mocked Meta API: it measures the gateway, not WhatsApp end to end. The simulation at the top of the page lets you take down a worker.</p>
+                            </div>
+                        </div>
+                        <div class="case-trade">
+                            <p class="case-k mono">trade-offs and limits</p>
+                            <p>Outbox in PostgreSQL itself, no broker at first and an interface to swap one in later: fewer moving parts to run, with the database as the bottleneck. In the test, the ceiling came from RDS CPU (70% gate at 20&nbsp;msg/s), well above the real production peak (41 messages in 5&nbsp;min). A reaper was left open: if a worker dies mid-send, the message only returns to the queue when its 5&nbsp;min lease expires, so it can be delayed up to 5&nbsp;min, but it is not lost. Meta's rate limit is still handled reactively.</p>
+                        </div>
+                        <ul class="case-stack mono" translate="no"><li>Go</li><li>PostgreSQL</li><li>Outbox</li><li>k6</li><li>Prometheus</li></ul>
+                    </article>
+
+                    <article class="case" id="caso-migracao" data-tags="infra seg" data-reveal>
+                        <p class="case-meta mono">Evig · infrastructure</p>
+                        <h3>Production migration from GCP to AWS</h3>
+                        <p class="case-result mono">2&nbsp;h soak · 5× spike · zero static keys in CI</p>
+                        <p>I led the move of the production database and instances to EC2 and RDS, from planning to execution: secrets in SSM via OIDC, observability with Prometheus and Grafana and k6 load tests before the cutover. The incidents that came later are in the log below.</p>
+                        <ul class="case-stack mono" translate="no"><li>AWS</li><li>OIDC</li><li>SSM</li><li>Grafana</li><li>k6</li></ul>
+                    </article>
+
+                    <article class="case" id="caso-crm" data-tags="php seg" data-reveal>
+                        <p class="case-meta mono">Evig · top contributor (48% of commits)</p>
+                        <h3>Multi-tenant CRM in Laravel</h3>
+                        <p class="case-result mono">PHPStan 1,770 → 0 · 2,100+ tests</p>
+                        <p>I took PHPStan/Larastan from <b>1,770 errors to zero</b>, created 94% of the test files, fixed a cross-company IDOR flaw and upgraded the project to PHP 8.4 / Laravel 13.</p>
+                        <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Pest</li><li>Vue 3</li></ul>
+                    </article>
+
+                    <article class="case" id="caso-roteador" data-tags="ia python" data-reveal data-delay="60">
+                        <p class="case-meta mono">Evig · AI agent supervisor</p>
+                        <h3>Faster AI router without losing accuracy</h3>
+                        <p class="case-result mono">p50 −40% · no eval regression</p>
+                        <p>I lowered the router's reasoning level from “high” to “low” (about 40% lower p50 latency) and recovered accuracy by tuning the prompt: 120/120 over 6 cases × 20 runs and 35/35 trap phrases.</p>
+                        <ul class="case-stack mono" translate="no"><li>Python</li><li>LLM</li><li>evals</li><li>prompting</li></ul>
+                    </article>
+
+                    <article class="case" data-tags="python" data-reveal>
+                        <p class="case-meta mono">Evig · API platform</p>
+                        <h3>Modular monolith in FastAPI</h3>
+                        <p class="case-result mono">100% branch coverage gate in CI</p>
+                        <p>One repository and one quality pipeline for two deployables isolated by import-linter contracts: independent packages and layers that only depend inward. OpenAPI contract locked in CI and connection pool cut from 20 to 8 per replica on the shared database.</p>
+                        <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>OpenAPI</li></ul>
+                    </article>
+
+                    <article class="case" data-tags="ia python seg" data-reveal data-delay="60">
+                        <p class="case-meta mono">Evig · Open Finance · credit</p>
+                        <h3>AI agents for finance and credit</h3>
+                        <p class="case-result mono">the back-end does the math, not the model</p>
+                        <p>Balance, statement, card and bill agents on top of Open Finance, with deterministically computed metrics; credit screening with decisions validated by the back-end, encrypted CPF (Fernet) and idempotent, audited actions.</p>
+                        <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Open Finance</li></ul>
+                    </article>
+
+                    <article class="case" data-tags="php ia" data-reveal>
+                        <p class="case-meta mono">Accusense · freelance project · 68% of commits</p>
+                        <h3>News extraction API + AI support tickets</h3>
+                        <p class="case-result mono">~25k articles · ~300 sites</p>
+                        <p>I built from scratch, in Laravel 12 and MongoDB, a generic 5-layer extraction engine (no per-site selectors), with feed discovery, deduplication and retry with backoff, plus a support-ticket chat using the Anthropic API. 120+ tests on the engine and 99 on the ticket module.</p>
+                        <ul class="case-stack mono" translate="no"><li>Laravel 12</li><li>MongoDB</li><li>Anthropic API</li><li>PHPUnit</li></ul>
+                    </article>
+
+                    <article class="case" data-tags="node php" data-reveal data-delay="60">
+                        <p class="case-meta mono">Digital LZ · WhatsApp debt collection</p>
+                        <h3>Collection bots and self-negotiation portal</h3>
+                        <p class="case-result mono">failures spotted in minutes, not hours</p>
+                        <p>Node/TS + Prisma bots on SQL Server, with retry and backoff, business-hours windows and rate control; a dashboard that controls the containers through the Docker API; a Laravel self-negotiation portal with CPF login and two-step verification over WhatsApp.</p>
+                        <ul class="case-stack mono" translate="no"><li>Node.js</li><li>TypeScript</li><li>Laravel</li><li>Docker API</li></ul>
+                    </article>
+                </div>
+
+                <div class="incidents" id="problemas">
+                    <header class="inc-head" data-reveal>
+                        <h3>Log of solved problems <span class="mono">11</span></h3>
+                        <p>Bugs, incidents and security flaws I diagnosed and fixed. Click to see symptom, root cause and fix; each one comes from a commit of mine.</p>
+                    </header>
+                    <div class="inc-list">
+                    <details class="inc" data-tags="php infra">
+                        <summary><span class="inc-meta mono">Evig · jun 2026</span><span class="inc-title">The same WhatsApp message arrived several times</span><span class="inc-fix mono">atomic lock in a shared cache</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>Users received the same message more than once in production, but the database showed no duplicate execution.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The anti-duplication lock used a file cache, and Cloud Run runs 1 to 100 instances, each with its own disk: each one only saw its own lock.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Atomic lock (<code>Cache::add</code>) in a shared PostgreSQL cache, a second content lock (sha256, 24&nbsp;h), no resend on timeout and removal of a legacy path that also sent messages.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Laravel</li><li>Cloud Run</li><li>PostgreSQL</li><li>WhatsApp</li></ul>
+                    </details>
+                    <details class="inc" data-tags="php">
+                        <summary><span class="inc-meta mono">Evig · sep 2026</span><span class="inc-title">News campaign sent twice</span><span class="inc-fix mono">retry_after above the job timeout</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>The same campaign reached the same user twice.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The queue's <code>retry_after</code> (90&nbsp;s) was shorter than the job's run time: another worker picked up the job while the first was still sending.</dd></div>
+                            <div><dt class="mono">fix</dt><dd><code>retry_after</code> of 900&nbsp;s, above the worker timeout, a per-user-and-campaign lock, a batch named after the campaign, 30/120/300&nbsp;s backoff and a metric for skipped duplicate sends.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Laravel Queues</li><li>Supervisor</li></ul>
+                    </details>
+                    <details class="inc" data-tags="php infra">
+                        <summary><span class="inc-meta mono">Evig · sep 2026</span><span class="inc-title">Deploys took the CRM down with <code>permission denied</code></span><span class="inc-fix mono">idempotent grants on deploy</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>After a deploy, the CRM returned 500 with <code>SQLSTATE[42501]</code>.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>Migrations ran under another role, which owned the new tables, and <code>ALTER DEFAULT PRIVILEGES</code> without <code>FOR ROLE</code> only covers objects of the role that ran the command.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>An idempotent command that grants DML only, right after <code>migrate</code>, default privileges for the migration role and a deploy that fails early on bad config. Documented in a runbook.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>PostgreSQL</li><li>Laravel</li><li>deploy</li></ul>
+                    </details>
+                    <details class="inc" data-tags="php seg">
+                        <summary><span class="inc-meta mono">Evig · sep 2026</span><span class="inc-title">One company's admin could edit another company's employees</span><span class="inc-fix mono">company scope on every lookup</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>Any admin who knew the id could change the email, CPF and phone of another company's employees, or delete them.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The update and destroy routes looked the employee up by id without checking the company (IDOR).</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Lookups always scoped to the caller's company, 404 for outside ids, a review of the bulk endpoints and regression tests for every path.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Laravel</li><li>multi-tenant</li><li>PHPUnit</li></ul>
+                    </details>
+                    <details class="inc" data-tags="go seg">
+                        <summary><span class="inc-meta mono">Evig · jun–jul 2026</span><span class="inc-title">Webhooks could be forged</span><span class="inc-fix mono">secret from the environment + constant-time comparison</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>The webhook signature used a secret hard-coded in the source, and the internal endpoint only checked that an authorization header was present.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>Placeholder values in the code, with no config validation at boot.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Secret from the environment (empty = reject), internal key compared with <code>crypto/subtle</code>, body capped at 1&nbsp;MiB, boot fails without secrets. Later: signed tokens with single-use nonces, events older than 5&nbsp;min dropped and rate limiting on public routes.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Go</li><li>HMAC</li><li>rate limit</li></ul>
+                    </details>
+                    <details class="inc-more" id="inc-more"><summary class="mono">see the other 6 problems</summary>
+                    <details class="inc" data-tags="go seg">
+                        <summary><span class="inc-meta mono">Evig · sep 2026</span><span class="inc-title">CPF login could cross companies</span><span class="inc-fix mono">tenant-scoped lookup</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>An identity found in another company could open a session or consume an invite.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The per-turn identity lookup did not respect the directory's tenant.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Every lookup respects the tenant; a mismatch becomes “not found” and feeds a metric, an ambiguous invite gets 409, all behind a feature flag.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Go</li><li>multi-tenant</li><li>Prometheus</li></ul>
+                    </details>
+                    <details class="inc" data-tags="go infra">
+                        <summary><span class="inc-meta mono">Evig · jul 2026</span><span class="inc-title">Production worker consumed the Dev queue</span><span class="inc-fix mono">worker role pinned per environment</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>Commands went unanswered and Dev events were processed with production credentials.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>Two machines shared the same database URL, so the production worker picked up Dev events.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Worker role pinned per environment, a verification runbook that never prints secrets and config validation that doesn't take down back-end-only workers.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Go</li><li>AWS</li><li>runbook</li></ul>
+                    </details>
+                    <details class="inc" data-tags="python">
+                        <summary><span class="inc-meta mono">Evig · jun 2026</span><span class="inc-title">Message marked as sent without reaching the user</span><span class="inc-fix mono">lease with reclaim in the outbox</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>If the instance died mid-send, every later attempt was skipped as a “duplicate”.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The idempotency record stayed <code>reserved</code> forever.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Lease-based reclaim with <code>ON CONFLICT DO UPDATE … WHERE</code>, success (200) only on a confirmed send and 409 so the caller retries.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li></ul>
+                    </details>
+                    <details class="inc" data-tags="ia python">
+                        <summary><span class="inc-meta mono">Evig · may–jun 2026</span><span class="inc-title">AI could make up numbers in financial answers</span><span class="inc-fix mono">number guard + deterministic fallback</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>The model could cite values that didn't exist and once showed internal keys to the user.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The LLM's answer went to the user without being checked against the data.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Every number must exist in the data snapshot, otherwise it falls back to a deterministic answer; a rule in the output contract, internal identifiers stripped and tests with made-up numbers.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>LLM</li><li>guardrails</li><li>Python</li></ul>
+                    </details>
+                    <details class="inc" data-tags="go">
+                        <summary><span class="inc-meta mono">Evig · aug 2026</span><span class="inc-title">100% test coverage, broken boot on real Postgres</span><span class="inc-fix mono">database contract test</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>The authentication service died at startup on a real PostgreSQL.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>A NULL value in the <code>roles</code> column violated a NOT NULL constraint; the tests covered the line, not the database contract.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>Bootstrap fix, a migration that merges users duplicated by email (window function) and an SMTP timeout without retry, so temporary passwords aren't sent twice.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>Go</li><li>PostgreSQL</li><li>SMTP</li></ul>
+                    </details>
+                    <details class="inc" data-tags="node">
+                        <summary><span class="inc-meta mono">Digital LZ · nov 2025</span><span class="inc-title">Memory leak in QR Code login</span><span class="inc-fix mono">single finalize + global timeout</span></summary>
+                        <dl class="inc-body">
+                            <div><dt class="mono">symptom</dt><dd>Every WhatsApp reconnect left timers and listeners alive, and memory kept growing.</dd></div>
+                            <div><dt class="mono">root cause</dt><dd>The QR flow didn't clear <code>setInterval</code> or listeners and had no overall timeout.</dd></div>
+                            <div><dt class="mono">fix</dt><dd>A single <code>finalize()</code> that removes listeners and timers, a 5&nbsp;min timeout and cleanup before every reconnect.</dd></div>
+                        </dl>
+                        <ul class="case-stack mono" translate="no"><li>TypeScript</li><li>Node.js</li><li>Baileys</li></ul>
+                    </details>
+                    </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== OPEN SOURCE ===================== -->
+        <section class="section" id="open-source" aria-labelledby="os-title">
+            <div class="shell">
+                <header class="section-head" data-reveal>
+                    <h2 id="os-title">The vendor only made it for Windows. <em>I made it for Linux.</em></h2>
+                    <p class="lead">USB HID protocol discovered by reverse engineering, talking straight to <code translate="no">/dev/hidraw</code>. CLI + GUI, .deb, Arch and AppImage packages and a signed Flatpak repository.</p>
+                </header>
+
+                <div class="hex" data-reveal>
+                    <div class="hex-head mono"><span translate="no">/dev/hidraw3</span><span id="hex-status">capturing…</span><button type="button" class="pause" id="hex-pause" aria-pressed="false">pause</button></div>
+                    <pre class="hex-body mono" id="hex" translate="no" role="img" aria-label="Sample HID reports sent and acknowledged by the device"></pre>
+                </div>
+
+                <div class="repos">
+                    <article class="repo" data-repo="MiguelSanzBr/8bitdo-ultimate2-linux" data-reveal>
+                        <img src="../assets/8bitdo-ultimate2-linux.webp" alt="u2gui interface: live view of the 8BitDo Ultimate 2 controller" loading="lazy" width="1280" height="845">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>30</b></span></p>
+                            <h3>8BitDo Ultimate 2</h3>
+                            <p>Replaces the official software: 3 profiles, remapping (incl. back buttons), gyro, triggers, LED rings and a live view. CLI <code translate="no">u2ctl</code> and GUI <code translate="no">u2gui</code>.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/8bitdo-ultimate2-linux" target="_blank" rel="noopener">see on GitHub ↗</a>
+                        </div>
+                    </article>
+                    <article class="repo" data-repo="MiguelSanzBr/gamesir-cyclone2-linux" data-reveal data-delay="80">
+                        <img src="../assets/gamesir-cyclone2-linux.webp" alt="c2gui interface for the GameSir Cyclone 2 controller" loading="lazy" width="1280" height="692">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>16</b></span></p>
+                            <h3>GameSir Cyclone 2</h3>
+                            <p>4 profiles, hair trigger, gyro as mouse, macros, a lighting editor with animations of up to 8 frames and auto-save verified in ~0.4&nbsp;s.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/gamesir-cyclone2-linux" target="_blank" rel="noopener">see on GitHub ↗</a>
+                        </div>
+                    </article>
+                    <article class="repo" data-repo="MiguelSanzBr/attackshark-x11-linux" data-reveal data-delay="160">
+                        <img src="../assets/attackshark-x11-linux.webp" alt="x11gui interface with the DPI stages of the ATTACK SHARK X11 mouse" loading="lazy" width="1280" height="790">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>5</b></span></p>
+                            <h3>ATTACK SHARK X11</h3>
+                            <p>Up to 8 DPI stages (50–22000), polling up to 1000&nbsp;Hz, remapping, 7 lighting effects and battery level through the 2.4&nbsp;GHz receiver. Standard library + Tk only, no daemon.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/attackshark-x11-linux" target="_blank" rel="noopener">see on GitHub ↗</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="flatpak" data-reveal>
+                    <p class="mono flatpak-k">install from the signed Flatpak repository</p>
+                    <div class="cmd">
+                        <code id="flatpak-cmd" translate="no">flatpak remote-add --user --if-not-exists miguelsanz https://miguelsanzbr.github.io/flatpak/miguelsanz.flatpakrepo</code>
+                        <button type="button" class="copy" data-copy="#flatpak-cmd">copy command</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== CONTACT ===================== -->
+        <section class="section contact" id="contato" aria-labelledby="contato-title">
+            <div class="shell">
+                <h2 id="contato-title" data-reveal>Available now. <em>Shall we talk?</em></h2>
+                <p class="lead" data-reveal>I'm looking for a mid-level back-end role in São Paulo (hybrid or on-site) or remote, starting immediately, CLT or PJ. I reply fast by email or LinkedIn.</p>
+                <div class="contact-cta" data-reveal>
+                    <a class="btn btn-solid" href="https://www.linkedin.com/messaging/compose/?recipient=ACoAAEqHUKgBj80vZTlyQ8fioHG4Je4HlGZfmNg" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                        Message me on LinkedIn
+                    </a>
+                </div>
+                <div class="mail-row" data-reveal>
+                    <a class="mail" href="mailto:miguelsanzb.p@gmail.com">miguelsanzb.p<wbr>@gmail.com</a>
+                    <button type="button" class="copy" data-copy-text="miguelsanzb.p@gmail.com">copy email</button>
+                </div>
+                <ul class="contact-links" data-reveal>
+                    <li><a href="https://www.linkedin.com/in/miguel-sanz-boragan/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+                    <li><a href="https://github.com/MiguelSanzBr" target="_blank" rel="noopener">GitHub ↗</a></li>
+                    <li><a href="../assets/curriculo-miguel-sanz-boragan.pdf" download hreflang="pt-BR">Résumé PDF (Portuguese) ↓</a></li>
+                    <li><span>São Paulo, Brazil</span></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="shell footer-row">
+            <p>© 2026 Miguel Sanz Boragan</p>
+            <p class="mono">Plain HTML, CSS and JS · no framework · no build</p>
+            <a href="#topo" class="mono">top ↑</a>
+        </div>
+    </footer>
+    <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

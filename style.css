@@ -143,6 +143,7 @@ main:focus { outline: none; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: .8rem; color: var(--cyan); padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line); transition: border-color .2s, background .2s; }
 .icon-btn:hover { border-color: var(--line-2); background: var(--bg-2); }
+.lang-btn { font-family: var(--mono); font-size: .75rem; font-weight: 700; letter-spacing: .04em; }
 .icon-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 /* tema: lua e sol empilhados, trocam girando */
 #theme-toggle { overflow: hidden; }
