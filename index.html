@@ -613,6 +613,29 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <button type="button" class="copy" data-copy="#flatpak-cmd">copiar comando</button>
                     </div>
                 </div>
+
+                <div class="os-more">
+                    <h3 data-reveal>Back-end em Go, <em>com o código aberto.</em></h3>
+                    <p class="lead" data-reveal>O código das empresas é privado. Esses dois reescrevem do zero padrões que usei em produção, com teste contra PostgreSQL de verdade e 100% de cobertura travada no CI.</p>
+                    <div class="repos">
+                    <article class="repo" data-repo="MiguelSanzBr/outbox-gateway-demo" data-reveal>
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Go</span><span class="stars">★ <b data-stars>0</b></span></p>
+                            <h3 translate="no">outbox-gateway-demo</h3>
+                            <p>Gateway de mensagens com outbox no PostgreSQL: <code translate="no">FOR UPDATE SKIP LOCKED</code>, lease com fencing token e reaper. Nenhuma perda e nenhuma violação de ordem no k6, inclusive com <code translate="no">kill -9</code>.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/outbox-gateway-demo" target="_blank" rel="noopener">ver no GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>
+                        </div>
+                    </article>
+                    <article class="repo" data-repo="MiguelSanzBr/webhook-relay" data-reveal data-delay="80">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Go</span><span class="stars">★ <b data-stars>0</b></span></p>
+                            <h3 translate="no">webhook-relay</h3>
+                            <p>Recebe webhook, confere HMAC-SHA256 em tempo constante, barra replay (janela de 5&nbsp;min + nonce) e excesso por IP, e repassa com retry. Só biblioteca padrão, feito em TDD.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/webhook-relay" target="_blank" rel="noopener">ver no GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>
+                        </div>
+                    </article>
+                    </div>
+                </div>
             </div>
         </section>
 

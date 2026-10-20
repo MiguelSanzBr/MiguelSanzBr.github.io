@@ -613,6 +613,29 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <button type="button" class="copy" data-copy="#flatpak-cmd">copy command</button>
                     </div>
                 </div>
+
+                <div class="os-more">
+                    <h3 data-reveal>Go back-end, <em>with open code.</em></h3>
+                    <p class="lead" data-reveal>Company code is private. These two rewrite patterns I used in production from scratch, tested against a real PostgreSQL and with 100% coverage enforced in CI.</p>
+                    <div class="repos">
+                    <article class="repo" data-repo="MiguelSanzBr/outbox-gateway-demo" data-reveal>
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Go</span><span class="stars">★ <b data-stars>0</b></span></p>
+                            <h3 translate="no">outbox-gateway-demo</h3>
+                            <p>Message gateway with a PostgreSQL outbox: <code translate="no">FOR UPDATE SKIP LOCKED</code>, lease with fencing token and a reaper. No loss and no order violation under k6, <code translate="no">kill -9</code> included.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/outbox-gateway-demo" target="_blank" rel="noopener">see on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                        </div>
+                    </article>
+                    <article class="repo" data-repo="MiguelSanzBr/webhook-relay" data-reveal data-delay="80">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>Go</span><span class="stars">★ <b data-stars>0</b></span></p>
+                            <h3 translate="no">webhook-relay</h3>
+                            <p>Receives webhooks, checks HMAC-SHA256 in constant time, blocks replays (5&nbsp;min window + nonce) and per-IP floods, then forwards with retries. Standard library only, built with TDD.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/webhook-relay" target="_blank" rel="noopener">see on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                        </div>
+                    </article>
+                    </div>
+                </div>
             </div>
         </section>
 
