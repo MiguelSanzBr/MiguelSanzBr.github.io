@@ -361,6 +361,7 @@ h2 em { font-style: normal; color: var(--amber); }
 .stars b { color: var(--amber); font-variant-numeric: tabular-nums; }
 .repo h3 { font-family: var(--display); font-stretch: 108%; font-size: 1.18rem; letter-spacing: -.02em; }
 .repo p { color: var(--dim); font-size: .95rem; }
+.repo-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: auto; }
 .link { display: inline-block; padding-block: 4px; margin-top: auto; font-family: var(--mono); font-size: .82rem; color: var(--amber); text-decoration: none; }
 .link:hover { text-decoration: underline; }
 .flatpak { margin-top: 18px; padding: 20px; border: 1px dashed var(--line-2); border-radius: 16px; }
