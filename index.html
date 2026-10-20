@@ -615,8 +615,8 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                 </div>
 
                 <div class="os-more">
-                    <h3 data-reveal>Back-end em Go, <em>com o código aberto.</em></h3>
-                    <p class="lead" data-reveal>O código das empresas é privado. Esses dois reescrevem do zero padrões que usei em produção, com teste contra PostgreSQL de verdade e 100% de cobertura travada no CI.</p>
+                    <h3 data-reveal>Back-end em Go e Laravel, <em>com o código aberto.</em></h3>
+                    <p class="lead" data-reveal>O código das empresas é privado. Esses três reescrevem do zero padrões que usei em produção: DDD e arquitetura hexagonal, TDD, PostgreSQL de verdade nos testes onde tem banco e 100% de cobertura travada no CI.</p>
                     <div class="repos">
                     <article class="repo" data-repo="MiguelSanzBr/outbox-gateway-demo" data-reveal>
                         <div class="repo-body">
@@ -632,6 +632,14 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             <h3 translate="no">webhook-relay</h3>
                             <p>Recebe webhook, confere HMAC-SHA256 em tempo constante, barra replay (janela de 5&nbsp;min + nonce) e excesso por IP, e repassa com retry. Só biblioteca padrão, feito em TDD.</p>
                             <a class="link" href="https://github.com/MiguelSanzBr/webhook-relay" target="_blank" rel="noopener">ver no GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>
+                        </div>
+                    </article>
+                    <article class="repo" data-repo="MiguelSanzBr/multitenant-invoicing" data-reveal data-delay="160">
+                        <div class="repo-body">
+                            <p class="repo-meta mono"><span>PHP · Laravel</span><span class="stars">★ <b data-stars>0</b></span></p>
+                            <h3 translate="no">multitenant-invoicing</h3>
+                            <p>SaaS de cobrança multi-tenant: isolamento por empresa com teste de regressão de IDOR na web e na API, e lembrete de fatura vencida idempotente que sai pelo outbox-gateway-demo. Pest, Larastan no nível máximo, Inertia + React.</p>
+                            <a class="link" href="https://github.com/MiguelSanzBr/multitenant-invoicing" target="_blank" rel="noopener">ver no GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>
                         </div>
                     </article>
                     </div>
