@@ -8,7 +8,8 @@ Portfólio pessoal de engenheiro de software back-end. Site estático em HTML, C
 - **Números com recibo**: 4 métricas com fonte, link para o caso e evidência real (saída do k6, baseline do PHPStan, commit do roteador).
 - **Casos**: problema → decisão → resultado, com resumo numérico, filtro por stack e um registro de 11 problemas resolvidos (sintoma, causa raiz e correção).
 - **Trajetória** com regime de cada vínculo e stack resumida; **recomendações** do LinkedIn, sem edição.
-- **Open source**: os três configuradores Linux, estrelas lidas ao vivo da API do GitHub e um dump `/dev/hidraw` animado.
+- **Open source**: os três configuradores Linux, cada um com link pra versão no navegador (WebHID, React + TypeScript, modo demo) no GitHub Pages, estrelas lidas ao vivo da API do GitHub e um dump `/dev/hidraw` animado.
+- **Back-end aberto**: outbox-gateway-demo (Go, com painel em tempo real), webhook-relay (Go) e multitenant-invoicing (Laravel + React), todos com DDD, arquitetura hexagonal, TDD e 100% de cobertura no CI. Os casos do gateway e do CRM linkam pro código aberto correspondente.
 - Português e inglês (`/en/`), com botão PT/EN no topo e `hreflang`; textos gerados pelo JS seguem o `lang` da página.
 - Tema claro/escuro (respeita o sistema, contraste AA), responsivo, `prefers-reduced-motion`, animações pausadas fora da tela e card de preview (`assets/og.png`) para LinkedIn/WhatsApp.
 

@@ -392,6 +392,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                             <p><b>Trade-off:</b> a baseline means living with known errors for a while, in exchange for not stopping delivery.</p>
                         </details>
                         <ul class="case-stack mono" translate="no"><li>PHP 8.4</li><li>Laravel 13</li><li>Larastan</li><li>Pest</li><li>Inertia + Vue 3</li></ul>
+                        <p><a class="link" href="https://github.com/MiguelSanzBr/multitenant-invoicing" target="_blank" rel="noopener">open code: tenant isolation and the IDOR regression tests rewritten from scratch, with idempotent reminders <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>
                     </article>
 
                     <article class="case" id="caso-migracao" data-tags="infra seg" data-reveal>
@@ -580,7 +581,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                     <article class="repo" data-repo="MiguelSanzBr/8bitdo-ultimate2-linux" data-reveal>
                         <img src="../assets/8bitdo-ultimate2-linux.webp" alt="u2gui interface: live view of the 8BitDo Ultimate 2 controller" loading="lazy" width="1280" height="845">
                         <div class="repo-body">
-                            <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>32</b></span></p>
+                            <p class="repo-meta mono"><span>Python</span><span class="stars">★ <b data-stars>34</b></span></p>
                             <h3>8BitDo Ultimate 2</h3>
                             <p>Replaces the official software: 3 profiles, remapping (incl. back buttons), gyro, triggers, LED rings and a live view. CLI <code translate="no">u2ctl</code> and GUI <code translate="no">u2gui</code>.</p>
                             <p class="repo-links"><a class="link" href="https://github.com/MiguelSanzBr/8bitdo-ultimate2-linux" target="_blank" rel="noopener">see on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a> <a class="link" href="https://miguelsanzbr.github.io/8bitdo-ultimate2-web/" target="_blank" rel="noopener">open in the browser <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>
@@ -630,7 +631,7 @@ Validado N=20 x 6 casos = <b>120/120</b>; suite de 35 frases-armadilha = 35/35.<
                         <div class="repo-body">
                             <p class="repo-meta mono"><span>Go</span><span class="stars">★ <b data-stars>0</b></span></p>
                             <h3 translate="no">webhook-relay</h3>
-                            <p>Receives webhooks, checks HMAC-SHA256 in constant time, blocks replays (5&nbsp;min window + nonce) and per-IP floods, then forwards with retries. Standard library only, built with TDD.</p>
+                            <p>Receives webhooks, checks HMAC-SHA256 in constant time, blocks replays (5&nbsp;min window + nonce) and per-IP floods, then forwards with retries. Standard library only, built with TDD, DDD and a hexagonal layout enforced by a test.</p>
                             <a class="link" href="https://github.com/MiguelSanzBr/webhook-relay" target="_blank" rel="noopener">see on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
                         </div>
                     </article>
